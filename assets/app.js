@@ -110,6 +110,31 @@
   async function loadJSON(path){ const r = await fetch(path, {cache:'no-cache'}); if(!r.ok) throw new Error(path); return r.json(); }
   async function loadText(path){ const r = await fetch(path, {cache:'no-cache'}); if(!r.ok) throw new Error(path); return r.text(); }
 
-  window.EL = { Store, dkey, addDays, weekday, daysBetween, renderNav, toast, getLog, markTask, setDayDone, streak, monthCount, totalCount, loadJSON, loadText, initFirebase, Auth, signIn, signOut, renderAuth };
+  // ---------- speech (Web Speech API, 不需要音檔) ----------
+  const Speech = { ok: 'speechSynthesis' in window, voice: null };
+  function pickVoice(){
+    if(!Speech.ok) return null;
+    const vs = speechSynthesis.getVoices();
+    if(!vs.length) return null;
+    const pref = ['Samantha','Google US English','Microsoft Aria','Microsoft Jenny','Alex','Ava','Allison'];
+    let v = null;
+    for(const p of pref){ v = vs.find(x=>x.name.startsWith(p) && /^en[-_]US/i.test(x.lang)); if(v) break; }
+    if(!v) v = vs.find(x=>/^en[-_]US/i.test(x.lang)) || vs.find(x=>/^en/i.test(x.lang)) || null;
+    Speech.voice = v; return v;
+  }
+  if(Speech.ok){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+  function speak(text, opts={}){
+    if(!Speech.ok || !text) return false;
+    try{
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(String(text).replace(/\*/g,''));
+      u.lang = 'en-US'; u.rate = opts.rate || 0.92; u.pitch = 1;
+      const v = Speech.voice || pickVoice(); if(v) u.voice = v;
+      speechSynthesis.speak(u);
+      return true;
+    }catch(e){ return false; }
+  }
+
+  window.EL = { Store, dkey, addDays, weekday, daysBetween, renderNav, toast, getLog, markTask, setDayDone, streak, monthCount, totalCount, loadJSON, loadText, initFirebase, Auth, signIn, signOut, renderAuth, speak, Speech };
   document.addEventListener('DOMContentLoaded', renderNav);
 })();
