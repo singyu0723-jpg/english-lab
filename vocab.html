@@ -35,8 +35,21 @@
   /* ---- 完整卡 ---- */
   .flash .back .zh{margin-bottom:2px}
   .flash .back .def{color:var(--soft);font-size:15px}
-  .sec{margin-top:16px}
-  .sec .h{font-size:12.5px;font-weight:800;letter-spacing:1.5px;color:var(--indigo);margin-bottom:5px}
+  .sec{margin-top:12px;background:#f6f5ef;border:1px solid #ebe8df;border-radius:14px;padding:10px 14px 12px;position:relative}
+  .sec .h{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--indigo);margin-bottom:8px;background:#fff;border:1px solid #e3e1f5;border-radius:999px;padding:1px 10px}
+  .sec .h::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--indigo)}
+  .sec.s-ex{background:#fff;border-color:var(--line)}
+  .sec.s-ex .h{color:var(--warn);border-color:#f3d9c5}.sec.s-ex .h::before{background:var(--warn)}
+  .sec.s-fam .h{color:var(--ok);border-color:#cfe6d9}.sec.s-fam .h::before{background:var(--ok)}
+  .sec.s-coll,.sec.s-syn{background:transparent;border:0;padding:4px 2px 0}
+  .sec.s-coll .h,.sec.s-syn .h{color:var(--soft);border-color:var(--line)}.sec.s-coll .h::before,.sec.s-syn .h::before{background:#b8bccb}
+  .sec.s-syn{margin-top:4px}
+  .flash .back .zh{font-size:24px;margin-top:2px}
+  .flash .back .def{margin-bottom:6px}
+  .exrow{background:#fbfaf6;border-radius:10px;padding:8px 10px;margin-top:8px}
+  .exrow+.exzh{padding:0 10px 2px}
+  .roots{row-gap:5px}
+  .fam .f{background:#fff}
   .roots{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;align-items:baseline}
   .roots .part{font-family:Georgia,serif;font-size:17px;font-weight:700;color:var(--indigo);background:var(--indigo-soft);border-radius:8px;padding:0 10px;justify-self:start;line-height:1.6}
   .roots .gl{font-size:14.5px;color:var(--soft)}
@@ -151,12 +164,12 @@
     const famRoot = c.famRoot && c.famRoot.words && c.famRoot.words.length ? `<div class="fam" style="margin-top:6px"><span class="muted" style="font-size:13px">同字根 ${esc(c.famRoot.root)}：</span>${c.famRoot.words.map(f=>`<span class="f" data-w="${esc(f[0])}">${esc(f[0])}<small>${esc(f[1])}</small></span>`).join('')}</div>` : '';
     let h = `<div class="zh">${esc(c.zh)}</div>${c.def?`<div class="def">${esc(c.def)}</div>`:''}`;
     if((c.roots&&c.roots.length) || c.rootsNote){
-      h += `<div class="sec"><div class="h">拆解</div>${c.roots&&c.roots.length?`<div class="roots">${c.roots.map(r=>`<span class="part">${esc(r[0])}</span><span class="gl">${esc(r[1])}</span>`).join('')}</div>`:''}${c.rootsNote?`<div class="rootsNote">${esc(c.rootsNote)}</div>`:''}</div>`;
+      h += `<div class="sec s-roots"><div class="h">拆解</div>${c.roots&&c.roots.length?`<div class="roots">${c.roots.map(r=>`<span class="part">${esc(r[0])}</span><span class="gl">${esc(r[1])}</span>`).join('')}</div>`:''}${c.rootsNote?`<div class="rootsNote">${esc(c.rootsNote)}</div>`:''}</div>`;
     }
-    if(fam) h += `<div class="sec"><div class="h">字家族</div><div class="fam">${fam}</div>${famRoot}</div>`;
-    if(c.ex&&c.ex.length) h += `<div class="sec"><div class="h">工作例句</div>${c.ex.map(e=>`<div class="exrow">${spk(e[0])}<div class="ex">${mk(e[0])}</div></div><div class="exzh">${esc(e[1])}</div>`).join('')}</div>`;
-    if(c.coll&&c.coll.length) h += `<div class="sec"><div class="h">搭配</div><div class="coll">${c.coll.map(x=>`${mk(x[0])} <span>${esc(x[1])}</span>`).join('　·　')}</div></div>`;
-    if(c.syn&&c.syn.length) h += `<div class="sec"><div class="h">近義</div><div class="syn">${c.syn.map(x=>`<i data-w="${esc(x[0])}">${esc(x[0])}</i> ${esc(x[1])}`).join('　')}</div></div>`;
+    if(fam) h += `<div class="sec s-fam"><div class="h">字家族</div><div class="fam">${fam}</div>${famRoot}</div>`;
+    if(c.ex&&c.ex.length) h += `<div class="sec s-ex"><div class="h">工作例句</div>${c.ex.map(e=>`<div class="exrow">${spk(e[0])}<div class="ex">${mk(e[0])}</div></div><div class="exzh">${esc(e[1])}</div>`).join('')}</div>`;
+    if(c.coll&&c.coll.length) h += `<div class="sec s-coll"><div class="h">搭配</div><div class="coll">${c.coll.map(x=>`${mk(x[0])} <span>${esc(x[1])}</span>`).join('　·　')}</div></div>`;
+    if(c.syn&&c.syn.length) h += `<div class="sec s-syn"><div class="h">近義</div><div class="syn">${c.syn.map(x=>`<i data-w="${esc(x[0])}">${esc(x[0])}</i> ${esc(x[1])}`).join('　')}</div></div>`;
     if(c.ext&&c.ext.branches&&c.ext.branches.length===4) h += renderExt(w, c);
     return h;
   }
@@ -362,7 +375,7 @@
     const unkWords = W.filter(w=>unk[w.id]);
     const d = S.daily(); const days = Object.keys(d).sort().slice(-7).reverse();
     const shards = (cardIndex.shards||[]);
-    const covered = shards.length ? W.filter(w=>shards.includes(shardOf(w))).length : 0;
+    const covered = cardIndex.count || 0;
     view.innerHTML = `
       <div class="stat"><div class="box"><div class="n">${S.pos()}</div><div class="l">已篩</div></div><div class="box"><div class="n">${unkWords.length}</div><div class="l">不認得</div></div><div class="box"><div class="n">${Object.values(srs).filter(r=>r.iv>=21).length}</div><div class="l">間隔 ≥ 3 週</div></div></div>
       <p class="muted">完整卡（拆解＋字家族＋工作例句）目前涵蓋 ${covered} / ${W.length} 字，Dobby 會分批補齊，不用你做什麼。點下面任何一個字可以直接看卡、聽發音。</p>
