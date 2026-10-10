@@ -1,0 +1,28 @@
+{
+  "id": "ch02b",
+  "title": "名詞、冠詞、代名詞",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　可數／不可數", "items": [
+      {"type": "mc", "q": "We need more ______ about the new spec.", "choices": ["information", "informations", "an information", "the informations"], "answer": 0, "note": "information 不可數：沒 a 沒 s。"},
+      {"type": "mc", "q": "The customer gave us ______.", "choices": ["some feedback", "some feedbacks", "a feedback", "feedbacks"], "answer": 0, "note": "feedback 不可數。要數用 a comment / some comments。"},
+      {"type": "mc", "q": "We shipped ______ last week.", "choices": ["200 cables", "200 cable", "200 of cable", "a 200 cables"], "answer": 0, "note": "一條一條的成品 → 可數，加 s。"},
+      {"type": "fill", "q": "We have made a lot of ______ on this project.（進度）", "accept": ["progress"], "a": "progress", "note": "progress 不可數，a lot of progress。"},
+      {"type": "mc", "q": "Our team has ten years of ______ in cable assembly.", "choices": ["experience", "experiences", "an experience", "the experiences"], "answer": 0, "note": "累積的經驗是一團 → 不可數。"}
+    ]},
+    {"title": "B　a / an / the / 不加", "items": [
+      {"type": "fill", "q": "We received ______ complaint yesterday. ______ complaint is about the pitch.（兩格各填一字）", "accept": ["a the", "a, the", "a / the", "a,the"], "a": "a / the", "note": "第一次提 a，再提 the。"},
+      {"type": "mc", "q": "Please check ______ drawing you sent yesterday.", "choices": ["the", "a", "an", "（不加）"], "answer": 0, "note": "後面有「你昨天寄的」限定是哪一張 → the。"},
+      {"type": "mc", "q": "We need ______ approval before we ship.", "choices": ["（不加）", "a", "an", "the"], "answer": 0, "note": "approval 不可數、泛指 → 不加。"},
+      {"type": "mc", "q": "The meeting will take about ______ hour.", "choices": ["an", "a", "the", "（不加）"], "answer": 0, "note": "hour 的 h 不發音，母音開頭 → an。"},
+      {"type": "mc", "q": "This is ______ best option for the customer.", "choices": ["the", "a", "an", "（不加）"], "answer": 0, "note": "最高級一定 the。"}
+    ]},
+    {"title": "C　代名詞", "items": [
+      {"type": "mc", "q": "Please send the revised file to ______.", "choices": ["me", "I", "my", "mine"], "answer": 0, "note": "介係詞後面用「被打到」的形式 me。"},
+      {"type": "mc", "q": "______ pitch is 0.5 mm.", "choices": ["Its", "It's", "It", "Their"], "answer": 0, "note": "its = 它的；it's = it is。"},
+      {"type": "mc", "q": "We tested the samples. ______ all passed.", "choices": ["They", "It", "Them", "Their"], "answer": 0, "note": "samples 複數、做動作 → They。"},
+      {"type": "fill", "q": "We don't need the old sample; we need the new ______.", "accept": ["one"], "a": "one", "note": "one 代替重複的 sample。"},
+      {"type": "self", "q": "我會親自確認那份報價。", "a": "I'll check the quotation myself.", "note": "myself 放句尾強調「親自」。"}
+    ]}
+  ]
+}

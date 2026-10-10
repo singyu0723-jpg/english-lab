@@ -1,0 +1,342 @@
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- 火柴人：站 -->
+    <symbol id="man" viewBox="0 0 40 80">
+      <g fill="none" stroke="#2b2f3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="20" cy="10" r="8" fill="#fff"/>
+        <path d="M20 18 V48 M20 27 L7 41 M20 27 L33 41 M20 48 L9 76 M20 48 L31 76"/>
+      </g>
+    </symbol>
+    <!-- 火柴人：伸手指 -->
+    <symbol id="man-point" viewBox="0 0 48 80">
+      <g fill="none" stroke="#2b2f3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="20" cy="10" r="8" fill="#fff"/>
+        <path d="M20 18 V48 M20 27 L7 41 M20 27 L46 24 M20 48 L9 76 M20 48 L31 76"/>
+      </g>
+    </symbol>
+    <!-- 火柴人：走路 -->
+    <symbol id="man-walk" viewBox="0 0 44 80">
+      <g fill="none" stroke="#2b2f3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="22" cy="10" r="8" fill="#fff"/>
+        <path d="M22 18 V46 M22 27 L10 36 M22 27 L36 34 M22 46 L8 74 M22 46 L38 70"/>
+      </g>
+    </symbol>
+    <symbol id="man-w" viewBox="0 0 40 80">
+      <g fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="20" cy="10" r="8" fill="#2c3150"/>
+        <path d="M20 18 V48 M20 27 L7 41 M20 27 L33 41 M20 48 L9 76 M20 48 L31 76"/>
+      </g>
+    </symbol>
+    <symbol id="man-point-w" viewBox="0 0 48 80">
+      <g fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="20" cy="10" r="8" fill="#2c3150"/>
+        <path d="M20 18 V48 M20 27 L7 41 M20 27 L46 24 M20 48 L9 76 M20 48 L31 76"/>
+      </g>
+    </symbol>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#4f52b8"/></marker>
+    <marker id="ar-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2a7f5a"/></marker>
+    <marker id="ar-no" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#b8463a"/></marker>
+  </defs>
+</svg>
+<div class="note">
+<b>這一章跟你的關係：</b>你最常出現的三種錯——主題放句首、動詞後面沒受詞、介係詞選錯——根源都一樣：還在用中文的順序想。這一章先把順序換掉，不教規則。
+</div>
+<!-- ================= 1-1 ================= -->
+<section>
+<span class="num">1-1</span>
+<h2>英文是「畫面順序」的語言</h2>
+
+<p class="big">一句英文 = 一格一格的漫畫。</p>
+<p>第一格永遠是<b>做事的人</b>，第二格永遠是<b>動作</b>。後面才接動作落在誰身上、什麼時候、為什麼。</p>
+
+<div class="pic">
+<svg viewBox="0 0 680 190" width="680" height="190" role="img" aria-label="五格漫畫：誰、做什麼、什麼、何時、為什麼">
+  <g font-family="-apple-system,PingFang TC,Noto Sans TC,sans-serif" text-anchor="middle">
+    <!-- panel 1 誰 -->
+    <rect x="6" y="10" width="120" height="120" rx="14" fill="#fff" stroke="#4f52b8" stroke-width="2.5"/>
+    <use href="#man" x="46" y="30" width="40" height="80"/>
+    <text x="66" y="158" font-size="15" font-weight="800" fill="#4f52b8">誰</text>
+    <text x="66" y="178" font-size="14" fill="#6b7280" font-family="Georgia,serif">We</text>
+    <!-- panel 2 做什麼 -->
+    <rect x="140" y="10" width="120" height="120" rx="14" fill="#fff" stroke="#4f52b8" stroke-width="2.5"/>
+    <use href="#man-point" x="168" y="30" width="48" height="80"/>
+    <circle cx="238" cy="58" r="9" fill="none" stroke="#2b2f3a" stroke-width="2.4"/>
+    <path d="M245 65 L252 72" stroke="#2b2f3a" stroke-width="2.4" stroke-linecap="round"/>
+    <text x="200" y="158" font-size="15" font-weight="800" fill="#4f52b8">做什麼</text>
+    <text x="200" y="178" font-size="14" fill="#6b7280" font-family="Georgia,serif">found</text>
+    <!-- panel 3 什麼 -->
+    <rect x="274" y="10" width="120" height="120" rx="14" fill="#fff" stroke="#c9c6bd" stroke-width="2"/>
+    <rect x="308" y="52" width="52" height="40" rx="6" fill="#eceefb" stroke="#2b2f3a" stroke-width="2.4"/>
+    <text x="334" y="78" font-size="13" fill="#2b2f3a">cause</text>
+    <text x="334" y="158" font-size="15" font-weight="700" fill="#6b7280">什麼</text>
+    <text x="334" y="178" font-size="14" fill="#6b7280" font-family="Georgia,serif">the cause</text>
+    <!-- panel 4 何時 -->
+    <rect x="408" y="10" width="120" height="120" rx="14" fill="#fff" stroke="#c9c6bd" stroke-width="2"/>
+    <circle cx="468" cy="70" r="24" fill="#fff" stroke="#2b2f3a" stroke-width="2.4"/>
+    <path d="M468 70 V52 M468 70 L482 78" stroke="#2b2f3a" stroke-width="2.4" stroke-linecap="round"/>
+    <text x="468" y="158" font-size="15" font-weight="700" fill="#6b7280">何時</text>
+    <text x="468" y="178" font-size="14" fill="#6b7280" font-family="Georgia,serif">yesterday</text>
+    <!-- panel 5 為什麼 -->
+    <rect x="542" y="10" width="120" height="120" rx="14" fill="#fff" stroke="#c9c6bd" stroke-width="2"/>
+    <path d="M585 90 L612 52" stroke="#2b2f3a" stroke-width="5" stroke-linecap="round"/>
+    <path d="M606 44 l10 10 M598 48 l14 -8" stroke="#2b2f3a" stroke-width="2.4" stroke-linecap="round"/>
+    <text x="602" y="158" font-size="15" font-weight="700" fill="#6b7280">為什麼</text>
+    <text x="602" y="178" font-size="14" fill="#6b7280" font-family="Georgia,serif">to fix it</text>
+  </g>
+</svg>
+<div class="cap">藍框兩格是地基，每句都要有。後面三格可有可無，有的話照這個順序排。</div>
+</div>
+
+<h3>中文先丟主題，英文先畫人</h3>
+
+<div class="pair">
+  <div class="cell">
+    <div class="t">中文的順序</div>
+    <svg viewBox="0 0 280 70" width="280" height="70">
+      <g font-family="-apple-system,PingFang TC,sans-serif" font-size="14" text-anchor="middle">
+        <rect x="4" y="18" width="104" height="36" rx="8" fill="#f4f3ee" stroke="#c9c6bd"/><text x="56" y="41">上次的問題</text>
+        <rect x="116" y="18" width="50" height="36" rx="8" fill="#eceefb" stroke="#4f52b8"/><text x="141" y="41">我們</text>
+        <rect x="174" y="18" width="50" height="36" rx="8" fill="#eceefb" stroke="#4f52b8"/><text x="199" y="41">找到</text>
+        <rect x="232" y="18" width="44" height="36" rx="8" fill="#f4f3ee" stroke="#c9c6bd"/><text x="254" y="41">原因</text>
+      </g>
+    </svg>
+    <p class="zh">主題先丟出來，人跟動作排第二、第三</p>
+  </div>
+  <div class="cell">
+    <div class="t">英文的順序</div>
+    <svg viewBox="0 0 280 70" width="280" height="70">
+      <g font-family="Georgia,serif" font-size="15" text-anchor="middle">
+        <rect x="4" y="18" width="56" height="36" rx="8" fill="#eceefb" stroke="#4f52b8"/><text x="32" y="41">We</text>
+        <rect x="68" y="18" width="70" height="36" rx="8" fill="#eceefb" stroke="#4f52b8"/><text x="103" y="41">found</text>
+        <rect x="146" y="18" width="130" height="36" rx="8" fill="#f4f3ee" stroke="#c9c6bd"/><text x="211" y="41">the cause</text>
+      </g>
+    </svg>
+    <p class="zh">人先出來，動作緊跟，主題退到後面</p>
+  </div>
+</div>
+
+<p class="en">We found the cause of the issue.</p>
+<p class="en">Our engineers will visit your factory <b>next week</b>. <span class="zh">← 時間放句尾</span></p>
+
+<p>真的很想先講主題？英文留了一個合法的門：<b>Regarding …,</b>　講完主題，後面還是要重新開始「誰 → 做什麼」。</p>
+<p class="en">Regarding the issue you mentioned, <b>we found</b> the cause.</p>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 40 80"><use href="#man-w" width="40" height="80"/></svg>
+<ul>
+<li>第一格永遠是人，第二格永遠是動作。</li>
+<li>中文的「主題先講」英文沒有；真要先講，用 Regarding 開門，之後照樣「誰 → 做什麼」。</li>
+<li>時間、地點、原因排在動作後面，不能插在人和動作中間。</li>
+</ul>
+</div>
+</section>
+<!-- ================= 1-2 ================= -->
+<section>
+<span class="num">1-2</span>
+<h2>慣用句裡的畫面</h2>
+
+<p class="big">看得到畫面，就不用背。</p>
+<p>很多職場句子你以為要死背，其實每一句都是一張圖。</p>
+
+<div class="pic">
+<svg viewBox="0 0 680 200" width="680" height="200" role="img" aria-label="三個慣用句的畫面">
+  <g font-family="-apple-system,PingFang TC,sans-serif" text-anchor="middle">
+    <!-- It's on me -->
+    <use href="#man" x="70" y="20" width="40" height="80"/>
+    <rect x="76" y="44" width="28" height="18" rx="2" fill="#fff" stroke="#2b2f3a" stroke-width="2"/>
+    <path d="M80 50 h20 M80 56 h14" stroke="#2b2f3a" stroke-width="1.5"/>
+    <text x="90" y="128" font-size="17" font-weight="700" font-family="Georgia,serif">It's on me.</text>
+    <text x="90" y="150" font-size="14" fill="#6b7280">帳單貼在我身上</text>
+    <text x="90" y="170" font-size="14" fill="#6b7280">＝ 我請客</text>
+    <!-- took the day off -->
+    <g transform="translate(260,22)">
+      <rect x="0" y="0" width="160" height="80" rx="8" fill="#fff" stroke="#2b2f3a" stroke-width="2"/>
+      <path d="M0 22 H160" stroke="#2b2f3a" stroke-width="2"/>
+      <g stroke="#c9c6bd" stroke-width="1"><path d="M23 22 V80 M46 22 V80 M69 22 V80 M92 22 V80 M115 22 V80 M138 22 V80"/></g>
+      <rect x="70" y="24" width="21" height="54" fill="#fbfaf6"/>
+      <rect x="66" y="-18" width="21" height="54" rx="3" fill="#eceefb" stroke="#4f52b8" stroke-width="2" transform="rotate(-12 76 9)"/>
+      <path d="M80 -24 q 20 -26 44 -6" stroke="#4f52b8" stroke-width="2" fill="none" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+    </g>
+    <text x="340" y="128" font-size="17" font-weight="700" font-family="Georgia,serif">I took the day off.</text>
+    <text x="340" y="150" font-size="14" fill="#6b7280">把那一天從行事曆拿起來移走</text>
+    <text x="340" y="170" font-size="14" fill="#6b7280">＝ 我請假一天</text>
+    <!-- get back to you -->
+    <use href="#man-walk" x="498" y="22" width="44" height="80"/>
+    <use href="#man" x="620" y="20" width="40" height="80"/>
+    <path d="M548 50 q 30 -34 60 -6" stroke="#4f52b8" stroke-width="2" fill="none" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+    <text x="580" y="18" font-size="12" fill="#4f52b8">back to you</text>
+    <text x="580" y="128" font-size="17" font-weight="700" font-family="Georgia,serif">I'll get back to you.</text>
+    <text x="580" y="150" font-size="14" fill="#6b7280">先走開去查，再回到你這邊</text>
+    <text x="580" y="170" font-size="14" fill="#6b7280">＝ 我查完再回覆你</text>
+  </g>
+</svg>
+</div>
+
+<table>
+<tr><th style="width:34%">句子</th><th>畫面</th><th style="width:24%;white-space:nowrap">什麼時候講</th></tr>
+<tr><td class="en">Let me check.</td><td>放手讓我去做一個動作。「一下」的輕鬆感就在 let me 裡</td><td>我確認一下</td></tr>
+<tr><td class="en">I'm on it.</td><td>我已經貼在這件事上面</td><td>我來處理</td></tr>
+<tr><td class="en">Let's move on.</td><td>往前移到下一格</td><td>開會換議題</td></tr>
+<tr><td class="en">That's up to you.</td><td>決定權往上交到你手裡</td><td>你決定</td></tr>
+<tr><td class="en">We're running out of time.</td><td>時間從手上流出去</td><td>快沒時間了</td></tr>
+</table>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 48 80"><use href="#man-point-w" width="48" height="80"/></svg>
+<ul>
+<li>慣用句不要逐字翻，先看它在畫什麼。</li>
+<li>back、on、off、out 這些方向字就是畫面的關鍵，抓到方向，意思就不會跑。</li>
+</ul>
+</div>
+</section>
+<!-- ================= 1-3 ================= -->
+<section>
+<span class="num">1-3</span>
+<h2>動詞的力量往哪裡去</h2>
+
+<p class="big">每個動作都帶一股力量。</p>
+<p>有的力量<b>一定要打在某個東西上</b>（討論、寄、處理）。有的力量<b>停在自己身上</b>（到達、發生）。英文分得很清楚，中文不分，所以你常漏受詞。</p>
+
+<div class="pair">
+  <div class="cell">
+    <div class="t">力量要有落點</div>
+    <svg viewBox="0 0 280 110" width="280" height="110">
+      <use href="#man-point" x="20" y="12" width="48" height="80"/>
+      <path d="M70 36 H176" stroke="#2a7f5a" stroke-width="3.5" marker-end="url(#ar-ok)"/>
+      <rect x="186" y="18" width="80" height="40" rx="8" fill="#e8f5ee" stroke="#2a7f5a" stroke-width="2.4"/>
+      <text x="226" y="43" font-size="14" text-anchor="middle" font-family="Georgia,serif">the issue</text>
+      <text x="140" y="100" font-size="14" text-anchor="middle" fill="#6b7280">discuss ── the issue</text>
+    </svg>
+    <p class="en okmark">We discuss <b>the issue</b>.</p>
+    <p class="en nomark">We discuss.<span class="zh">　力量射出去沒落點，句子沒完</span></p>
+  </div>
+  <div class="cell">
+    <div class="t">力量停在自己</div>
+    <svg viewBox="0 0 280 110" width="280" height="110">
+      <use href="#man" x="110" y="12" width="40" height="80"/>
+      <path d="M150 40 q 40 -28 40 8 q 0 22 -24 18" stroke="#6b7280" stroke-width="2.4" fill="none" stroke-dasharray="4 3" marker-end="url(#ar)"/>
+      <path d="M60 94 H230" stroke="#c9c6bd" stroke-width="2"/>
+      <text x="140" y="108" font-size="14" text-anchor="middle" fill="#6b7280">arrived ⟲</text>
+    </svg>
+    <p class="en okmark">The samples arrived.</p>
+    <p class="en nomark">The samples arrived <s>the factory</s>.</p>
+  </div>
+</div>
+
+<p><b>判斷法：</b>講完動詞問一句「<b>做了什麼？</b>」問得出來，受詞就一定要寫。問不出來（到達什麼？不通），後面要接東西得先放介係詞。</p>
+
+<table>
+<tr><th>你實際錯過的：後面必接受詞</th><th>力量停在自己：接東西先放介係詞</th></tr>
+<tr>
+<td class="en">discuss <b>the issue</b><br>handle <b>it</b><br>produce <b>it</b><br>receive <b>the quotation</b><br>scan <b>it</b> and send <b>it</b></td>
+<td class="en">reply <b>to</b> you<br>listen <b>to</b> me<br>wait <b>for</b> the report<br>talk <b>to</b> him / talk <b>about</b> it<br>arrive / happen（後面直接結束）</td>
+</tr>
+</table>
+
+<p>還有一個：<b>happen 永遠不用被動</b>。問題是自己發生的，不是被發生的。</p>
+<p class="en nomark">The problem was happened.</p>
+<p class="en okmark">The problem happened.</p>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 40 80"><use href="#man-w" width="40" height="80"/></svg>
+<ul>
+<li>口訣：<b>「做了什麼？」問得出來就要寫受詞。</b></li>
+<li>reply、listen、wait、talk 力量停在自己，接人或事一律先放介係詞。</li>
+</ul>
+</div>
+</section>
+<!-- ================= 1-4 ================= -->
+<section>
+<span class="num">1-4</span>
+<h2>介係詞是一張圖</h2>
+
+<p class="big">介係詞不是規則，是位置。</p>
+<p>一個介係詞一張圖。時間的用法，也是從同一張圖延伸出來的。</p>
+
+<div class="pic">
+<svg viewBox="0 0 680 300" width="680" height="300" role="img" aria-label="一個櫃子周圍的六個介係詞">
+  <g font-family="-apple-system,PingFang TC,sans-serif" text-anchor="middle" font-size="14">
+    <!-- cabinet -->
+    <g transform="translate(250,90)">
+      <path d="M0 40 L40 10 L200 10 L200 150 L160 180 L0 180 Z" fill="#fff" stroke="#2b2f3a" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M0 40 L160 40 L160 180 M160 40 L200 10" fill="none" stroke="#2b2f3a" stroke-width="2.4"/>
+      <path d="M80 40 V180" stroke="#2b2f3a" stroke-width="1.6"/>
+      <circle cx="70" cy="112" r="3" fill="#2b2f3a"/><circle cx="90" cy="112" r="3" fill="#2b2f3a"/>
+      <!-- open door showing inside -->
+      <path d="M0 40 L-40 70 L-40 210 L0 180" fill="#fbfaf6" stroke="#2b2f3a" stroke-width="2.4" stroke-linejoin="round"/>
+    </g>
+    <!-- on: man on top -->
+    <use href="#man" x="330" y="26" width="30" height="60"/>
+    <text x="345" y="18" font-weight="800" fill="#4f52b8" font-size="16">on</text>
+    <!-- in: man inside -->
+    <use href="#man" x="268" y="148" width="26" height="52"/>
+    <text x="281" y="218" font-weight="800" fill="#4f52b8" font-size="16">in</text>
+    <!-- at: a point marker on floor -->
+    <circle cx="150" cy="268" r="4" fill="#2b2f3a"/><circle cx="150" cy="268" r="12" fill="none" stroke="#4f52b8" stroke-width="2.2"/>
+    <use href="#man" x="135" y="196" width="30" height="60"/>
+    <text x="150" y="294" font-weight="800" fill="#4f52b8" font-size="16">at</text>
+    <!-- to: arrow going to the cabinet -->
+    <use href="#man-walk" x="30" y="100" width="36" height="66"/>
+    <path d="M72 128 H200" stroke="#4f52b8" stroke-width="3" marker-end="url(#ar)"/>
+    <text x="136" y="118" font-weight="800" fill="#4f52b8" font-size="16">to</text>
+    <!-- by: man beside the cabinet -->
+    <use href="#man" x="480" y="200" width="30" height="60"/>
+    <text x="495" y="282" font-weight="800" fill="#4f52b8" font-size="16">by</text>
+    <!-- for: man holding a gift toward another -->
+    <use href="#man-point" x="540" y="60" width="40" height="66"/>
+    <rect x="586" y="70" width="22" height="18" rx="3" fill="#eceefb" stroke="#4f52b8" stroke-width="2"/>
+    <path d="M597 70 V88 M586 79 H608" stroke="#4f52b8" stroke-width="1.5"/>
+    <use href="#man" x="620" y="60" width="30" height="60"/>
+    <text x="598" y="148" font-weight="800" fill="#4f52b8" font-size="16">for</text>
+    <!-- labels -->
+    <text x="345" y="96" font-size="12" fill="#6b7280">貼在上面</text>
+    <text x="281" y="236" font-size="12" fill="#6b7280">在裡面</text>
+    <text x="150" y="186" font-size="12" fill="#6b7280">一個點</text>
+    <text x="136" y="150" font-size="12" fill="#6b7280">朝向並到達</text>
+    <text x="495" y="192" font-size="12" fill="#6b7280">靠在旁邊</text>
+    <text x="598" y="166" font-size="12" fill="#6b7280">為了對方</text>
+  </g>
+</svg>
+<div class="cap">記圖，不記規則。</div>
+</div>
+
+<table>
+<tr><th style="width:14%;white-space:nowrap">介係詞</th><th style="width:26%">圖</th><th>你工作上會用到的</th></tr>
+<tr><td><b>on</b></td><td>貼在表面</td><td class="en">on Friday　on the table　I'm on it.</td></tr>
+<tr><td><b>in</b></td><td>在範圍裡面</td><td class="en">in the morning　in May　in stock　in detail</td></tr>
+<tr><td><b>at</b></td><td>一個精確的點</td><td class="en">at 10 a.m.　at the office　at the moment</td></tr>
+<tr><td><b>to</b></td><td>朝向並到達對方</td><td class="en">send it <b>to</b> you　reply <b>to</b> you　charged <b>to</b> the customer</td></tr>
+<tr><td><b>for</b></td><td>為了對方、給對方用</td><td class="en">a quotation <b>for</b> the project　valid <b>for</b> 30 days</td></tr>
+<tr><td><b>by</b></td><td>靠在旁邊、不超過那條線</td><td class="en"><b>by</b> Friday　<b>by</b> email　approved <b>by</b> the manager</td></tr>
+</table>
+
+<h3>兩組最容易混的</h3>
+
+<div class="pair">
+  <div class="cell" style="text-align:left">
+    <div class="t">to　vs　for</div>
+    <p><b>to</b>：東西真的移動到對方手上。<br><b>for</b>：為了對方而做，東西不一定移動。</p>
+    <p class="en okmark">I sent the samples <b>to</b> the customer.</p>
+    <p class="en okmark">I made the samples <b>for</b> the customer.</p>
+  </div>
+  <div class="cell" style="text-align:left">
+    <div class="t">by　vs　until</div>
+    <p><b>by</b>：截止線，在那之前做完一次性的事。<br><b>until</b>：持續到那個時間為止。</p>
+    <p class="en okmark">Please reply <b>by</b> Friday.</p>
+    <p class="en okmark">We'll wait <b>until</b> Friday.</p>
+  </div>
+</div>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 48 80"><use href="#man-point-w" width="48" height="80"/></svg>
+<ul>
+<li>on 貼著、in 裡面、at 一個點、to 到對方、for 為了對方、by 不超過那條線。</li>
+<li>時間從同一張圖來：時刻用 at，一天用 on，一段範圍用 in。</li>
+<li>截止期限永遠是 by。</li>
+</ul>
+</div>
+</section>

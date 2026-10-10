@@ -1,0 +1,9 @@
+{
+  "name": "English Lab",
+  "short_name": "English Lab",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fbfaf6",
+  "theme_color": "#fbfaf6",
+  "icons": [{"src": "assets/icon.png", "sizes": "512x512", "type": "image/png"}]
+}

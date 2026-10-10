@@ -1,0 +1,28 @@
+{
+  "id": "ch01",
+  "title": "英文句子的形成原理",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　畫面順序：把中文排成英文", "hint": "自己寫一遍（心裡或打字都可以），再打開解答對照，誠實按 ✓ 或 ✗。", "items": [
+      {"type": "self", "q": "這份報價，我明天寄給你。", "a": "I'll send you the quotation tomorrow.", "note": "人(I) → 動作(send) → 給誰/什麼 → 何時。主題「這份報價」退回受詞的位置。"},
+      {"type": "self", "q": "客戶下週二會來參觀工廠。", "a": "The customer will visit our factory next Tuesday.", "note": "時間放句尾，不能插在 customer 和 will 之間。"},
+      {"type": "self", "q": "上次會議提到的問題，我們已經找到原因了。", "a": "We've found the cause of the issue we discussed at the last meeting.", "note": "或：Regarding the issue from the last meeting, we've found the cause."},
+      {"type": "self", "q": "樣品的測試報告，我一收到就轉給你。", "a": "I'll forward the test report to you as soon as I get it.", "note": "「一…就…」= as soon as。"},
+      {"type": "self", "q": "這個規格，我們沒辦法自己改。", "a": "We can't change this spec on our own."}
+    ]},
+    {"title": "B　力量落點：補上受詞或介係詞", "items": [
+      {"type": "fill", "q": "I need to discuss ______ with my supervisor.（這個問題）", "accept": ["this issue", "the issue", "it", "this"], "a": "this issue", "note": "discuss 要有落點，而且不加 about。"},
+      {"type": "fill", "q": "Our engineers are handling ______.（那件事）", "accept": ["it", "this", "that", "the issue"], "a": "it", "note": "口語更常說 working on it。"},
+      {"type": "fill", "q": "I'll reply ______ you by Friday.", "accept": ["to"], "a": "to", "note": "reply 力量停在自己，接人要加 to。職場更常用 get back to you。"},
+      {"type": "fill", "q": "We're still waiting ______ the test results.", "accept": ["for"], "a": "for"},
+      {"type": "mc", "q": "The delay ______ because of the typhoon.（發生了）", "choices": ["happened", "was happened", "is happened", "happening"], "answer": 0, "note": "happen 不用被動。"}
+    ]},
+    {"title": "C　介係詞的圖", "items": [
+      {"type": "mc", "q": "We'll have a meeting ______ Friday ______ 10 a.m.", "choices": ["on / at", "at / on", "in / at", "on / in"], "answer": 0, "note": "一天用 on，時刻用 at。"},
+      {"type": "mc", "q": "Please submit the revised quotation ______ the end of the month.（最晚月底）", "choices": ["by", "until", "before of", "in"], "answer": 0, "note": "截止線 = by。"},
+      {"type": "mc", "q": "I made a small trial batch ______ the customer ______ test.", "choices": ["for / to", "to / for", "for / for", "to / to"], "answer": 0, "note": "做給對方用 = for；for + 人 + to + 動詞。"},
+      {"type": "mc", "q": "Shipping will be charged ______ the customer.", "choices": ["to", "from", "for", "by"], "answer": 0, "note": "費用「到」對方帳上，不是 from。"},
+      {"type": "mc", "q": "The engineer explained the test results ______ detail.", "choices": ["in", "with", "at", "on"], "answer": 0, "note": "in detail：細節是一個範圍，人在裡面。"}
+    ]}
+  ]
+}

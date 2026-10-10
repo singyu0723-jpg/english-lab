@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#fbfaf6">
+<title>English Lab · 聽力</title>
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .src{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .src:last-child{border-bottom:0}
+  .src .n{font-weight:800}
+  .src .d{color:var(--soft);font-size:14px;margin-top:2px}
+  textarea.notes{width:100%;min-height:110px;font-size:16px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;font-family:inherit;line-height:1.6}
+  .week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:10px}
+  .week .dcell{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center;font-size:12px}
+  .week .dcell.today{border-color:var(--indigo);background:var(--indigo-soft)}
+  .week .dcell b{display:block;font-size:13px}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">LISTENING</p>
+  <h1>聽力</h1>
+  <div id="view"><p class="muted">載入中…</p></div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js" onerror="void 0"></script>
+<script src="assets/app.js"></script>
+<script>
+(async function(){
+  const {Store, dkey, addDays, weekday, daysBetween, loadJSON, toast, getLog} = EL;
+  const today = dkey();
+  const [L, plan] = await Promise.all([loadJSON('content/listen.json'), loadJSON('content/plan.json')]);
+  const srcById = Object.fromEntries(L.sources.map(s=>[s.id,s]));
+  const view = document.getElementById('view');
+
+  function weekFor(date){
+    const d = daysBetween(plan.startDate, date);
+    if(d < 0) return L.weeks[0];
+    return L.weeks[Math.min(L.weeks.length-1, Math.floor(d/7))];
+  }
+  function srcFor(date){ const wk = weekFor(date); return srcById[wk.plan[String(weekday(date))]] || L.sources[0]; }
+
+  function render(){
+    const wk = weekFor(today); const s = srcFor(today);
+    const log = getLog(); const done = !!((log[today]||{}).tasks||{}).listen;
+    const notes = Store.get('listen.notes', {}); const note = notes[today]||'';
+    const dayIdx = daysBetween(plan.startDate, today);
+    const weekStart = addDays(today, -((weekday(today)+6)%7)); // Monday
+    const cells = []; for(let i=0;i<7;i++){ const d=addDays(weekStart,i); const ss=srcFor(d); const l=log[d]; cells.push(`<div class="dcell ${d===today?'today':''}"><b>${['日','一','二','三','四','五','六'][weekday(d)]}</b>${ss.name.split(' ')[0]}${l&&l.tasks&&l.tasks.listen?' ✓':''}</div>`); }
+    view.innerHTML = `
+      <p class="muted">${dayIdx<0?`計畫 ${plan.startDate} 開始，先照第 1 週的課表熱身。`:`${wk.title} · 第 ${dayIdx+1} 天`}</p>
+      <div class="hero">
+        <div class="sub">今天聽</div>
+        <div class="big" style="font-size:24px">${s.name}</div>
+        <div class="sub">${s.level} · 每集約 ${s.len}</div>
+        <div style="margin-top:12px" class="row"><a class="btn primary grow" href="${s.url}" target="_blank" rel="noopener">打開 ${s.name.split(' ')[0]} ↗</a></div>
+      </div>
+      <div class="card">
+        <div style="font-weight:800">怎麼聽</div>
+        <p style="margin:6px 0 0">${s.how}</p>
+        <p class="muted" style="margin:8px 0 0">${wk.note}</p>
+      </div>
+      <h2>三個重點</h2>
+      <p class="muted">聽完寫三句，中文也可以。寫了才算聽過。</p>
+      <textarea class="notes" id="notes" placeholder="1.&#10;2.&#10;3.">${note}</textarea>
+      <div class="row" style="margin-top:10px">
+        <button class="btn ${done?'ok':'primary'} grow" id="done">${done?'今天聽完了 ✓':'聽完了，打勾'}</button>
+      </div>
+      <h2>這週課表</h2>
+      <div class="week">${cells.join('')}</div>
+      <details style="margin-top:18px"><summary>影子跟讀（加碼）</summary><p>${L.shadow}</p></details>
+      <h2>頻道說明</h2>
+      <div class="card">${L.sources.map(x=>`<div class="src"><div class="grow"><div class="n"><a href="${x.url}" target="_blank" rel="noopener">${x.name}</a> <span class="pill gray">${x.level}</span></div><div class="d">${x.why}</div></div></div>`).join('')}</div>
+      <details style="margin-top:14px"><summary>四週怎麼排</summary>${L.weeks.map(w=>`<p><b>${w.title}</b><br><span class="muted">${['一','二','三','四','五','六','日'].map((n,i)=>`${n} ${srcById[w.plan[String((i+1)%7)]].name.split(' ')[0]}`).join(' · ')}</span></p>`).join('')}</details>`;
+    const ta = view.querySelector('#notes');
+    let t=null; ta.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(()=>Store.update('listen.notes', n=>{ n[today]=ta.value; return n; }, {}), 500); });
+    view.querySelector('#done').onclick = ()=>{
+      const now = !!((getLog()[today]||{}).tasks||{}).listen;
+      if(!now && ta.value.trim().length < 6){ toast('先寫三個重點'); ta.focus(); return; }
+      EL.markTask(today, 'listen', !now); toast(now?'取消':'聽力完成'); render();
+    };
+  }
+  render();
+  document.addEventListener('el:remote-loaded', render);
+  EL.initFirebase();
+})();
+</script>
+</body>
+</html>

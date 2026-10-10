@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#fbfaf6">
+<title>English Lab · 單字</title>
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .seg{display:flex;background:#eeece6;border-radius:14px;padding:4px;margin:14px 0}
+  .seg a{flex:1;text-align:center;padding:9px 6px;border-radius:11px;text-decoration:none;color:var(--soft);font-weight:700;font-size:15px;min-height:44px;display:flex;align-items:center;justify-content:center}
+  .seg a.on{background:#fff;color:var(--indigo);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .screenWord{font-family:Georgia,serif;font-size:44px;font-weight:700;text-align:center;margin:26px 0 4px;word-break:break-word}
+  .screenPos{text-align:center;color:var(--soft);font-size:14px;letter-spacing:1px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .two .btn{min-height:64px;font-size:19px;border-radius:16px}
+  .btn.no{background:var(--no);border-color:var(--no);color:#fff}
+  .flash{cursor:pointer;min-height:230px}
+  .flash .w{font-size:40px}
+  .flash .pos{color:var(--indigo);font-size:14px;font-weight:700;letter-spacing:1px}
+  .flash .back .zh{font-size:22px;color:var(--ink);font-weight:700;margin-bottom:6px}
+  .flash .back .def{color:var(--soft);font-size:15px}
+  .flash .back .ex{font-family:Georgia,serif;font-size:17px;margin-top:10px}
+  .flash .back .exzh{color:var(--soft);font-size:14px}
+  .flash .back .syn{margin-top:8px;font-size:13.5px;color:var(--soft)}
+  .rate{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+  .rate .btn{min-height:58px;flex-direction:column;gap:0;line-height:1.2}
+  .rate .btn small{font-size:12px;font-weight:500;opacity:.8}
+  .tapHint{text-align:center;color:var(--soft);font-size:13.5px;margin-top:10px}
+  .kbd{font-family:ui-monospace,monospace;background:#f0efe9;border-radius:6px;padding:0 6px;font-size:12.5px}
+  .kb{display:block}
+  @media(hover:none),(max-width:600px){.kb{display:none}}
+  @media(max-width:600px){.flash{min-height:170px;padding:18px 16px}.flash .w{font-size:34px}.screenWord{font-size:38px;margin-top:14px}}
+  .unkList{display:flex;flex-wrap:wrap;gap:6px}
+  .unkList span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-family:Georgia,serif;font-size:15px}
+  textarea.exp{width:100%;min-height:90px;font-size:14px;border:1px solid var(--line);border-radius:12px;padding:10px;font-family:ui-monospace,monospace;background:#fff}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">VOCABULARY</p>
+  <h1>單字</h1>
+  <div class="seg" id="seg">
+    <a href="#screen" data-v="screen">篩選</a>
+    <a href="#study" data-v="study">背單字</a>
+    <a href="#list" data-v="list">清單</a>
+  </div>
+  <div id="view"><p class="muted">載入中…</p></div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js" onerror="void 0"></script>
+<script src="assets/app.js"></script>
+<script>
+(async function(){
+  const {Store, dkey, addDays, loadJSON, toast} = EL;
+  const today = dkey();
+  const DAILY_SCREEN = 300, DAILY_NEW = 20;
+  const data = await loadJSON('content/vocab/words.json');
+  const W = data.words; const byId = Object.fromEntries(W.map(w=>[w.id,w]));
+  const view = document.getElementById('view');
+
+  // ---- state helpers ----
+  const S = {
+    known: () => Store.get('vocab.known', {}),
+    unknown: () => Store.get('vocab.unknown', {}),
+    srs: () => Store.get('vocab.srs', {}),
+    daily: () => Store.get('vocab.daily', {}),
+    pos: () => Store.get('vocab.screenPos', 0),
+    hist: () => Store.get('vocab.screenHist', []),
+  };
+  function bump(field, n=1){ Store.update('vocab.daily', d=>{ d[today]=d[today]||{screened:0,newly:0,review:0}; d[today][field]+=n; return d; }, {}); }
+  const todayStat = () => (S.daily()[today]||{screened:0,newly:0,review:0});
+
+  // ---- router ----
+  function route(){
+    const v = (location.hash||'#screen').slice(1);
+    document.querySelectorAll('#seg a').forEach(a=>a.classList.toggle('on', a.dataset.v===v));
+    if(v==='study') study(); else if(v==='list') list(); else screen();
+  }
+  window.addEventListener('hashchange', route);
+
+  // ================= 篩選 =================
+  function screen(){
+    const pos = S.pos(); const st = todayStat();
+    if(pos >= W.length){
+      if(!Store.get('vocab.screenDone')){ Store.set('vocab.screenDone', true); }
+      view.innerHTML = `<div class="hero"><div class="big">篩完了</div><div class="sub">${W.length} 字全部看過。不認得 ${Object.keys(S.unknown()).length} 字，已進入背單字佇列。</div></div>
+        <p class="muted">今日任務的「單字篩選」會自動消失。</p>`;
+      return;
+    }
+    const w = W[pos];
+    const doneToday = st.screened >= DAILY_SCREEN;
+    view.innerHTML = `
+      <div class="row" style="justify-content:space-between"><span class="muted">今天 ${st.screened} / ${DAILY_SCREEN}</span><span class="muted">總進度 ${pos} / ${W.length}（不認得 ${Object.keys(S.unknown()).length}）</span></div>
+      <div class="bar" style="margin:8px 0 4px"><i style="width:${Math.min(100, st.screened/DAILY_SCREEN*100)}%"></i></div>
+      ${doneToday?`<div class="note">今天的 300 字篩完了，「單字篩選」已打勾。還想繼續就繼續，不勉強。</div>`:''}
+      <div class="card" style="padding:28px 18px 24px">
+        <div class="screenPos">${w.src==='ngsl'?'NGSL':'TSL'} #${w.rank}</div>
+        <div class="screenWord">${w.word}</div>
+        <div style="text-align:center" class="muted">${w.pos||''}</div>
+        <div class="two">
+          <button class="btn no" id="unk">✗ 不認得</button>
+          <button class="btn ok" id="kn">✓ 認得</button>
+        </div>
+        <div class="tapHint">只問「看到這個字，意思馬上浮出來嗎」。猶豫超過兩秒就按不認得。<span class="kb">鍵盤：<span class="kbd">←</span> 不認得　<span class="kbd">→</span> 認得　<span class="kbd">Z</span> 撤回</span></div>
+      </div>
+      <div class="row"><button class="btn small ghost" id="undo" ${S.hist().length?'':'disabled'}>↶ 撤回上一個</button><span class="grow"></span><span class="muted" style="font-size:13px">認得的字不會再出現</span></div>`;
+    view.querySelector('#unk').onclick = ()=>mark(false);
+    view.querySelector('#kn').onclick = ()=>mark(true);
+    view.querySelector('#undo').onclick = undo;
+  }
+  function mark(known){
+    const pos = S.pos(); const w = W[pos]; if(!w) return;
+    Store.update(known?'vocab.known':'vocab.unknown', m=>{ m[w.id]=true; return m; }, {});
+    Store.update('vocab.screenHist', h=>{ h.push({id:w.id, known}); return h.slice(-50); }, []);
+    Store.set('vocab.screenPos', pos+1);
+    bump('screened');
+    const st = todayStat();
+    if(st.screened === DAILY_SCREEN){ EL.markTask(today, 'vocab_screen', true); toast('今天 300 字篩完，已打勾'); }
+    if(pos+1 >= W.length){ Store.set('vocab.screenDone', true); EL.markTask(today,'vocab_screen',true); }
+    screen();
+  }
+  function undo(){
+    const h = S.hist(); if(!h.length) return;
+    const last = h[h.length-1];
+    Store.update(last.known?'vocab.known':'vocab.unknown', m=>{ delete m[last.id]; return m; }, {});
+    Store.set('vocab.screenHist', h.slice(0,-1));
+    Store.set('vocab.screenPos', Math.max(0, S.pos()-1));
+    bump('screened', -1);
+    screen();
+  }
+  document.addEventListener('keydown', e=>{
+    if((location.hash||'#screen')!=='#screen') return;
+    if(e.key==='ArrowLeft') mark(false); else if(e.key==='ArrowRight') mark(true); else if(e.key.toLowerCase()==='z') undo();
+  });
+
+  // ================= 背單字（間隔重複）=================
+  // srs[id] = {ef, iv, due, reps, lapses}
+  let queue = null, cur = null, flipped = false, sessionAgain = [];
+  function buildQueue(){
+    const srs = S.srs(); const unk = S.unknown(); const st = todayStat();
+    const due = Object.entries(srs).filter(([id,r])=>r.due<=today).map(([id])=>id).sort((a,b)=>srs[a].due<srs[b].due?-1:1);
+    const newLeft = Math.max(0, DAILY_NEW - st.newly);
+    const fresh = W.filter(w=>unk[w.id] && !srs[w.id]).slice(0, newLeft).map(w=>w.id);
+    queue = [...due, ...fresh]; sessionAgain = [];
+  }
+  function study(){
+    if(queue===null) buildQueue();
+    const st = todayStat(); const srs = S.srs();
+    const dueCount = Object.values(srs).filter(r=>r.due<=today).length;
+    const unkTotal = Object.keys(S.unknown()).length;
+    const learned = Object.keys(srs).length;
+    if(!queue.length && !sessionAgain.length){
+      const allDone = dueCount===0 && (st.newly>=DAILY_NEW || learned>=unkTotal);
+      if(allDone && st.newly+st.review>0) EL.markTask(today,'vocab_study',true);
+      view.innerHTML = `
+        <div class="stat"><div class="box"><div class="n">${st.review}</div><div class="l">今天複習</div></div><div class="box"><div class="n">${st.newly}</div><div class="l">今天新字</div></div><div class="box"><div class="n">${learned}/${unkTotal}</div><div class="l">已開始學／不認得</div></div></div>
+        <div class="hero"><div class="big">${unkTotal===0?'還沒有要背的字':'今天的份做完了'}</div><div class="sub">${unkTotal===0?'先去「篩選」，按不認得的字會進到這裡。':(st.newly+st.review>0?'「背單字」已打勾。明天到期的字會自動出現。':'沒有到期的字，也沒有新字可學。')}</div>
+        ${unkTotal>learned && st.newly>=DAILY_NEW?`<div style="margin-top:12px"><button class="btn small" id="more">再學 10 個新字（加碼）</button></div>`:''}</div>`;
+      const m = view.querySelector('#more'); if(m) m.onclick = ()=>{ const unk=S.unknown(); const fresh=W.filter(w=>unk[w.id]&&!S.srs()[w.id]).slice(0,10).map(w=>w.id); queue=fresh; next(); };
+      return;
+    }
+    if(!queue.length){ queue = sessionAgain; sessionAgain = []; }
+    cur = byId[queue[0]]; flipped = false;
+    const r = srs[cur.id];
+    view.innerHTML = `
+      <div class="row" style="justify-content:space-between"><span class="muted">剩 ${queue.length + sessionAgain.length} 張</span><span class="pill ${r?'':'warn'}">${r?`第 ${r.reps+1} 次 · 間隔 ${r.iv} 天`:'新字'}</span></div>
+      <div class="flash" id="flash">
+        <div class="pos">${cur.pos||''}${cur.ipa?` · /${cur.ipa}/`:''}</div>
+        <div class="w">${cur.word}</div>
+        <div class="back">
+          <div class="zh">${cur.zh}</div>
+          ${cur.def?`<div class="def">${cur.def}</div>`:''}
+          ${cur.ex?`<div class="ex">${cur.ex}</div><div class="exzh">${cur.ex_zh||''}</div>`:`<div class="def" style="margin-top:8px">（還沒有完整卡：把這個字放進「清單」給 Dobby 做字根拆解＋工作例句）</div>`}
+          ${cur.syn&&cur.syn.length?`<div class="syn">近義：${cur.syn.join(', ')}</div>`:''}
+        </div>
+      </div>
+      <div class="tapHint" id="hint">先在心裡說出意思，再點卡片翻面<span class="kb">（或按空白鍵；翻面後 1／2／3 評分）</span></div>
+      <div class="rate" id="rate" style="visibility:hidden">
+        <button class="btn no" data-g="0">忘了<small>等一下再出現</small></button>
+        <button class="btn" data-g="1">記得<small>${r?`${Math.max(1,Math.round(r.iv*r.ef))} 天後`:'明天'}</small></button>
+        <button class="btn ok" data-g="2">很熟<small>${r?`${Math.max(2,Math.round(r.iv*r.ef*1.3))} 天後`:'4 天後'}</small></button>
+      </div>`;
+    view.querySelector('#flash').onclick = flip;
+    view.querySelectorAll('#rate .btn').forEach(b=>b.onclick=()=>grade(Number(b.dataset.g)));
+  }
+  function flip(){ if(flipped) return; flipped=true; view.querySelector('#flash').classList.add('open'); view.querySelector('#rate').style.visibility='visible'; view.querySelector('#hint').textContent='誠實評：忘了／記得／很熟'; }
+  function grade(g){
+    if(!cur || !flipped) return;
+    const id = cur.id; const srs = S.srs(); const r = srs[id];
+    const isNew = !r;
+    let n = r ? {...r} : {ef:2.5, iv:0, reps:0, lapses:0, due:today};
+    if(g===0){ n.lapses++; n.ef=Math.max(1.3, n.ef-0.2); n.iv=0; n.due=today; sessionAgain.push(id); }
+    else {
+      if(n.iv===0) n.iv = g===2 ? 4 : 1; else if(n.iv===1) n.iv = g===2 ? 6 : 3; else n.iv = Math.max(n.iv+1, Math.round(n.iv*n.ef*(g===2?1.3:1)));
+      if(g===2) n.ef=Math.min(3.0, n.ef+0.15);
+      n.reps++; n.due = addDays(today, n.iv);
+    }
+    const countedToday = r && r.last===today;
+    n.last = today;
+    Store.update('vocab.srs', s=>{ s[id]=n; return s; }, {});
+    if(isNew) bump('newly'); else if(!countedToday) bump('review');
+    queue.shift(); next();
+  }
+  function next(){ study(); }
+  document.addEventListener('keydown', e=>{
+    if(location.hash!=='#study' || !cur) return;
+    if(e.key===' '){ e.preventDefault(); flip(); }
+    if(flipped && ['1','2','3'].includes(e.key)) grade(Number(e.key)-1);
+  });
+
+  // ================= 清單 =================
+  function list(){
+    const unk = S.unknown(); const srs = S.srs();
+    const unkWords = W.filter(w=>unk[w.id]);
+    const noCard = unkWords.filter(w=>!w.ex);
+    const d = S.daily(); const days = Object.keys(d).sort().slice(-7).reverse();
+    view.innerHTML = `
+      <div class="stat"><div class="box"><div class="n">${S.pos()}</div><div class="l">已篩</div></div><div class="box"><div class="n">${unkWords.length}</div><div class="l">不認得</div></div><div class="box"><div class="n">${Object.values(srs).filter(r=>r.iv>=21).length}</div><div class="l">間隔 ≥ 3 週</div></div></div>
+      <h2>給 Dobby 做完整卡</h2>
+      <p class="muted">這些是你不認得、但目前只有短解釋的字（${noCard.length} 個）。複製貼到對話，Dobby 會做字根字尾拆解＋衍生字＋工作例句，下次更新就會出現在卡片背面。</p>
+      <textarea class="exp" id="exp" readonly>${noCard.slice(0,80).map(w=>w.word).join(', ')}</textarea>
+      <div class="row" style="margin-top:8px"><button class="btn small" id="copy">複製前 ${Math.min(80,noCard.length)} 個</button><span class="muted" style="font-size:13px">一次 80 個剛好一批</span></div>
+      <h2>不認得的字（最近加入在前）</h2>
+      <div class="unkList">${unkWords.slice().reverse().slice(0,200).map(w=>`<span>${w.word}</span>`).join('')||'<span class="muted">還沒有</span>'}</div>
+      <h2>最近 7 天</h2>
+      <div class="card">${days.map(k=>`<div class="row" style="justify-content:space-between;padding:4px 0"><span>${k}</span><span class="muted">篩 ${d[k].screened} · 新 ${d[k].newly} · 複習 ${d[k].review}</span></div>`).join('')||'<span class="muted">還沒有紀錄</span>'}</div>
+      <p class="muted" style="font-size:12.5px;margin-top:20px">${data.meta.ngsl}；${data.meta.tsl}。</p>`;
+    view.querySelector('#copy').onclick = async ()=>{ const t=view.querySelector('#exp'); try{ await navigator.clipboard.writeText(t.value); toast('已複製'); }catch(e){ t.select(); document.execCommand('copy'); toast('已複製'); } };
+  }
+
+  route();
+  document.addEventListener('el:remote-loaded', ()=>{ queue=null; route(); });
+  EL.initFirebase();
+})();
+</script>
+</body>
+</html>

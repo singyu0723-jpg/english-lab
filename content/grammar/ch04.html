@@ -1,0 +1,342 @@
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="man" viewBox="0 0 40 80"><g fill="none" stroke="#2b2f3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="10" r="8" fill="#fff"/><path d="M20 18 V48 M20 27 L7 41 M20 27 L33 41 M20 48 L9 76 M20 48 L31 76"/></g></symbol>
+    <symbol id="man-walk" viewBox="0 0 44 80"><g fill="none" stroke="#2b2f3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="22" cy="10" r="8" fill="#fff"/><path d="M22 18 V46 M22 27 L10 36 M22 27 L36 34 M22 46 L8 74 M22 46 L38 70"/></g></symbol>
+    <symbol id="man-w" viewBox="0 0 40 80"><g fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="10" r="8" fill="#2c3150"/><path d="M20 18 V48 M20 27 L7 41 M20 27 L33 41 M20 48 L9 76 M20 48 L31 76"/></g></symbol>
+    <symbol id="man-point-w" viewBox="0 0 48 80"><g fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="10" r="8" fill="#2c3150"/><path d="M20 18 V48 M20 27 L7 41 M20 27 L46 24 M20 48 L9 76 M20 48 L31 76"/></g></symbol>
+    <!-- timeline base: past | now | future -->
+    <symbol id="tl-base" viewBox="0 0 640 60">
+      <path d="M20 30 H620" stroke="#2b2f3a" stroke-width="2.4" marker-end="url(#ar-k)"/>
+      <path d="M320 12 V48" stroke="#4f52b8" stroke-width="3"/>
+      <text x="320" y="60" font-size="13" text-anchor="middle" fill="#4f52b8" font-weight="800" font-family="-apple-system,PingFang TC,sans-serif">現在</text>
+      <text x="60" y="60" font-size="12.5" text-anchor="middle" fill="#6b7280" font-family="-apple-system,PingFang TC,sans-serif">過去</text>
+      <text x="580" y="60" font-size="12.5" text-anchor="middle" fill="#6b7280" font-family="-apple-system,PingFang TC,sans-serif">未來</text>
+    </symbol>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#4f52b8"/></marker>
+    <marker id="ar-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#2b2f3a"/></marker>
+  </defs>
+</svg>
+<div class="note">
+<b>這一章跟你的關係：</b>你的句子時態大多對，錯的集中在三個地方：該用現在完成式的地方用了過去式（已經寄了 ≠ 昨天寄的）、第三人稱單數忘了加 s、不規則動詞記錯。這一章用時間軸把 12 個時態畫成一張圖，再把你會用到的 6 個練熟。其他 6 個看得懂就好。
+</div>
+<!-- ================= 4-1 ================= -->
+<section>
+<span class="num">4-1</span>
+<h2>12 種時態，一張圖</h2>
+
+<p class="big">3 個時間 × 4 種樣子。</p>
+<p>時間只有三個：過去、現在、未來。每個時間的動作有四種「樣子」：<b>一個點</b>（簡單式）、<b>正在進行</b>（進行式）、<b>到這之前完成了</b>（完成式）、<b>一直做到這</b>（完成進行式）。3 × 4 = 12，不用背，看圖。</p>
+
+<div class="tl wide">
+<svg viewBox="0 0 680 330" width="680" height="330" role="img" aria-label="12 時態總圖">
+  <g font-family="-apple-system,PingFang TC,Noto Sans TC,sans-serif" font-size="13">
+    <!-- column headers -->
+    <text x="180" y="22" text-anchor="middle" fill="#6b7280" font-weight="700">過去</text>
+    <text x="400" y="22" text-anchor="middle" fill="#4f52b8" font-weight="800">現在</text>
+    <text x="600" y="22" text-anchor="middle" fill="#6b7280" font-weight="700">未來</text>
+    <!-- now line -->
+    <path d="M400 30 V320" stroke="#4f52b8" stroke-width="2" stroke-dasharray="5 4"/>
+    <!-- rows -->
+    <g>
+      <text x="8" y="70" font-weight="800">簡單式</text><text x="8" y="88" fill="#6b7280" font-size="11.5">一個點／事實</text>
+      <path d="M60 78 H660" stroke="#e6e3dc" stroke-width="1.5"/>
+      <circle cx="180" cy="78" r="7" fill="#2b2f3a"/><text x="180" y="105" text-anchor="middle" font-family="Georgia,serif">sent</text>
+      <circle cx="400" cy="78" r="7" fill="#4f52b8"/><text x="400" y="105" text-anchor="middle" font-family="Georgia,serif">send / sends</text>
+      <circle cx="600" cy="78" r="7" fill="#2b2f3a"/><text x="600" y="105" text-anchor="middle" font-family="Georgia,serif">will send</text>
+    </g>
+    <g transform="translate(0,70)">
+      <text x="8" y="70" font-weight="800">進行式</text><text x="8" y="88" fill="#6b7280" font-size="11.5">正在、暫時</text>
+      <path d="M60 78 H660" stroke="#e6e3dc" stroke-width="1.5"/>
+      <path d="M150 78 q 15 -14 30 0 t 30 0" stroke="#2b2f3a" stroke-width="3" fill="none"/><text x="180" y="105" text-anchor="middle" font-family="Georgia,serif">was sending</text>
+      <path d="M370 78 q 15 -14 30 0 t 30 0" stroke="#4f52b8" stroke-width="3" fill="none"/><text x="400" y="105" text-anchor="middle" font-family="Georgia,serif">am sending</text>
+      <path d="M570 78 q 15 -14 30 0 t 30 0" stroke="#2b2f3a" stroke-width="3" fill="none"/><text x="600" y="105" text-anchor="middle" font-family="Georgia,serif">will be sending</text>
+    </g>
+    <g transform="translate(0,140)">
+      <text x="8" y="70" font-weight="800">完成式</text><text x="8" y="88" fill="#6b7280" font-size="11.5">到那之前做完</text>
+      <path d="M60 78 H660" stroke="#e6e3dc" stroke-width="1.5"/>
+      <path d="M110 78 H172" stroke="#2b2f3a" stroke-width="3" marker-end="url(#ar-k)"/><path d="M180 66 V90" stroke="#2b2f3a" stroke-width="2.4"/><text x="180" y="105" text-anchor="middle" font-family="Georgia,serif">had sent</text>
+      <path d="M330 78 H392" stroke="#4f52b8" stroke-width="3" marker-end="url(#ar)"/><text x="400" y="105" text-anchor="middle" font-family="Georgia,serif">have sent</text>
+      <path d="M530 78 H592" stroke="#2b2f3a" stroke-width="3" marker-end="url(#ar-k)"/><path d="M600 66 V90" stroke="#2b2f3a" stroke-width="2.4"/><text x="600" y="105" text-anchor="middle" font-family="Georgia,serif">will have sent</text>
+    </g>
+    <g transform="translate(0,210)">
+      <text x="8" y="70" font-weight="800">完成進行式</text><text x="8" y="88" fill="#6b7280" font-size="11.5">一直做到那</text>
+      <path d="M60 78 H660" stroke="#e6e3dc" stroke-width="1.5"/>
+      <path d="M110 78 q 10 -12 20 0 t 20 0 t 20 0" stroke="#2b2f3a" stroke-width="3" fill="none"/><path d="M180 66 V90" stroke="#2b2f3a" stroke-width="2.4"/><text x="180" y="105" text-anchor="middle" font-family="Georgia,serif" font-size="12">had been sending</text>
+      <path d="M330 78 q 10 -12 20 0 t 20 0 t 20 0" stroke="#4f52b8" stroke-width="3" fill="none"/><text x="400" y="105" text-anchor="middle" font-family="Georgia,serif" font-size="12">have been sending</text>
+      <path d="M530 78 q 10 -12 20 0 t 20 0 t 20 0" stroke="#2b2f3a" stroke-width="3" fill="none"/><path d="M600 66 V90" stroke="#2b2f3a" stroke-width="2.4"/><text x="600" y="105" text-anchor="middle" font-family="Georgia,serif" font-size="12">will have been sending</text>
+    </g>
+  </g>
+</svg>
+<div class="cap">點 = 簡單式、波浪 = 進行式、箭頭到一條線 = 完成式。藍色那一欄是「現在」。</div>
+</div>
+
+<h3>你真正會用到的 6 個</h3>
+<p>職場 email 和口說，九成句子落在這 6 格：<b>現在簡單、現在進行、過去簡單、未來（will / be going to）、現在完成、現在完成進行</b>。4-2 到 4-4 只練這 6 個；4-5 把剩下的看懂。</p>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 40 80"><use href="#man-w" width="40" height="80"/></svg>
+<ul>
+<li>時態 = 時間（過去／現在／未來）× 樣子（點／波浪／箭頭到線／波浪到線）。</li>
+<li>先練 6 個常用的，其他 6 個看得懂就好。</li>
+</ul>
+</div>
+</section>
+<!-- ================= 4-2 ================= -->
+<section>
+<span class="num">4-2</span>
+<h2>現在簡單 vs 現在進行</h2>
+
+<p class="big">簡單式是「一向如此」，進行式是「此刻、暫時」。</p>
+
+<div class="pair">
+  <div class="cell">
+    <div class="t">現在簡單：事實、習慣、固定流程</div>
+    <svg viewBox="0 0 280 70" width="280" height="70">
+      <path d="M10 40 H270" stroke="#2b2f3a" stroke-width="2" marker-end="url(#ar-k)"/>
+      <g fill="#4f52b8"><circle cx="60" cy="40" r="5"/><circle cx="100" cy="40" r="5"/><circle cx="140" cy="40" r="5"/><circle cx="180" cy="40" r="5"/><circle cx="220" cy="40" r="5"/></g>
+      <text x="140" y="22" font-size="12" text-anchor="middle" fill="#6b7280">每天、每次都這樣</text>
+    </svg>
+    <p class="en">We <b>ship</b> every Friday.<br>The line <b>runs</b> 24 hours.<br>This connector <b>supports</b> 10 A.</p>
+  </div>
+  <div class="cell">
+    <div class="t">現在進行：現在正在、這陣子</div>
+    <svg viewBox="0 0 280 70" width="280" height="70">
+      <path d="M10 40 H270" stroke="#2b2f3a" stroke-width="2" marker-end="url(#ar-k)"/>
+      <path d="M140 12 V60" stroke="#4f52b8" stroke-width="2.5"/>
+      <path d="M100 40 q 10 -14 20 0 t 20 0 t 20 0 t 20 0" stroke="#4f52b8" stroke-width="3" fill="none"/>
+      <text x="140" y="68" font-size="12" text-anchor="middle" fill="#4f52b8">現在</text>
+    </svg>
+    <p class="en">We <b>are testing</b> the new batch.<br>I'<b>m working</b> on the quotation.<br>Prices <b>are going up</b> this quarter.</p>
+  </div>
+</div>
+
+<h3>第三人稱單數要加 s（主詞動詞一致）</h3>
+<p>現在簡單式裡，主詞是 <b>he / she / it / 一個東西 / 一家公司</b>，動詞加 s。這是你最常漏的一個字母。</p>
+<table>
+<tr><th>主詞是「一個」</th><th>主詞是「多個」或 I / you</th></tr>
+<tr><td class="en">The customer <b>wants</b> a discount.<br>Our supplier <b>has</b> the parts.<br>The machine <b>doesn't work</b>.<br>Everyone <b>is</b> here.　Each sample <b>passes</b>.</td><td class="en">The customers <b>want</b> a discount.<br>Our suppliers <b>have</b> the parts.<br>The machines <b>don't work</b>.<br>I / You / We / They <b>want</b>…</td></tr>
+</table>
+<p class="zh">主詞很長時找「頭」：<span class="en">The price <u>of these connectors</u> <b>is</b> too high.</span>（price 是頭，單數）</p>
+
+<h3>有些動詞不用進行式</h3>
+<p class="en nomark">I'm <s>knowing</s> the answer. / We're <s>having</s> two options.</p>
+<p class="en okmark">I <b>know</b> the answer.　We <b>have</b> two options.　I <b>think</b> so.　It <b>depends</b>.</p>
+<p class="zh">know、have（擁有）、need、want、believe、understand：狀態不是動作，不會「正在」。但 have 當「吃／開會」可以：We're having a meeting.</p>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 48 80"><use href="#man-point-w" width="48" height="80"/></svg>
+<ul>
+<li>一向如此 → 簡單式；此刻、這陣子 → 進行式。</li>
+<li>he / she / it / 一家公司 / everyone / each → 動詞加 s。主詞長的找頭。</li>
+<li>know / have / need / want / understand 不用進行式。</li>
+</ul>
+</div>
+</section>
+<!-- ================= 4-3 ================= -->
+<section>
+<span class="num">4-3</span>
+<h2>過去簡單 vs 未來</h2>
+
+<div class="pair">
+  <div class="cell">
+    <div class="t">過去簡單：講明是「那時候」</div>
+    <svg viewBox="0 0 280 70" width="280" height="70">
+      <path d="M10 40 H270" stroke="#2b2f3a" stroke-width="2" marker-end="url(#ar-k)"/>
+      <path d="M200 12 V60" stroke="#4f52b8" stroke-width="2.5"/>
+      <circle cx="80" cy="40" r="7" fill="#2b2f3a"/>
+      <text x="80" y="22" font-size="12" text-anchor="middle" fill="#6b7280">yesterday / last week</text>
+      <text x="200" y="68" font-size="12" text-anchor="middle" fill="#4f52b8">現在</text>
+    </svg>
+    <p class="en">We <b>shipped</b> the samples <u>yesterday</u>.<br>The customer <b>called</b> <u>this morning</u>.<br>I <b>sent</b> it <u>last Friday</u>.</p>
+  </div>
+  <div class="cell">
+    <div class="t">未來：will / be going to / 進行式</div>
+    <svg viewBox="0 0 280 70" width="280" height="70">
+      <path d="M10 40 H270" stroke="#2b2f3a" stroke-width="2" marker-end="url(#ar-k)"/>
+      <path d="M80 12 V60" stroke="#4f52b8" stroke-width="2.5"/>
+      <circle cx="200" cy="40" r="7" fill="#2b2f3a"/>
+      <text x="200" y="22" font-size="12" text-anchor="middle" fill="#6b7280">tomorrow / next week</text>
+      <text x="80" y="68" font-size="12" text-anchor="middle" fill="#4f52b8">現在</text>
+    </svg>
+    <p class="en">I<b>'ll send</b> it tomorrow.<br>We<b>'re going to</b> change the material.<br>The customer <b>is visiting</b> next Tuesday.</p>
+  </div>
+</div>
+
+<h3>三種未來的差別</h3>
+<table>
+<tr><th style="width:30%">說法</th><th>感覺</th><th>例句</th></tr>
+<tr><td class="en"><b>will</b></td><td>當場決定、承諾、預測</td><td class="en">OK, I<b>'ll check</b> and get back to you.<br>It <b>will take</b> about two weeks.</td></tr>
+<tr><td class="en"><b>be going to</b></td><td>早就打算、看得出跡象</td><td class="en">We<b>'re going to</b> switch suppliers next year.<br>Look at the data — it<b>'s going to</b> fail.</td></tr>
+<tr><td class="en"><b>現在進行式</b></td><td>已經安排好的行程</td><td class="en">The customer <b>is visiting</b> on Tuesday.<br>I<b>'m flying</b> to Vietnam next week.</td></tr>
+</table>
+
+<h3>過去式的三個小坑</h3>
+<p class="en nomark">Did you <s>sent</s> it? → <span class="okmark">Did you <b>send</b> it?</span><span class="zh">　did 已經帶過去，動詞回原形</span></p>
+<p class="en nomark">I <s>didn't received</s> it. → <span class="okmark">I <b>didn't receive</b> it.</span></p>
+<p class="en nomark">We <s>have shipped</s> it yesterday. → <span class="okmark">We <b>shipped</b> it yesterday.</span><span class="zh">　有明確過去時間就不用完成式（4-4 細講）</span></p>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 40 80"><use href="#man-w" width="40" height="80"/></svg>
+<ul>
+<li>yesterday / last week / in 2024 / ago → 過去簡單，不要用完成式。</li>
+<li>will 當場決定；be going to 早有打算；進行式 = 排好的行程。</li>
+<li>did / didn't 後面動詞回原形。</li>
+</ul>
+</div>
+</section>
+<!-- ================= 4-4 ================= -->
+<section>
+<span class="num">4-4</span>
+<h2>現在完成：從過去拉一條線到現在</h2>
+
+<p class="big">have + V-ed = 這件事到「現在」為止的狀態。</p>
+<p>過去式是「那時候發生的一個點」，跟現在沒關係。現在完成式是<b>過去的事拉到現在</b>：已經做了（所以現在可以下一步）、做過（所以現在有經驗）、做了多久（到現在還在）。</p>
+
+<div class="tl">
+<svg viewBox="0 0 680 190" width="680" height="190" role="img" aria-label="過去式 vs 現在完成式">
+  <g font-family="-apple-system,PingFang TC,Noto Sans TC,sans-serif" font-size="13">
+    <!-- past simple -->
+    <text x="10" y="40" font-weight="800">過去簡單</text>
+    <path d="M110 44 H640" stroke="#2b2f3a" stroke-width="2" marker-end="url(#ar-k)"/>
+    <path d="M480 24 V64" stroke="#4f52b8" stroke-width="2.5"/>
+    <circle cx="250" cy="44" r="7" fill="#2b2f3a"/>
+    <text x="250" y="26" text-anchor="middle" fill="#6b7280" font-size="12">yesterday</text>
+    <text x="480" y="80" text-anchor="middle" fill="#4f52b8" font-size="12">現在</text>
+    <text x="560" y="40" font-family="Georgia,serif" font-size="14">I <tspan font-weight="700">sent</tspan> it.</text>
+    <!-- present perfect -->
+    <text x="10" y="130" font-weight="800">現在完成</text>
+    <path d="M110 134 H640" stroke="#2b2f3a" stroke-width="2" marker-end="url(#ar-k)"/>
+    <path d="M480 114 V154" stroke="#4f52b8" stroke-width="2.5"/>
+    <path d="M250 134 H472" stroke="#4f52b8" stroke-width="4" marker-end="url(#ar)"/>
+    <circle cx="250" cy="134" r="6" fill="#4f52b8"/>
+    <text x="360" y="120" text-anchor="middle" fill="#4f52b8" font-size="12">拉到現在：所以現在…</text>
+    <text x="480" y="170" text-anchor="middle" fill="#4f52b8" font-size="12">現在</text>
+    <text x="520" y="130" font-family="Georgia,serif" font-size="14">I<tspan font-weight="700">'ve sent</tspan> it.</text>
+  </g>
+</svg>
+<div class="cap">I sent it.（昨天的事）　I've sent it.（已經寄了，你現在可以去收）</div>
+</div>
+
+<h3>三種用法，三組關鍵字</h3>
+<table>
+<tr><th style="width:26%">意思</th><th style="width:30%">關鍵字</th><th>例句</th></tr>
+<tr><td><b>已經／還沒</b><br><span class="zh">結果影響現在</span></td><td class="en">already, just, yet, not … yet</td><td class="en">I<b>'ve already sent</b> the quotation.<br>We<b>'ve just received</b> the PO.<br>They <b>haven't replied yet</b>.</td></tr>
+<tr><td><b>做過／沒做過</b><br><span class="zh">到現在為止的經驗</span></td><td class="en">ever, never, before</td><td class="en"><b>Have</b> you <b>ever worked</b> with this supplier?<br>We<b>'ve never had</b> this problem before.</td></tr>
+<tr><td><b>做了多久</b><br><span class="zh">從過去持續到現在</span></td><td class="en">for + 一段, since + 起點</td><td class="en">I<b>'ve worked</b> here <b>for</b> five years.<br>We<b>'ve used</b> this material <b>since</b> 2022.</td></tr>
+</table>
+
+<h3>什麼時候用哪個：有沒有講「那時候」</h3>
+<div class="pair">
+  <div class="cell" style="text-align:left">
+    <p class="en okmark">I <b>sent</b> it <u>yesterday</u>.</p>
+    <p class="en okmark">We <b>fixed</b> it <u>last week</u>.</p>
+    <p class="zh">有明確過去時間 → 過去式</p>
+  </div>
+  <div class="cell" style="text-align:left">
+    <p class="en okmark">I<b>'ve sent</b> it.（已經寄了）</p>
+    <p class="en okmark">We<b>'ve fixed</b> it.（已經修好）</p>
+    <p class="zh">沒講時間、重點是「現在怎樣」 → 現在完成</p>
+  </div>
+</div>
+
+<h3>現在完成進行：強調「一直在做」</h3>
+<p class="en">We<b>'ve been working</b> on this issue <b>for two days</b>.（一直在處理，還沒完）<br>I<b>'ve been waiting</b> for the report <b>since Monday</b>.</p>
+<p class="zh">have been V-ing：線上有波浪。重點是「過程持續」，常配 for / since。</p>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 48 80"><use href="#man-point-w" width="48" height="80"/></svg>
+<ul>
+<li>有「那時候」→ 過去式；沒時間、講「現在狀態」→ 現在完成。</li>
+<li>already / just / yet / ever / never / for / since 看到就是現在完成。</li>
+<li>have been V-ing = 一直做到現在，還在做。</li>
+</ul>
+</div>
+</section>
+<!-- ================= 4-5 ================= -->
+<section>
+<span class="num">4-5</span>
+<h2>過去完成、未來完成：看得懂就好</h2>
+
+<p class="big">完成式的「線」往左右移。</p>
+<p>現在完成是「拉到現在」。把終點移到過去的某個時間，就是<b>過去完成</b>；移到未來的某個時間，就是<b>未來完成</b>。</p>
+
+<div class="tl">
+<svg viewBox="0 0 680 170" width="680" height="170" role="img" aria-label="過去完成與未來完成">
+  <g font-family="-apple-system,PingFang TC,Noto Sans TC,sans-serif" font-size="13">
+    <text x="10" y="40" font-weight="800">過去完成</text>
+    <path d="M110 44 H640" stroke="#2b2f3a" stroke-width="2" marker-end="url(#ar-k)"/>
+    <path d="M500 24 V64" stroke="#4f52b8" stroke-width="2.5"/><text x="500" y="80" text-anchor="middle" fill="#4f52b8" font-size="12">現在</text>
+    <path d="M300 24 V64" stroke="#2b2f3a" stroke-width="2.5"/><text x="300" y="80" text-anchor="middle" fill="#6b7280" font-size="12">過去的那一刻</text>
+    <path d="M170 44 H292" stroke="#2b2f3a" stroke-width="4" marker-end="url(#ar-k)"/>
+    <text x="230" y="30" text-anchor="middle" fill="#6b7280" font-size="12">在那之前就做完</text>
+    <text x="10" y="130" font-weight="800">未來完成</text>
+    <path d="M110 134 H640" stroke="#2b2f3a" stroke-width="2" marker-end="url(#ar-k)"/>
+    <path d="M300 114 V154" stroke="#4f52b8" stroke-width="2.5"/><text x="300" y="168" text-anchor="middle" fill="#4f52b8" font-size="12">現在</text>
+    <path d="M540 114 V154" stroke="#2b2f3a" stroke-width="2.5"/><text x="540" y="168" text-anchor="middle" fill="#6b7280" font-size="12">未來的那一刻</text>
+    <path d="M380 134 H532" stroke="#2b2f3a" stroke-width="4" marker-end="url(#ar-k)"/>
+    <text x="456" y="120" text-anchor="middle" fill="#6b7280" font-size="12">到那時會做完</text>
+  </g>
+</svg>
+</div>
+
+<table>
+<tr><th style="width:24%">時態</th><th>什麼時候用</th><th>例句</th></tr>
+<tr><td class="en"><b>had</b> + V-ed<br><span class="zh">過去完成</span></td><td>講過去兩件事，要說哪一件更早</td><td class="en">When the customer arrived, we <b>had</b> already <b>finished</b> the test.<br>I <b>had sent</b> the file before he asked.</td></tr>
+<tr><td class="en"><b>will have</b> + V-ed<br><span class="zh">未來完成</span></td><td>到未來某個時間點會做完</td><td class="en">By Friday, we <b>will have shipped</b> all the samples.<br>By the end of the year, I<b>'ll have worked</b> here for six years.</td></tr>
+<tr><td class="en"><b>was / were</b> + V-ing<br><span class="zh">過去進行</span></td><td>過去某一刻正在做，常配另一件事插進來</td><td class="en">I <b>was testing</b> the sample when the power went out.</td></tr>
+<tr><td class="en"><b>will be</b> + V-ing<br><span class="zh">未來進行</span></td><td>未來某一刻正在做</td><td class="en">This time next week, I<b>'ll be flying</b> to Vietnam.</td></tr>
+</table>
+<p class="zh">過去完成進行（had been V-ing）、未來完成進行（will have been V-ing）極少用，看到認得就好。</p>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 40 80"><use href="#man-w" width="40" height="80"/></svg>
+<ul>
+<li>過去完成 = 過去兩件事裡「更早的那件」：had + V-ed。</li>
+<li>未來完成 = by + 未來時間 + will have + V-ed。</li>
+<li>口說少用這些；email 裡 by Friday we will have… 偶爾用得上。</li>
+</ul>
+</div>
+</section>
+<!-- ================= 4-6 ================= -->
+<section>
+<span class="num">4-6</span>
+<h2>動詞變化與不規則動詞</h2>
+
+<p class="big">每個動詞三個樣子：原形、過去式、過去分詞。</p>
+<p>規則動詞加 -ed 兩次。不規則動詞要記，但你工作上會用到的就這 40 個。分三型記比較快。</p>
+
+<table>
+<tr><th style="width:30%">型</th><th>原形 → 過去式 → 過去分詞</th></tr>
+<tr><td><b>三個一樣</b></td><td class="en">cut – cut – cut　　put – put – put　　set – set – set　　cost – cost – cost<br>let – let – let　　hit – hit – hit　　read – read – read（發音變）</td></tr>
+<tr><td><b>後兩個一樣</b><br><span class="zh">最多，email 最常用</span></td><td class="en">send – sent – sent　　build – built – built　　spend – spent – spent<br>have – had – had　　make – made – made　　find – found – found<br>get – got – got(ten)　　keep – kept – kept　　leave – left – left<br>meet – met – met　　pay – paid – paid　　say – said – said<br>tell – told – told　　sell – sold – sold　　bring – brought – brought<br>buy – bought – bought　　think – thought – thought　　hold – held – held<br>lead – led – led　　understand – understood – understood</td></tr>
+<tr><td><b>三個都不同</b></td><td class="en">go – went – gone　　do – did – done　　see – saw – seen<br>take – took – taken　　give – gave – given　　know – knew – known<br>write – wrote – written　　speak – spoke – spoken　　break – broke – broken<br>choose – chose – chosen　　begin – began – begun　　run – ran – run<br>come – came – come　　become – became – become　　drive – drove – driven<br>show – showed – shown　　fly – flew – flown　　forget – forgot – forgotten</td></tr>
+</table>
+
+<h3>哪個位置用哪個樣子</h3>
+<table>
+<tr><th>位置</th><th>用</th><th>例</th></tr>
+<tr><td>過去簡單式</td><td>過去式</td><td class="en">We <b>sent</b> it. / We <b>built</b> a new line.</td></tr>
+<tr><td>have / had / will have 後面</td><td>過去分詞</td><td class="en">We have <b>sent</b> it. / We had <b>built</b> it.</td></tr>
+<tr><td>被動（be 後面）</td><td>過去分詞</td><td class="en">It was <b>sent</b>. / The line was <b>built</b> in 2023.</td></tr>
+<tr><td>did / didn't / will / can 後面</td><td>原形</td><td class="en">Did you <b>send</b> it? / We will <b>build</b> it.</td></tr>
+</table>
+
+<p class="en nomark">The samples were <s>send</s> yesterday. → <span class="okmark">were <b>sent</b></span></p>
+<p class="en nomark">We have <s>chose</s> the supplier. → <span class="okmark">have <b>chosen</b></span></p>
+<p class="en nomark">The line has <s>broke</s> down. → <span class="okmark">has <b>broken</b> down</span></p>
+
+<div class="point">
+<span class="tag">POINT</span>
+<svg class="fig" viewBox="0 0 48 80"><use href="#man-point-w" width="48" height="80"/></svg>
+<ul>
+<li>三型記：三個一樣（cut）、後兩個一樣（send-sent-sent）、三個不同（go-went-gone）。</li>
+<li>have / be 後面一律第三個樣子（過去分詞）。</li>
+<li>did / will / can 後面回原形。</li>
+</ul>
+</div>
+</section>

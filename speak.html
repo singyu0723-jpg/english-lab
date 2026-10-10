@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#fbfaf6">
+<title>English Lab · 口說</title>
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .qs{padding-left:20px;margin:6px 0}
+  .qs li{margin:4px 0}
+  .ph{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .ph span{background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-family:Georgia,serif;font-size:16px}
+  .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px}
+  .board a{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;text-decoration:none;color:inherit;font-size:14px;min-height:44px}
+  .board a.today{border-color:var(--indigo);background:var(--indigo-soft)}
+  .board a.done{opacity:.6}
+  .board a small{color:var(--soft);display:block;font-size:12px}
+  textarea.opener{width:100%;min-height:92px;font-size:15px;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;font-family:Georgia,serif;line-height:1.5}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">SPEAKING</p>
+  <h1>口說</h1>
+  <div id="view"><p class="muted">載入中…</p></div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js" onerror="void 0"></script>
+<script src="assets/app.js"></script>
+<script>
+(async function(){
+  const {Store, dkey, daysBetween, loadJSON, toast, getLog} = EL;
+  const today = dkey();
+  const [SP, plan] = await Promise.all([loadJSON('content/speak.json'), loadJSON('content/plan.json')]);
+  const view = document.getElementById('view');
+  const N = SP.topics.length;
+  function topicIndexFor(date){ const d = daysBetween(plan.startDate, date); return ((d % N) + N) % N; }
+
+  function render(){
+    const params = new URLSearchParams(location.search);
+    const todayIdx = topicIndexFor(today);
+    const idx = params.has('d') ? Math.max(0, Math.min(N-1, Number(params.get('d'))-1)) : todayIdx;
+    const tp = SP.topics[idx];
+    const isToday = idx===todayIdx;
+    const log = getLog(); const done = !!((log[today]||{}).tasks||{}).speak;
+    const spoken = Store.get('speak.done', {});
+    const opener = SP.opener.replace('{topic}', tp.t + ' (' + tp.cat + ')');
+    view.innerHTML = `
+      <p class="muted">${isToday?'今天的主題':'第 '+tp.d+' 天的主題'} · <span class="pill ${tp.cat==='職場'?'':'warn'}">${tp.cat}</span> · 目標 3 分鐘</p>
+      <div class="hero">
+        <div class="big" style="font-size:26px">${tp.t}</div>
+        <ol class="qs">${tp.q.map(q=>`<li>${q}</li>`).join('')}</ol>
+      </div>
+      <h2>可以用的句型</h2>
+      <div class="ph">${tp.p.map(p=>`<span>${p}</span>`).join('')}</div>
+      <h2>開場白（貼給 Claude 語音）</h2>
+      <textarea class="opener" id="opener" readonly>${opener}</textarea>
+      <div class="row" style="margin-top:8px"><button class="btn small" id="copy">複製開場白</button><a class="btn small" href="https://claude.ai" target="_blank" rel="noopener">打開 Claude ↗</a></div>
+      <div class="note" style="margin-top:18px">${SP.howto}</div>
+      ${isToday?`<div class="row" style="margin-top:10px"><button class="btn ${done?'ok':'primary'} grow" id="done">${done?'今天講完了 ✓':'講完 3 分鐘了，打勾'}</button></div>`:`<p><a class="btn small ghost" href="speak.html">← 回到今天</a></p>`}
+      <h2>28 天主題看板</h2>
+      <p class="muted">職場約七成、日常與旅遊三成。講過的會變淡；28 天一輪，第二輪同題要講得比第一輪長。</p>
+      <div class="board">${SP.topics.map((t,i)=>`<a href="speak.html?d=${t.d}" class="${i===todayIdx?'today':''} ${spoken[t.d]?'done':''}"><small>Day ${t.d} · ${t.cat}</small>${t.t}${spoken[t.d]?' ✓':''}</a>`).join('')}</div>`;
+    view.querySelector('#copy').onclick = async ()=>{ const t=view.querySelector('#opener'); try{ await navigator.clipboard.writeText(t.value);}catch(e){ t.select(); document.execCommand('copy'); } toast('已複製，去 Claude 語音貼上'); };
+    const d = view.querySelector('#done'); if(d) d.onclick = ()=>{ const now=!!((getLog()[today]||{}).tasks||{}).speak; EL.markTask(today,'speak',!now); Store.update('speak.done', s=>{ if(!now) s[tp.d]=today; else delete s[tp.d]; return s; }, {}); toast(now?'取消':'口說完成'); render(); };
+  }
+  render();
+  document.addEventListener('el:remote-loaded', render);
+  EL.initFirebase();
+})();
+</script>
+</body>
+</html>

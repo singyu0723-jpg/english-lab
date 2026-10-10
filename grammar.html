@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#fbfaf6">
+<title>English Lab · 文法</title>
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .chap{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+  .chap:last-child{border-bottom:0}
+  .chap .n{width:40px;height:40px;border-radius:12px;background:var(--indigo-soft);color:var(--indigo);font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 40px}
+  .chap.locked .n{background:#f0efe9;color:#b5b2aa}
+  .chap .t{font-weight:700}
+  .chap .u{color:var(--soft);font-size:13px}
+  section{margin-top:64px}
+  section:first-of-type{margin-top:24px}
+  .num{display:inline-block;background:var(--indigo);color:#fff;font-weight:800;font-size:13px;padding:2px 10px;border-radius:6px;letter-spacing:1px;margin-bottom:8px}
+  .big{font-size:19px;font-weight:600}
+  .result{background:var(--indigo-soft);border-radius:18px;padding:18px 20px;margin-top:28px}
+</style>
+</head>
+<body>
+<main id="app"><p class="muted">載入中…</p></main>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js" onerror="void 0"></script>
+<script src="assets/app.js"></script>
+<script>
+(async function(){
+  const {Store, loadJSON, loadText, toast, dkey} = EL;
+  const app = document.getElementById('app');
+  const params = new URLSearchParams(location.search);
+  const idx = await loadJSON('content/grammar/index.json');
+  const results = () => Store.get('grammar.results', {});
+
+  function listView(){
+    const r = results();
+    const firstOpen = idx.chapters.findIndex(c => !(r[c.id]&&r[c.id].passed));
+    app.innerHTML = `
+      <p class="kicker">GRAMMAR</p><h1>文法課綱</h1>
+      <p class="muted">${idx.source}</p>
+      <div class="card">` + idx.chapters.map((c,i)=>{
+        const res = r[c.id]; const passed = res&&res.passed;
+        const locked = !c.ready;
+        const badge = passed ? `<span class="pill ok">過關 ${res.score}</span>` : (res ? `<span class="pill warn">未過 錯${res.wrong}</span>` : (i===firstOpen&&c.ready ? `<span class="pill">現在這章</span>` : (locked?`<span class="pill gray">準備中</span>`:'')));
+        return `<a class="chap ${locked?'locked':''}" href="${locked?'#':'grammar.html?ch='+c.id}"><div class="n">${c.n}</div><div class="grow"><div class="t">${c.title}${c.optional?' <span class="pill gray">選修</span>':''}</div><div class="u">${c.units.join(' · ')}</div></div>${badge}</a>`;
+      }).join('') + `</div>
+      <p class="muted" style="font-size:13px">「準備中」的章節由 Dobby 依進度逐章上架。驗收沒過不往下走，錯哪幾題回報給他補題。</p>`;
+  }
+
+  async function chapterView(id){
+    const meta = idx.chapters.find(c=>c.id===id); if(!meta||!meta.ready){ listView(); return; }
+    const [html, ex] = await Promise.all([loadText(`content/grammar/${id}.html`), loadJSON(`content/grammar/${id}.json`)]);
+    const prev = results()[id];
+    app.innerHTML = `
+      <a class="btn small ghost" href="grammar.html">← 課綱</a>
+      <p class="kicker" style="margin-top:14px">GRAMMAR · CHAPTER ${meta.n}</p>
+      <h1>${meta.title}</h1>
+      <div class="muted">${meta.units.map(u=>`<span class="pill gray">${u}</span>`).join(' ')}</div>
+      ${prev?`<p class="muted" style="margin-top:10px">上次：${prev.date} · ${prev.passed?'過關':'未過'}，錯 ${prev.wrong} 題</p>`:''}
+      <div id="content">${html}</div>
+      <section id="exercise"></section>`;
+    renderExercise(ex, id);
+  }
+
+  function renderExercise(ex, id){
+    const sec = document.getElementById('exercise');
+    let n=0;
+    sec.innerHTML = `<span class="num">練習</span><h2>${ex.groups.reduce((a,g)=>a+g.items.length,0)} 題，錯 ${ex.pass.maxWrong} 題以內過關</h2>` +
+      ex.groups.map((g,gi)=>`<h3>${g.title}</h3>${g.hint?`<p class="muted">${g.hint}</p>`:''}` + g.items.map((it,ii)=>{
+        n++; const key=`${gi}-${ii}`;
+        let body='';
+        if(it.type==='mc') body = `<div class="choices">${it.choices.map((c,ci)=>`<button class="choice" data-ci="${ci}">${c}</button>`).join('')}</div>`;
+        else if(it.type==='fill') body = `<input class="fill" type="text" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="填入空格的字">`;
+        else body = `<div class="selfmark"><button class="btn small" data-reveal>看解答</button><button class="btn small ok" data-self="1" disabled>我寫對了 ✓</button><button class="btn small" data-self="0" disabled>寫錯了 ✗</button></div>`;
+        return `<div class="q" data-key="${key}" data-type="${it.type}"><span class="qn">${n}</span><span class="${it.type==='self'?'':'en'}">${it.q}</span>${body}<div class="ans en">${it.a? it.a : it.choices[it.answer]}${it.note?`<br><span class="zh">${it.note}</span>`:''}</div></div>`;
+      }).join('')).join('') +
+      `<div class="row" style="margin-top:20px"><button class="btn primary grow" id="grade">對答案</button></div><div id="result"></div>`;
+
+    const state = {};
+    sec.addEventListener('click', e=>{
+      const q = e.target.closest('.q'); if(!q) return; const key=q.dataset.key;
+      if(e.target.classList.contains('choice')){ q.querySelectorAll('.choice').forEach(c=>c.classList.remove('sel')); e.target.classList.add('sel'); state[key]=Number(e.target.dataset.ci); }
+      if(e.target.hasAttribute('data-reveal')){ q.classList.add('revealed'); q.querySelectorAll('[data-self]').forEach(b=>b.disabled=false); }
+      if(e.target.hasAttribute('data-self')){ state[key]=e.target.dataset.self==='1'; q.querySelectorAll('[data-self]').forEach(b=>b.classList.remove('primary')); e.target.classList.add('primary'); }
+      if(e.target.id==='grade') grade();
+    });
+    sec.addEventListener('input', e=>{ const q=e.target.closest('.q'); if(q&&e.target.classList.contains('fill')) state[q.dataset.key]=e.target.value; });
+
+    function norm(s){ return String(s||'').trim().toLowerCase().replace(/[.。]$/,'').replace(/\s+/g,' '); }
+    function grade(){
+      let wrong=0, total=0, unanswered=0;
+      ex.groups.forEach((g,gi)=>g.items.forEach((it,ii)=>{
+        total++; const key=`${gi}-${ii}`; const q=sec.querySelector(`.q[data-key="${key}"]`); const v=state[key];
+        let ok=null;
+        if(it.type==='mc'){ if(v===undefined){unanswered++; ok=false;} else ok = v===it.answer; q.querySelectorAll('.choice').forEach((c,ci)=>{ c.classList.remove('right','wrong'); if(ci===it.answer) c.classList.add('right'); else if(ci===v) c.classList.add('wrong'); }); }
+        else if(it.type==='fill'){ const inp=q.querySelector('.fill'); if(!norm(v)){unanswered++; ok=false;} else ok = it.accept.map(norm).includes(norm(v)); inp.classList.remove('right','wrong'); inp.classList.add(ok?'right':'wrong'); }
+        else { if(v===undefined){unanswered++; ok=false;} else ok = v===true; }
+        if(!ok) wrong++;
+        q.classList.add('revealed');
+      }));
+      const passed = wrong <= ex.pass.maxWrong;
+      const score = `${total-wrong}/${total}`;
+      Store.update('grammar.results', r=>{ r[id]={score, wrong, passed, date:dkey()}; return r; }, {});
+      if(passed) EL.markTask(dkey(), 'grammar', true);
+      document.getElementById('result').innerHTML = `<div class="result"><b>${passed?'過關':'未過'}</b> · ${score}，錯 ${wrong} 題${unanswered?`（${unanswered} 題沒作答）`:''}。<br>${passed?'可以進下一章。今日任務的「文法」已自動打勾。':'把錯的題號告訴 Dobby，他會針對那個小節再出 5 題。'}</div>`;
+      document.getElementById('result').scrollIntoView({behavior:'smooth'});
+      toast(passed?'過關！':'再練一下');
+    }
+  }
+
+  const ch = params.get('ch');
+  if(ch) chapterView(ch); else listView();
+  document.addEventListener('el:remote-loaded', ()=>{ if(!ch) listView(); });
+  EL.initFirebase();
+})();
+</script>
+</body>
+</html>

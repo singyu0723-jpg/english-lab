@@ -1,0 +1,28 @@
+{
+  "id": "ch03",
+  "title": "動狀詞",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　to V 還是 V-ing", "items": [
+      {"type": "mc", "q": "We plan ______ the supplier next month.", "choices": ["to visit", "visiting", "visit", "visited"], "answer": 0, "note": "plan 指向未來 → to V。"},
+      {"type": "mc", "q": "Thank you for ______ the drawing so quickly.", "choices": ["sending", "to send", "send", "sent"], "answer": 0, "note": "介係詞 for 後面只能 -ing。"},
+      {"type": "mc", "q": "We finished ______ all the samples yesterday.", "choices": ["testing", "to test", "test", "tested"], "answer": 0, "note": "finish 面對「這件事本身」→ V-ing。"},
+      {"type": "mc", "q": "We look forward to ______ your PO.", "choices": ["receiving", "receive", "be received", "received"], "answer": 0, "note": "look forward to 的 to 是介係詞 → -ing。"},
+      {"type": "mc", "q": "Remember ______ the report before you leave.（記得要去寄）", "choices": ["to send", "sending", "send", "sent"], "answer": 0, "note": "還沒寄、要去寄 → to V。remember sending 是「記得寄過」。"}
+    ]},
+    {"title": "B　-ing / -ed 與受詞補語", "items": [
+      {"type": "mc", "q": "I'm very ______ in this project.", "choices": ["interested", "interesting", "interest", "interests"], "answer": 0, "note": "人的感受用 -ed。"},
+      {"type": "mc", "q": "Please see the file ______ to this email.", "choices": ["attached", "attaching", "attach", "to attach"], "answer": 0, "note": "檔案是被附上的 → -ed。"},
+      {"type": "mc", "q": "The manager made us ______ the test.", "choices": ["redo", "to redo", "redoing", "redone"], "answer": 0, "note": "make + 人 + 原形。"},
+      {"type": "mc", "q": "We asked the supplier ______ the invoice.", "choices": ["to resend", "resend", "resending", "resent"], "answer": 0, "note": "ask + 人 + to V。"},
+      {"type": "mc", "q": "We had the samples ______ by a third-party lab.", "choices": ["tested", "testing", "to test", "test"], "answer": 0, "note": "have + 物 + V-ed = 請人把它測好。"}
+    ]},
+    {"title": "C　中翻英", "hint": "寫完檢查：第二個動作穿對衣服了嗎？", "items": [
+      {"type": "self", "q": "我們需要先確認數量。", "a": "We need to confirm the quantity first.", "note": "need 當家，confirm 穿 to。"},
+      {"type": "self", "q": "我打電話是要確認時程。", "a": "I called to confirm the schedule. / I'm calling to confirm the schedule.", "note": "「為了」直接 to V。"},
+      {"type": "self", "q": "謝謝你把報價寄過來。", "a": "Thank you for sending the quotation.", "note": "for + V-ing。"},
+      {"type": "self", "q": "我讓團隊去查一下這個問題。", "a": "I'll have the team look into it. / I'll ask the team to look into it.", "note": "have + 人 + 原形；ask + 人 + to V。"},
+      {"type": "self", "q": "這個延遲讓人很煩，客戶很不高興。", "a": "The delay is frustrating, and the customer is unhappy.", "note": "事情用 -ing（frustrating）。"}
+    ]}
+  ]
+}

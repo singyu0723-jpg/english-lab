@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "startDate": "2026-10-13",
+  "tiers": {
+    "must": {"label": "必做", "minutes": 120},
+    "extra": {"label": "加碼", "minutes": 75},
+    "light": {"label": "輕量日", "minutes": 25}
+  },
+  "tasks": [
+    {"id": "vocab_screen", "title": "單字篩選 300 字", "min": 10, "tier": "must", "when": "上班", "href": "vocab.html#screen", "desc": "只看英文字，點不認得的。篩完 4,000 字後這項自動消失。", "until": "screened"},
+    {"id": "vocab_study", "title": "背單字：到期複習 + 20 個新字", "min": 20, "tier": "must", "when": "上班", "href": "vocab.html#study", "desc": "單字卡：先猜意思，翻開，按記得／忘了。", "light": true, "lightMin": 10},
+    {"id": "grammar", "title": "文法一小節 + 練習", "min": 30, "tier": "must", "when": "上班", "href": "grammar.html", "desc": "照課綱走到哪讀哪。練習自動對答，錯 4 題以上回報 Dobby 補題。"},
+    {"id": "listen", "title": "聽力一集", "min": 25, "tier": "must", "when": "上班", "href": "listen.html", "desc": "戴耳機。聽完寫下三個重點（中文也可以）。", "light": true, "lightMin": 15},
+    {"id": "speak", "title": "口說：今天的主題講 3 分鐘", "min": 20, "tier": "must", "when": "回家", "voice": true, "href": "speak.html", "desc": "切到 Claude 語音，照看板主題講。講完把文字紀錄貼給 Dobby 修。"},
+    {"id": "write", "title": "中翻英 5 句 / 工作筆記", "min": 15, "tier": "must", "when": "回家", "href": "https://claude.ai", "external": true, "desc": "在「語言學習」專案開對話：請 Dobby 出 5 句，或把今天的工作筆記寫成英文請他改。"},
+
+    {"id": "shadow", "title": "影子跟讀 10 分", "min": 10, "tier": "extra", "when": "回家", "voice": true, "href": "listen.html", "desc": "把今天聽的那集放慢，跟著唸。"},
+    {"id": "vocab_extra", "title": "再篩 300 字 或 再背 20 字", "min": 20, "tier": "extra", "when": "上班", "href": "vocab.html"},
+    {"id": "listen_extra", "title": "再聽一集", "min": 20, "tier": "extra", "when": "上班", "href": "listen.html"},
+    {"id": "grammar_extra", "title": "文法下一小節", "min": 15, "tier": "extra", "when": "上班", "href": "grammar.html"},
+    {"id": "translate_extra", "title": "中翻英再 10 句", "min": 10, "tier": "extra", "when": "回家", "href": "https://claude.ai", "external": true}
+  ],
+  "rules": [
+    "必做全部打勾 = 今天完成。",
+    "很累、回高雄：按「輕量日」，只做單字 10 分 + 聽力 15 分，也算完成。",
+    "中斷了：隔天直接接著做，不補、不檢討。",
+    "口說是最弱的一項，必做裡不能拿掉。"
+  ]
+}

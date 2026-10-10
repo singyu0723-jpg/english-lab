@@ -1,0 +1,28 @@
+{
+  "id": "ch02",
+  "title": "五大句型",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　認形狀：這句是哪一型？", "hint": "看動詞後面是 ⟲、=、→、→人物、還是 →=。", "items": [
+      {"type": "mc", "q": "The new line <b>works</b> well.", "choices": ["① S+V", "② S+V+C", "③ S+V+O", "⑤ S+V+O+C"], "answer": 0, "note": "work 的力量停在自己；well 是副詞，是掛件不是補語。"},
+      {"type": "mc", "q": "The delivery <b>seems</b> late.", "choices": ["① S+V", "② S+V+C", "③ S+V+O", "④ S+V+人+物"], "answer": 1, "note": "seem 是等號：delivery = late。"},
+      {"type": "mc", "q": "Please <b>keep</b> the samples dry.", "choices": ["③ S+V+O", "④ S+V+人+物", "⑤ S+V+O+C", "② S+V+C"], "answer": 2, "note": "the samples = dry，受詞後面有等號 → ⑤。"},
+      {"type": "mc", "q": "He <b>showed</b> me the test report.", "choices": ["③ S+V+O", "④ S+V+人+物", "⑤ S+V+O+C", "① S+V"], "answer": 1, "note": "me ≠ the test report，是「人＋物」→ ④。"},
+      {"type": "mc", "q": "We <b>confirmed</b> the quantity yesterday.", "choices": ["① S+V", "② S+V+C", "③ S+V+O", "⑤ S+V+O+C"], "answer": 2, "note": "confirm → the quantity；yesterday 是掛件。"}
+    ]},
+    {"title": "B　補上缺的東西", "items": [
+      {"type": "fill", "q": "The result looks ______.（很好）", "accept": ["good", "fine", "great"], "a": "good", "note": "等號右邊放形容詞，不放 well。"},
+      {"type": "fill", "q": "Please explain the process ______ me.", "accept": ["to"], "a": "to", "note": "explain 不走句型 ④，一定是「物 + to 人」。"},
+      {"type": "fill", "q": "I'll send the revised drawing ______ you tomorrow.", "accept": ["to"], "a": "to", "note": "物先、人後 → to。"},
+      {"type": "fill", "q": "We made a special sample ______ the customer.", "accept": ["for"], "a": "for", "note": "make 是「為對方做」→ for。"},
+      {"type": "fill", "q": "Please keep me ______.（隨時通知我）", "accept": ["posted", "updated", "informed"], "a": "posted", "note": "句型 ⑤：me = posted。"}
+    ]},
+    {"title": "C　中翻英：寫完看動詞後面的形狀", "hint": "自己寫一遍，打開解答比對形狀對不對，再誠實按。", "items": [
+      {"type": "self", "q": "樣品昨天到了。", "a": "The samples arrived yesterday.", "note": "① S+V，時間掛在後面。不要寫 arrived the factory。"},
+      {"type": "self", "q": "這個交期看起來很趕。", "a": "The schedule looks tight. / The lead time looks tight.", "note": "② 等號句，右邊放形容詞 tight。"},
+      {"type": "self", "q": "我明天寄給你更新後的報價。", "a": "I'll send you the updated quotation tomorrow.", "note": "④ 人先物後不用 to；或 I'll send the updated quotation to you tomorrow."},
+      {"type": "self", "q": "這次延遲讓客戶很不高興。", "a": "The delay made the customer unhappy.", "note": "⑤ the customer = unhappy。"},
+      {"type": "self", "q": "我們發現連接器壞了。", "a": "We found the connector damaged. / We found that the connector was damaged.", "note": "⑤ the connector = damaged；或用 that 子句當受詞（③）。兩種都對。"}
+    ]}
+  ]
+}

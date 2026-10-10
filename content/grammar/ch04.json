@@ -1,0 +1,28 @@
+{
+  "id": "ch04",
+  "title": "時態",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　選時態", "items": [
+      {"type": "mc", "q": "We ______ the samples yesterday.", "choices": ["shipped", "have shipped", "ship", "are shipping"], "answer": 0, "note": "有 yesterday → 過去簡單。"},
+      {"type": "mc", "q": "I ______ the quotation. You can check your inbox now.", "choices": ["have already sent", "already sent", "am sending", "send"], "answer": 0, "note": "已經寄了、結果影響現在 → 現在完成。"},
+      {"type": "mc", "q": "We ______ this material since 2022.", "choices": ["have used", "used", "use", "are using"], "answer": 0, "note": "since + 起點 → 現在完成。"},
+      {"type": "mc", "q": "The line ______ 24 hours a day.", "choices": ["runs", "is running", "run", "has run"], "answer": 0, "note": "一向如此的事實 → 現在簡單；主詞 the line 單數加 s。"},
+      {"type": "mc", "q": "Sorry, I can't talk now — I ______ on the report.", "choices": ["am working", "work", "worked", "have worked"], "answer": 0, "note": "此刻正在做 → 現在進行。"},
+      {"type": "mc", "q": "OK, I ______ and get back to you.", "choices": ["'ll check", "'m going to check", "check", "checked"], "answer": 0, "note": "當場決定 → will。"}
+    ]},
+    {"title": "B　動詞形狀與一致", "items": [
+      {"type": "mc", "q": "Did you ______ the file?", "choices": ["send", "sent", "sending", "have sent"], "answer": 0, "note": "did 後面回原形。"},
+      {"type": "mc", "q": "The samples were ______ last week.", "choices": ["sent", "send", "sended", "sending"], "answer": 0, "note": "be 後面用過去分詞 sent。"},
+      {"type": "mc", "q": "We have ______ a new supplier.", "choices": ["chosen", "chose", "choose", "choosed"], "answer": 0, "note": "have 後面用第三個樣子 chosen。"},
+      {"type": "mc", "q": "The price of these connectors ______ too high.", "choices": ["is", "are", "be", "were"], "answer": 0, "note": "主詞的頭是 price，單數。"},
+      {"type": "fill", "q": "Our supplier ______ (have) the parts in stock.", "accept": ["has"], "a": "has", "note": "supplier 單數 → has。"},
+      {"type": "fill", "q": "We ______ (work) on this issue for two days and it's still not fixed.（一直在處理）", "accept": ["have been working", "'ve been working"], "a": "have been working", "note": "持續到現在還在做 → have been V-ing。"}
+    ]},
+    {"title": "C　中翻英", "items": [
+      {"type": "self", "q": "我已經把報價寄給你了。", "a": "I've already sent you the quotation. / I have sent you the quotation.", "note": "已經 → 現在完成，不要用 sent yesterday 那種過去式。"},
+      {"type": "self", "q": "客戶下週二會來。（已排好的行程）", "a": "The customer is visiting next Tuesday. / The customer will visit next Tuesday.", "note": "排好的行程用現在進行式最自然。"},
+      {"type": "self", "q": "我在這家公司工作五年了。", "a": "I've worked here for five years. / I've been working here for five years.", "note": "for + 一段時間 → 現在完成。"}
+    ]}
+  ]
+}
