@@ -1,0 +1,28 @@
+{
+  "id": "ch06",
+  "title": "間接疑問句與引述句",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　間接疑問句與名詞子句", "items": [
+      {"type": "mc", "q": "Do you know when ______?", "choices": ["the parts will arrive", "will the parts arrive", "do the parts arrive", "will arrive the parts"], "answer": 0, "note": "塞進句子不倒裝：主詞 + will。"},
+      {"type": "mc", "q": "I'm not sure ______ he's coming to the meeting.", "choices": ["if", "that", "what", "does"], "answer": 0, "note": "是否 → if / whether。"},
+      {"type": "mc", "q": "Could you tell me how much ______?", "choices": ["it costs", "does it cost", "it cost", "costs it"], "answer": 0, "note": "do 消失，動詞保留 s。"},
+      {"type": "mc", "q": "The problem is ______ we have no stock.", "choices": ["that", "if", "what", "whether"], "answer": 0, "note": "確定的事當補語 → that。"},
+      {"type": "mc", "q": "It depends on ______ they order.", "choices": ["how many units", "how many units do", "how many do units", "that how many"], "answer": 0, "note": "介係詞後面接間接疑問句，不用 do。"}
+    ]},
+    {"title": "B　引述", "items": [
+      {"type": "mc", "q": "\"We will ship on Monday.\" → They said they ______ on Monday.", "choices": ["would ship", "will ship", "shipped", "had shipped"], "answer": 0, "note": "will → would。"},
+      {"type": "mc", "q": "\"Can you reduce the price?\" → He asked ______ reduce the price.", "choices": ["if we could", "can we", "that we can", "if could we"], "answer": 0, "note": "問句轉述 → if，不倒裝，can → could。"},
+      {"type": "mc", "q": "\"Please send the drawing.\" → He asked us ______ the drawing.", "choices": ["to send", "send", "sending", "that send"], "answer": 0, "note": "命令轉述 = ask + 人 + to V。"},
+      {"type": "mc", "q": "He ______ that the test had failed.", "choices": ["told me", "said me", "told to me", "said to"], "answer": 0, "note": "tell + 人；say 不接人。"},
+      {"type": "fill", "q": "\"I am busy.\" → She said she ______ busy.", "accept": ["was"], "a": "was", "note": "am → was。"}
+    ]},
+    {"title": "C　中翻英", "items": [
+      {"type": "self", "q": "可以告訴我零件什麼時候會到嗎？", "a": "Could you tell me when the parts will arrive?", "note": "不倒裝。"},
+      {"type": "self", "q": "我不知道我們能不能提早出貨，我查一下。", "a": "I'm not sure if we can ship early. Let me check.", "note": "if = 是否。"},
+      {"type": "self", "q": "客戶說他們星期五前要拿到。", "a": "The customer said (that) they needed it by Friday. / …they need it by Friday.", "note": "正式退一格 needed；口語 need 也可以。"},
+      {"type": "self", "q": "他問我們能不能降價。", "a": "He asked if we could lower the price.", "note": "asked if + could。"},
+      {"type": "self", "q": "問題是我們沒有庫存。", "a": "The problem is that we have no stock.", "note": "The problem is that… 固定開頭。"}
+    ]}
+  ]
+}

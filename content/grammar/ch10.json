@@ -1,0 +1,28 @@
+{
+  "id": "ch10",
+  "title": "假設語氣",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　真的可能，還是只是想像", "items": [
+      {"type": "mc", "q": "If the test ______ tomorrow, we will ship on Friday.（真的在排程）", "choices": ["passes", "will pass", "passed", "would pass"], "answer": 0, "note": "真實條件：if + 現在式。"},
+      {"type": "mc", "q": "If the price ______ lower, we would order more.（現在價格不低）", "choices": ["were", "is", "will be", "had been"], "answer": 0, "note": "假設現在 → 過去式，be 用 were。"},
+      {"type": "mc", "q": "If the PO had come earlier, we ______ last week.", "choices": ["would have shipped", "would ship", "shipped", "will have shipped"], "answer": 0, "note": "對過去的假設 → would have + V-ed。"},
+      {"type": "mc", "q": "______ we get the drawing today, we can't start.", "choices": ["Unless", "If", "As long as", "In case"], "answer": 0, "note": "unless = if not。"},
+      {"type": "mc", "q": "If I ______ you, I would accept the offer.", "choices": ["were", "am", "was being", "will be"], "answer": 0, "note": "固定句 If I were you。"}
+    ]},
+    {"title": "B　混合、wish、其他句型", "items": [
+      {"type": "mc", "q": "If we had ordered more copper last month, we ______ short now.", "choices": ["wouldn't be", "wouldn't have been", "aren't", "won't be"], "answer": 0, "note": "混合型：過去的 if，現在的結果。"},
+      {"type": "mc", "q": "I wish we ______ it earlier.（過去沒測）", "choices": ["had tested", "tested", "test", "would test"], "answer": 0, "note": "wish + 過去完成 = 過去沒有。"},
+      {"type": "mc", "q": "Please keep a backup ______ the file gets corrupted.", "choices": ["in case", "if", "unless", "otherwise"], "answer": 0, "note": "in case = 以防萬一。"},
+      {"type": "mc", "q": "We suggest that the customer ______ a thicker jacket.", "choices": ["use", "uses", "used", "will use"], "answer": 0, "note": "suggest that + 原形。"},
+      {"type": "mc", "q": "______ you have any questions, please contact me.", "choices": ["Should", "If should", "Would", "Had"], "answer": 0, "note": "Should you = If you（正式）。"}
+    ]},
+    {"title": "C　中翻英", "items": [
+      {"type": "self", "q": "如果你們訂 1 萬條，我們給 5% 折扣。（真的在報價）", "a": "If you order 10,000 pcs, we will give you a 5% discount.", "note": "現在式 + will。"},
+      {"type": "self", "q": "如果數量能再多一點，我們可以給更好的價格。（談判，講軟一點）", "a": "If you could increase the quantity, we could offer a better price.", "note": "could…could。"},
+      {"type": "self", "q": "如果我們當初有測第一批，就會抓到那個瑕疵了。", "a": "If we had tested the first batch, we would have caught the defect.", "note": "had tested / would have caught。"},
+      {"type": "self", "q": "我們星期五前需要 PO，否則時程會延。", "a": "We need the PO by Friday; otherwise, the schedule will slip.", "note": "otherwise。"},
+      {"type": "self", "q": "真希望我們有多一點時間。", "a": "I wish we had more time.", "note": "wish + 過去式。"}
+    ]}
+  ]
+}

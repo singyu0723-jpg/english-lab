@@ -1,0 +1,28 @@
+{
+  "id": "ch05",
+  "title": "句子的種類",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　問句：搬誰到前面", "items": [
+      {"type": "mc", "q": "______ you receive the drawing yesterday?", "choices": ["Did", "Do", "Have", "Were"], "answer": 0, "note": "沒有助動詞、過去 → 派 did，動詞回原形。"},
+      {"type": "mc", "q": "______ the samples ready?", "choices": ["Are", "Do", "Does", "Did"], "answer": 0, "note": "句子裡有 be（are）→ 直接搬。"},
+      {"type": "mc", "q": "______ he ______ the meeting tomorrow?", "choices": ["Will / attend", "Is / attend", "Does / attends", "Will / attends"], "answer": 0, "note": "未來用 will，後面原形。"},
+      {"type": "mc", "q": "How many units ______ you need?", "choices": ["do", "are", "does", "have"], "answer": 0, "note": "wh- 字放前面，後面派 do。"},
+      {"type": "mc", "q": "______ sent this email?（誰寄的）", "choices": ["Who", "Who did", "Who does", "Did who"], "answer": 0, "note": "who 自己是主詞，不用搬。"}
+    ]},
+    {"title": "B　否定句", "items": [
+      {"type": "mc", "q": "He ______ here anymore.", "choices": ["doesn't work", "doesn't works", "not works", "isn't work"], "answer": 0, "note": "s 給 does 扛，動詞回原形。"},
+      {"type": "mc", "q": "We ______ the PO yet.", "choices": ["haven't received", "have no received", "didn't received", "not received"], "answer": 0, "note": "have + not = haven't。"},
+      {"type": "mc", "q": "We have ______ stock at the moment.", "choices": ["no", "not", "don't", "none"], "answer": 0, "note": "no 貼名詞。"},
+      {"type": "fill", "q": "I ______ think that will work.（我不認為那行得通）", "accept": ["don't", "do not"], "a": "don't", "note": "否定放在 think 前面。"},
+      {"type": "mc", "q": "The sample is ready, ______?", "choices": ["isn't it", "is it", "doesn't it", "isn't"], "answer": 0, "note": "前肯後否，跟著 is。"}
+    ]},
+    {"title": "C　中翻英", "items": [
+      {"type": "self", "q": "你收到我昨天寄的檔案了嗎？", "a": "Did you receive the file I sent yesterday?", "note": "did 扛過去，receive 回原形。"},
+      {"type": "self", "q": "我不確定他明天會不會來開會。", "a": "I'm not sure if he will attend the meeting tomorrow.", "note": "if 後面要有一個時態完整的動詞：will attend 或 is attending。"},
+      {"type": "self", "q": "可以請你星期五前寄報價給我嗎？", "a": "Could you send me the quotation by Friday?", "note": "對客戶／主管用 Could you…?"},
+      {"type": "self", "q": "我們現在沒有庫存。", "a": "We don't have any stock right now. / We have no stock at the moment.", "note": "don't have any = have no。"},
+      {"type": "self", "q": "恐怕我們沒辦法在星期五前出貨。", "a": "I'm afraid we can't ship by Friday.", "note": "I'm afraid 開頭是委婉否定的固定說法。"}
+    ]}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "ch12",
+  "title": "連接詞",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　選連接詞", "items": [
+      {"type": "mc", "q": "The price is good, ______ the lead time is too long.", "choices": ["but", "so", "because", "although"], "answer": 0, "note": "轉折 → but。"},
+      {"type": "mc", "q": "______ we receive the PO, we'll start production.", "choices": ["As soon as", "Although", "Because of", "Despite"], "answer": 0, "note": "一…就…"},
+      {"type": "mc", "q": "The shipment was delayed ______ the typhoon.", "choices": ["because of", "because", "although", "so"], "answer": 0, "note": "後面是名詞 → because of。"},
+      {"type": "mc", "q": "______ the sample passed, the customer wants another test.", "choices": ["Although", "Despite", "Because", "However"], "answer": 0, "note": "後面是句子 → although。"},
+      {"type": "mc", "q": "We added a label ______ the operator can see the lot number.", "choices": ["so that", "so", "because", "in order"], "answer": 0, "note": "目的 → so that。"},
+      {"type": "mc", "q": "You can pay ______ by T/T ______ by L/C.", "choices": ["either / or", "both / or", "neither / or", "not only / or"], "answer": 0, "note": "二選一。"}
+    ]},
+    {"title": "B　抓錯", "items": [
+      {"type": "mc", "q": "哪一句正確？", "choices": ["Although the price is high, the quality is good.", "Although the price is high, but the quality is good.", "Although the price is high, so the quality is good.", "The price is high, although but the quality is good."], "answer": 0, "note": "although 和 but 只能留一個。"},
+      {"type": "mc", "q": "哪一句正確？", "choices": ["The PO was late. Therefore, we couldn't start.", "The PO was late, therefore we couldn't start.", "Because the PO was late, so we couldn't start.", "The PO was late therefore, we couldn't start."], "answer": 0, "note": "therefore 是副詞：前句點、後逗點。"},
+      {"type": "mc", "q": "The new line is not only faster ______ cheaper to run.", "choices": ["but also", "and also", "but", "also"], "answer": 0, "note": "not only…but also。"},
+      {"type": "fill", "q": "We'll wait ______ the test is done.（直到）", "accept": ["until", "till"], "a": "until", "note": "until + 句子。"}
+    ]},
+    {"title": "C　中翻英", "items": [
+      {"type": "self", "q": "PO 晚到了，所以時程延誤。", "a": "The PO was late, so the schedule slipped. / Because the PO was late, the schedule slipped.", "note": "so 或 because 擇一。"},
+      {"type": "self", "q": "雖然價格比較高，但品質好很多。", "a": "Although the price is higher, the quality is much better.", "note": "不要再加 but。"},
+      {"type": "self", "q": "一拿到測試結果我就通知你。", "a": "As soon as I get the test results, I'll let you know.", "note": "as soon as + 現在式。"},
+      {"type": "self", "q": "出貨因為颱風延誤了。", "a": "The shipment was delayed because of the typhoon. / …due to the typhoon.", "note": "because of + 名詞。"},
+      {"type": "self", "q": "價格和交期都不能接受。（用 neither…nor）", "a": "Neither the price nor the lead time is acceptable.", "note": "動詞跟最近的名詞一致。"}
+    ]}
+  ]
+}

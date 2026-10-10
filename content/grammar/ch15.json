@@ -1,0 +1,28 @@
+{
+  "id": "ch15",
+  "title": "比較級",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　變形", "items": [
+      {"type": "mc", "q": "Supplier A is ______ than B.", "choices": ["cheaper", "more cheaper", "cheapest", "more cheap"], "answer": 0, "note": "短字加 -er，不加 more。"},
+      {"type": "mc", "q": "The new design is ______ than the old one.", "choices": ["more reliable", "reliabler", "most reliable", "more reliabler"], "answer": 0, "note": "長字用 more。"},
+      {"type": "mc", "q": "This is ______ option of the three.", "choices": ["the cheapest", "cheapest", "the cheaper", "the most cheap"], "answer": 0, "note": "最高級要 the。"},
+      {"type": "mc", "q": "The result is ______ than we expected.", "choices": ["better", "more good", "gooder", "best"], "answer": 0, "note": "good → better。"},
+      {"type": "mc", "q": "A is ______ cheaper than B.（便宜很多）", "choices": ["much", "very", "more", "most"], "answer": 0, "note": "very 不能修飾比較級。"}
+    ]},
+    {"title": "B　as…as 與句型", "items": [
+      {"type": "mc", "q": "Supplier B is not ______ A.（B 不如 A 快）", "choices": ["as fast as", "faster than", "so fast than", "as faster as"], "answer": 0, "note": "not as…as = 不如。"},
+      {"type": "mc", "q": "The new line is ______ as fast as the old one.（兩倍快）", "choices": ["twice", "two times more", "double", "twice more"], "answer": 0, "note": "twice as…as。"},
+      {"type": "mc", "q": "______ you order, ______ the unit price.", "choices": ["The more / the lower", "More / lower", "The most / the lowest", "The more / lower"], "answer": 0, "note": "The 比較級, the 比較級。"},
+      {"type": "mc", "q": "This is the largest order we ______.", "choices": ["have ever received", "ever received", "are receiving", "receive"], "answer": 0, "note": "最高級 + 現在完成 + ever。"},
+      {"type": "mc", "q": "It's ______ the most reliable connectors on the market.", "choices": ["one of", "one", "the one of", "one of the"], "answer": 0, "note": "one of the most + 複數。"}
+    ]},
+    {"title": "C　中翻英", "items": [
+      {"type": "self", "q": "A 比 B 便宜 20%。", "a": "A is 20% cheaper than B.", "note": "數字放比較級前。"},
+      {"type": "self", "q": "空運比較快，但比海運貴很多。", "a": "Air freight is faster but much more expensive than sea freight.", "note": "much 修飾比較級。"},
+      {"type": "self", "q": "新的供應商跟舊的一樣可靠。", "a": "The new supplier is as reliable as the old one.", "note": "as…as。"},
+      {"type": "self", "q": "訂越多，單價越低。", "a": "The more you order, the lower the unit price.", "note": "The more…, the lower…"},
+      {"type": "self", "q": "對這個客戶來說，可靠性是最重要的因素。", "a": "Reliability is the most important factor for this customer.", "note": "the most important。"}
+    ]}
+  ]
+}

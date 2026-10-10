@@ -1,0 +1,28 @@
+{
+  "id": "ch14",
+  "title": "詞類與句子成分",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　看位置選詞性（多益 Part 5 型）", "items": [
+      {"type": "mc", "q": "The ______ of the new line took two weeks.", "choices": ["installation", "install", "installed", "installing"], "answer": 0, "note": "the ___ of → 名詞。"},
+      {"type": "mc", "q": "Please handle the samples ______.", "choices": ["carefully", "careful", "care", "carefulness"], "answer": 0, "note": "修飾動詞 handle → 副詞。"},
+      {"type": "mc", "q": "We need a more ______ supplier.", "choices": ["reliable", "reliably", "reliability", "rely"], "answer": 0, "note": "名詞前 → 形容詞。"},
+      {"type": "mc", "q": "The machine must be ______ every six months.", "choices": ["calibrated", "calibration", "calibrate", "calibrating"], "answer": 0, "note": "be 後面被動 → 過去分詞。"},
+      {"type": "mc", "q": "Costs have risen ______ this year.", "choices": ["significantly", "significant", "significance", "signify"], "answer": 0, "note": "修飾動詞 risen → 副詞。"},
+      {"type": "mc", "q": "We will ______ the budget to three projects.", "choices": ["allocate", "allocation", "allocated", "allocating"], "answer": 0, "note": "will 後面 → 動詞原形。"}
+    ]},
+    {"title": "B　片語、子句、成分", "items": [
+      {"type": "mc", "q": "「because we found a defect」是？", "choices": ["子句（有主詞動詞）", "片語", "一個名詞", "一個副詞"], "answer": 0, "note": "有 we（主詞）found（動詞）。"},
+      {"type": "mc", "q": "「the drawing that you sent」裡的 that you sent 是？", "choices": ["形容詞子句，修飾 drawing", "名詞子句", "副詞子句", "介係詞片語"], "answer": 0, "note": "掛在名詞後面修飾它。"},
+      {"type": "mc", "q": "The revised quotation that we sent last week is still valid. 當家動詞是？", "choices": ["is", "sent", "revised", "valid"], "answer": 0, "note": "that 子句裡的 sent 在括號裡，不算。"},
+      {"type": "mc", "q": "Our engineers will test the samples carefully next week. 哪些是 M（可拿掉）？", "choices": ["carefully, next week", "the samples", "Our engineers", "will test"], "answer": 0, "note": "方式和時間是修飾語。"}
+    ]},
+    {"title": "C　字家族", "items": [
+      {"type": "fill", "q": "produce（動詞）→ 名詞「生產」：______", "accept": ["production"], "a": "production"},
+      {"type": "fill", "q": "approve（動詞）→ 名詞「核准」：______", "accept": ["approval"], "a": "approval"},
+      {"type": "fill", "q": "reliable（形容詞）→ 名詞「可靠性」：______", "accept": ["reliability"], "a": "reliability"},
+      {"type": "fill", "q": "calibrate（動詞）→ 名詞「校正」：______", "accept": ["calibration"], "a": "calibration"},
+      {"type": "self", "q": "用 productive 的副詞寫一句：我們今天工作很有效率。", "a": "We worked very productively today.", "note": "productively 修飾 worked。"}
+    ]}
+  ]
+}

@@ -78,7 +78,7 @@
         "否定句的原理",
         "總整理"
       ],
-      "ready": false
+      "ready": true
     },
     {
       "id": "ch06",
@@ -89,7 +89,7 @@
         "that / if / whether 名詞子句",
         "引述句轉換"
       ],
-      "ready": false
+      "ready": true
     },
     {
       "id": "ch07",
@@ -101,7 +101,7 @@
         "插入語",
         "同位語"
       ],
-      "ready": false,
+      "ready": true,
       "optional": true
     },
     {
@@ -114,7 +114,7 @@
         "句型 5 的被動",
         "各式被動句型"
       ],
-      "ready": false
+      "ready": true
     },
     {
       "id": "ch09",
@@ -129,7 +129,7 @@
         "may / might",
         "助動詞 + have p.p."
       ],
-      "ready": false
+      "ready": true
     },
     {
       "id": "ch10",
@@ -142,7 +142,7 @@
         "倒裝",
         "其他句型"
       ],
-      "ready": false
+      "ready": true
     },
     {
       "id": "ch11",
@@ -155,7 +155,7 @@
         "關係副詞",
         "複合關係代名詞"
       ],
-      "ready": false
+      "ready": true
     },
     {
       "id": "ch12",
@@ -167,7 +167,7 @@
         "從屬連接詞",
         "連接詞與介係詞"
       ],
-      "ready": false
+      "ready": true
     },
     {
       "id": "ch13",
@@ -178,7 +178,7 @@
         "典型的介係詞",
         "總複習"
       ],
-      "ready": false
+      "ready": true
     },
     {
       "id": "ch14",
@@ -189,7 +189,7 @@
         "片語／子句",
         "句子成分"
       ],
-      "ready": false
+      "ready": true
     },
     {
       "id": "ch15",
@@ -201,7 +201,7 @@
         "比較級",
         "最高級"
       ],
-      "ready": false
+      "ready": true
     }
   ]
 }

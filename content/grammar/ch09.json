@@ -1,0 +1,28 @@
+{
+  "id": "ch09",
+  "title": "助動詞",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　選對刻度", "items": [
+      {"type": "mc", "q": "You ______ send the original — a scanned copy is fine.（不必）", "choices": ["don't have to", "must not", "can't", "shouldn't"], "answer": 0, "note": "不必 = don't have to；must not 是禁止。"},
+      {"type": "mc", "q": "The line is down. There ______ a power issue.（一定是）", "choices": ["must be", "should be", "might be", "can be"], "answer": 0, "note": "推測最強 → must be。"},
+      {"type": "mc", "q": "Last year we ______ copper at a better price.", "choices": ["could get", "can get", "could got", "were able get"], "answer": 0, "note": "過去的能力 → could + 原形。"},
+      {"type": "mc", "q": "We will ______ ship next week.", "choices": ["be able to", "can", "could", "able to"], "answer": 0, "note": "will 後面不能接 can → be able to。"},
+      {"type": "mc", "q": "It ______ be the cable — we tested it twice.（不可能是）", "choices": ["can't", "mustn't", "shouldn't", "may not"], "answer": 0, "note": "不可能的推測 → can't be。"},
+      {"type": "mc", "q": "______ we start the meeting?（提議開始）", "choices": ["Shall", "Must", "Would", "Might"], "answer": 0, "note": "Shall we…? = 我們開始吧？"}
+    ]},
+    {"title": "B　客氣程度與過去", "items": [
+      {"type": "mc", "q": "對客戶：哪一句最合適？", "choices": ["Could you send the PO by Friday?", "You must send the PO by Friday.", "Send the PO by Friday.", "You have to send the PO by Friday."], "answer": 0, "note": "對客戶用 Could you…?"},
+      {"type": "mc", "q": "I ______ to confirm the delivery schedule.（我想要確認）", "choices": ["would like", "want", "will like", "would want"], "answer": 0, "note": "would like = want 的禮貌版。"},
+      {"type": "mc", "q": "We ______ the samples before shipping.（早該測的，但沒測）", "choices": ["should have tested", "should test", "must have tested", "could test"], "answer": 0, "note": "should have + V-ed = 早該。"},
+      {"type": "mc", "q": "They haven't replied. They ______ the email.（一定是漏看了）", "choices": ["must have missed", "must miss", "should have missed", "can't have missed"], "answer": 0, "note": "must have + V-ed = 一定是已經。"},
+      {"type": "fill", "q": "You ______ want to check the latest drawing.（很客氣的建議）", "accept": ["may", "might"], "a": "may", "note": "You may want to… 是最軟的建議。"}
+    ]},
+    {"title": "C　中翻英", "items": [
+      {"type": "self", "q": "我們必須在星期五前出貨，不然客戶的產線會停。", "a": "We have to ship by Friday; otherwise the customer's line will stop.", "note": "外在條件逼的 → have to。"},
+      {"type": "self", "q": "零件應該星期三會到。", "a": "The parts should arrive by Wednesday.", "note": "合理預期 → should。"},
+      {"type": "self", "q": "我們可以考慮改用比較細的線。", "a": "We could try a thinner wire.", "note": "could = 可以考慮。"},
+      {"type": "self", "q": "如果你能今天確認，我會很感激。", "a": "I would appreciate it if you could confirm today.", "note": "萬用客氣句。"}
+    ]}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "ch11",
+  "title": "關係詞",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　選掛鉤", "items": [
+      {"type": "mc", "q": "The engineer ______ handles this case is on leave.", "choices": ["who", "which", "whose", "what"], "answer": 0, "note": "人 → who。"},
+      {"type": "mc", "q": "Please tell me ______ you need.（你需要的東西）", "choices": ["what", "that", "which", "who"], "answer": 0, "note": "前面沒名詞 → what。"},
+      {"type": "mc", "q": "This is the only supplier ______ can do 28 AWG.", "choices": ["that", "which", "what", "whom"], "answer": 0, "note": "the only 後面用 that。"},
+      {"type": "mc", "q": "The factory ______ we make the cable is in Vietnam.", "choices": ["where", "which", "that", "what"], "answer": 0, "note": "地點、後面句子完整 → where。"},
+      {"type": "mc", "q": "The supplier missed the date again, ______ is unacceptable.", "choices": ["which", "that", "what", "it"], "answer": 0, "note": "逗點 + which 指前面整件事。"},
+      {"type": "mc", "q": "The customer ______ order was delayed has asked for a discount.", "choices": ["whose", "who", "which", "that"], "answer": 0, "note": "所有格 → whose。"}
+    ]},
+    {"title": "B　抓錯", "items": [
+      {"type": "mc", "q": "哪一句正確？", "choices": ["the issue that we discussed last week", "the issue that we discussed it last week", "the issue what we discussed last week", "the issue which we discussed it"], "answer": 0, "note": "that 已經是受詞，後面不放 it。"},
+      {"type": "mc", "q": "哪一句正確（口語）？", "choices": ["the supplier we work with", "the supplier with that we work", "the supplier which we work", "the supplier whom work with"], "answer": 0, "note": "介係詞留句尾，that 省略。"},
+      {"type": "mc", "q": "The samples, ______ failed, were from batch 3.（全部都失敗）", "choices": ["which", "that", "what", "they"], "answer": 0, "note": "有逗點只能用 which。"},
+      {"type": "fill", "q": "Send me ______ you have.（任何你有的）", "accept": ["whatever", "anything"], "a": "whatever", "note": "whatever = anything that。"}
+    ]},
+    {"title": "C　中翻英", "items": [
+      {"type": "self", "q": "你昨天寄的那張圖面有一個錯。", "a": "The drawing (that) you sent yesterday has an error.", "note": "that 當受詞可省。"},
+      {"type": "self", "q": "負責這個案子的工程師下週會聯絡你。", "a": "The engineer who handles this case will contact you next week.", "note": "who 是主詞不能省。"},
+      {"type": "self", "q": "這就是我們需要的。", "a": "This is what we need.", "note": "what = the thing that。"},
+      {"type": "self", "q": "他們核准了圖面，這表示我們可以開始了。", "a": "They approved the drawing, which means we can start.", "note": ", which = 前面整件事。"},
+      {"type": "self", "q": "測試失敗的原因是材料不對。", "a": "The reason (why) the test failed is the wrong material.", "note": "the reason why。"}
+    ]}
+  ]
+}

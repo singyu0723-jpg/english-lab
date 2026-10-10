@@ -1,0 +1,28 @@
+{
+  "id": "ch07",
+  "title": "倒裝句（含插入語、同位語）",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　認得倒裝：還原成正常句", "items": [
+      {"type": "mc", "q": "Never ______ such a serious delay.", "choices": ["have we had", "we have had", "had we have", "we had"], "answer": 0, "note": "Never 開頭 → have 搬到 we 前面。"},
+      {"type": "mc", "q": "______ the revised quotation for your reference.", "choices": ["Attached is", "Attached are", "Attach is", "Attaching"], "answer": 0, "note": "一份 quotation → is。"},
+      {"type": "mc", "q": "A: We can't make it by Friday. B: ______", "choices": ["Neither can we.", "So can we.", "Neither we can.", "We can't neither."], "answer": 0, "note": "否定接話：Neither + 助動詞 + 主詞。"},
+      {"type": "mc", "q": "______ you have any questions, please let me know.", "choices": ["Should", "If should", "Would", "Do"], "answer": 0, "note": "Should you have = If you have（正式）。"},
+      {"type": "mc", "q": "Not only ______ the price go up, but the lead time also got longer.", "choices": ["did", "does", "was", "had"], "answer": 0, "note": "Not only 開頭 → 派 did，動詞原形 go。"}
+    ]},
+    {"title": "B　插入語與同位語", "items": [
+      {"type": "mc", "q": "The sample, ______, failed the pull test.", "choices": ["however", "but", "although", "so"], "answer": 0, "note": "however 可以當插入語夾在兩個逗點中間；but 不行。"},
+      {"type": "mc", "q": "Mr. Lin, ______, will join the call.", "choices": ["our quality manager", "who our quality manager", "is our quality manager", "our quality manager is"], "answer": 0, "note": "同位語直接接名詞片語。"},
+      {"type": "mc", "q": "The MOQ is 5,000, ______, one full reel.", "choices": ["in other words", "however", "therefore", "as a result"], "answer": 0, "note": "換句話說。"},
+      {"type": "self", "q": "寫一句介紹自己：Erick，FIT 的資深工程師，會是你的聯絡窗口。", "a": "Erick, senior engineer at FIT, will be your contact.", "note": "同位語介紹人。"},
+      {"type": "self", "q": "我們的客戶（一家美國網通公司）要求 UL 認證。", "a": "Our customer, a US networking company, requires UL certification.", "note": "同位語解釋對方是誰。"}
+    ]},
+    {"title": "C　email 裡用得上的", "items": [
+      {"type": "self", "q": "附件是更新後的圖面。", "a": "Attached is the updated drawing.", "note": "也可以：Please find attached the updated drawing."},
+      {"type": "self", "q": "如有任何問題，請隨時與我聯絡。", "a": "Should you have any questions, please feel free to contact me.", "note": "正式信件結尾常用。"},
+      {"type": "self", "q": "A 說「我這週很忙」，你要說「我也是」。", "a": "So am I.", "note": "肯定接話：So + 助動詞 + 主詞。"},
+      {"type": "self", "q": "如果有必要，我們可以再做一次測試。（用插入語）", "a": "We can, if necessary, run a second test.", "note": "或 If necessary, we can run a second test."},
+      {"type": "self", "q": "我寫信是關於 PO 4471，也就是上週下的那張訂單。", "a": "I'm writing about PO 4471, the order placed last week.", "note": "同位語指明是哪一個。"}
+    ]}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "ch08",
+  "title": "被動語態",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　三個條件", "items": [
+      {"type": "mc", "q": "The problem ______ again yesterday.", "choices": ["happened", "was happened", "is happened", "has been happened"], "answer": 0, "note": "happen 沒受詞，不能被動。"},
+      {"type": "mc", "q": "The samples ______ last Friday.", "choices": ["were shipped", "was shipped", "were ship", "shipped"], "answer": 0, "note": "複數 → were；動詞第三型 shipped。"},
+      {"type": "mc", "q": "The PO ______ by the customer.", "choices": ["has been approved", "has approved", "is approve", "was approve"], "answer": 0, "note": "已經被核准 → has been + V-ed。"},
+      {"type": "mc", "q": "The samples ______ right now; results will be ready at 3 p.m.", "choices": ["are being tested", "are tested", "are testing", "have tested"], "answer": 0, "note": "正在被測 → are being + V-ed。"},
+      {"type": "mc", "q": "This spec ______ without the customer's approval.", "choices": ["can't be changed", "can't change", "can't be change", "isn't change"], "answer": 0, "note": "助動詞 + be + V-ed。"}
+    ]},
+    {"title": "B　句型 ④⑤ 與固定搭配", "items": [
+      {"type": "mc", "q": "They gave us a 5% discount. → We ______ a 5% discount.", "choices": ["were given", "were gave", "are giving", "gave"], "answer": 0, "note": "人當主詞的被動。"},
+      {"type": "mc", "q": "They made us redo the test. → We were made ______ the test.", "choices": ["to redo", "redo", "redoing", "redone"], "answer": 0, "note": "被動要補 to。"},
+      {"type": "mc", "q": "The quotation is based ______ 5,000 pcs.", "choices": ["on", "by", "in", "of"], "answer": 0, "note": "based on。"},
+      {"type": "mc", "q": "We are very interested ______ your new connector series.", "choices": ["in", "on", "by", "with"], "answer": 0, "note": "interested in。"},
+      {"type": "mc", "q": "The audit is scheduled ______ November 3.", "choices": ["for", "on", "by", "at"], "answer": 0, "note": "scheduled for + 日期。"}
+    ]},
+    {"title": "C　中翻英：先想重點是人還是東西", "items": [
+      {"type": "self", "q": "會議改到星期五了。", "a": "The meeting has been rescheduled to Friday.", "note": "重點是會議 → 被動；已經 → has been。"},
+      {"type": "self", "q": "樣品在運送過程中被弄壞了。", "a": "The samples were damaged during shipping. / The samples got damaged during shipping.", "note": "get + V-ed 口語。"},
+      {"type": "self", "q": "這個零件是在越南生產的。", "a": "This part is made in Vietnam.", "note": "一般事實 → is made。"},
+      {"type": "self", "q": "我昨天已經把報價寄給你了。（做的人是你）", "a": "I sent you the quotation yesterday. / I've already sent you the quotation.", "note": "做的人是自己 → 主動，不要 was sent by me。"},
+      {"type": "self", "q": "零件應該今天要到的，但還沒到。", "a": "The parts are supposed to arrive today, but they haven't yet.", "note": "be supposed to = 應該要。"}
+    ]}
+  ]
+}

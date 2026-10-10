@@ -1,0 +1,28 @@
+{
+  "id": "ch13",
+  "title": "介係詞",
+  "pass": {"maxWrong": 3},
+  "groups": [
+    {"title": "A　時間", "items": [
+      {"type": "mc", "q": "We'll ship ______ two weeks.（兩週後）", "choices": ["in", "within", "by", "for"], "answer": 0, "note": "in two weeks = 兩週後。"},
+      {"type": "mc", "q": "Please reply ______ two weeks.（兩週內）", "choices": ["within", "in", "until", "after"], "answer": 0, "note": "within = 範圍內任何時候。"},
+      {"type": "mc", "q": "The offer is valid ______ the end of the month.（持續到）", "choices": ["until", "by", "in", "at"], "answer": 0, "note": "持續到 → until。"},
+      {"type": "mc", "q": "The shipment arrived ______ time.（準時）", "choices": ["on", "in", "at", "by"], "answer": 0, "note": "on time = 準時。"},
+      {"type": "mc", "q": "The meeting is ______ 10 a.m. ______ Friday.", "choices": ["at / on", "on / at", "in / on", "at / in"], "answer": 0, "note": "時刻 at，日子 on。"}
+    ]},
+    {"title": "B　空間與固定搭配", "items": [
+      {"type": "mc", "q": "The price depends ______ the quantity.", "choices": ["on", "of", "in", "to"], "answer": 0, "note": "depend on。"},
+      {"type": "mc", "q": "We'll look ______ the issue and get back to you.（深入查）", "choices": ["into", "at", "for", "after"], "answer": 0, "note": "look into = 調查。"},
+      {"type": "mc", "q": "The cable is made ______ copper.（看得出材料）", "choices": ["of", "from", "by", "with"], "answer": 0, "note": "made of。"},
+      {"type": "mc", "q": "The tolerance is ______ 5 and 10 microns.", "choices": ["between", "among", "from", "in"], "answer": 0, "note": "兩個數值之間 → between。"},
+      {"type": "mc", "q": "______ the drawing, the pitch should be 0.5 mm.", "choices": ["According to", "Regarding", "Depending", "Because"], "answer": 0, "note": "依照 → according to。"}
+    ]},
+    {"title": "C　中翻英", "items": [
+      {"type": "self", "q": "請最晚星期五回覆。", "a": "Please reply by Friday.", "note": "by = 最晚。"},
+      {"type": "self", "q": "我跟客戶談了延遲的事。", "a": "I talked to the customer about the delay.", "note": "to 人、about 事。"},
+      {"type": "self", "q": "這張單在審查中。", "a": "The order is under review.", "note": "under review。"},
+      {"type": "self", "q": "關於你問的價格，我們星期一會回覆。", "a": "Regarding your question about pricing, we'll reply on Monday.", "note": "Regarding 開頭。"},
+      {"type": "self", "q": "每捲 100 條，單價每公尺 2 美元。", "a": "100 pcs per reel, at $2 per meter.", "note": "per = 每。"}
+    ]}
+  ]
+}
