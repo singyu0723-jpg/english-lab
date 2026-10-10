@@ -32,6 +32,66 @@
   .kb{display:block}
   @media(hover:none),(max-width:600px){.kb{display:none}}
   @media(max-width:600px){.flash{min-height:170px;padding:18px 16px}.flash .w{font-size:34px}.screenWord{font-size:38px;margin-top:14px}}
+  /* ---- 完整卡 ---- */
+  .flash .back .zh{margin-bottom:2px}
+  .flash .back .def{color:var(--soft);font-size:15px}
+  .sec{margin-top:16px}
+  .sec .h{font-size:12.5px;font-weight:800;letter-spacing:1.5px;color:var(--indigo);margin-bottom:5px}
+  .roots{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;align-items:baseline}
+  .roots .part{font-family:Georgia,serif;font-size:17px;font-weight:700;color:var(--indigo);background:var(--indigo-soft);border-radius:8px;padding:0 10px;justify-self:start;line-height:1.6}
+  .roots .gl{font-size:14.5px;color:var(--soft)}
+  .rootsNote{font-size:14.5px;color:var(--soft);margin-top:4px}
+  .fam{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+  .fam .f{background:#fff;border:1px solid var(--line);border-radius:999px;padding:1px 11px;font-family:Georgia,serif;font-size:15.5px;line-height:1.6;cursor:pointer}
+  .fam .f b{color:var(--indigo)}
+  .fam .f small{font-family:-apple-system,"PingFang TC",sans-serif;color:var(--soft);font-size:12.5px;margin-left:4px}
+  .fam .arrow{color:var(--soft);font-size:13px}
+  .exrow{display:flex;gap:8px;align-items:flex-start;margin-top:6px}
+  .exrow .ex{margin-top:0;flex:1;line-height:1.6}
+  .flash .back .ex b{color:var(--indigo)}
+  .coll{font-family:Georgia,serif;font-size:15.5px;line-height:1.7}
+  .coll span{color:var(--soft);font-family:-apple-system,"PingFang TC",sans-serif;font-size:13.5px}
+  .flash .back .syn{margin-top:0;font-size:14px}
+  .syn i{font-style:normal;font-family:Georgia,serif;color:var(--ink);font-size:15px}
+  .spk{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--indigo);cursor:pointer;flex-shrink:0;padding:0;vertical-align:middle}
+  .spk svg{width:18px;height:18px}
+  .spk.big{width:40px;height:40px;margin-left:8px;vertical-align:baseline}
+  .spk:active{transform:scale(.94)}
+  .wrow{display:flex;align-items:center;justify-content:center;gap:4px}
+  .autoRow{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:13px;color:var(--soft);margin:6px 0 4px}
+  .autoRow .sw{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;cursor:pointer;color:var(--ink);font-size:13px;min-height:32px}
+  .autoRow .sw svg{width:16px;height:16px}
+  .autoRow .sw{white-space:nowrap}
+  .autoRow .sw.on{border-color:var(--indigo);color:var(--indigo);background:var(--indigo-soft)}
+  /* ---- 延伸 ---- */
+  .ext{margin-top:22px;border-top:2px solid var(--line);padding-top:14px}
+  .ext .eh{display:flex;align-items:center;justify-content:space-between}
+  .ext .eh .t{font-size:12.5px;font-weight:800;letter-spacing:1.5px;color:var(--indigo)}
+  .ext .eh .n{font-size:12.5px;color:var(--soft)}
+  .chips2{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:8px 0}
+  .chips2 .g{display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start}
+  .chips2 .g.r{justify-content:flex-end}
+  .c{font-family:Georgia,serif;font-size:14px;line-height:1.5;border-radius:999px;padding:1px 9px;border:1.5px solid;background:#fff;white-space:nowrap;cursor:pointer}
+  .c.b0{color:#b03a37;border-color:#e4a6a3}.c.b1{color:#b4531a;border-color:#f0c6a5}.c.b2{color:#3e7a2a;border-color:#bcd9a6}.c.b3{color:#8a7414;border-color:#eadc8f}
+  .map{width:100%;height:auto;display:block}
+  .map text{font-family:Georgia,serif}
+  .map .cn{font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}
+  .lists{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:12px}
+  .grp .gh{display:inline-block;font-size:12.5px;font-weight:800;color:#fff;border-radius:999px;padding:0 10px;margin-bottom:2px}
+  .grp .it{display:flex;flex-direction:column;line-height:1.4;padding:4px 0;border-bottom:1px dashed var(--line);cursor:pointer}
+  .grp .it:last-child{border-bottom:0}
+  .grp .it .e{font-family:Georgia,serif;font-size:16px}
+  .grp .it .e small{font-family:-apple-system,"PingFang TC",sans-serif;color:var(--soft);font-size:12px;margin-left:4px}
+  .grp .it .z{font-size:13.5px;color:var(--soft)}
+  .grp .it .z b{color:var(--indigo);font-weight:700;font-size:11.5px;margin-right:4px}
+  @media(max-width:600px){.grp .it .e small .ipa{display:none}}
+  .btnrow{display:flex;gap:10px;margin-top:12px}
+  .btnrow .btn{flex:1;font-size:15px}
+  /* ---- modal ---- */
+  .ovl{position:fixed;inset:0;background:rgba(43,47,58,.45);z-index:80;display:flex;align-items:flex-end;justify-content:center}
+  .ovl .box{background:var(--paper);border-radius:20px 20px 0 0;width:100%;max-width:720px;max-height:88vh;overflow:auto;padding:12px 16px calc(24px + env(safe-area-inset-bottom))}
+  .ovl .box .flash{cursor:default}
+  @media(min-width:900px){.ovl{align-items:center}.ovl .box{border-radius:20px;max-height:85vh}}
   .unkList{display:flex;flex-wrap:wrap;gap:6px}
   .unkList span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-family:Georgia,serif;font-size:15px}
   textarea.exp{width:100%;min-height:90px;font-size:14px;border:1px solid var(--line);border-radius:12px;padding:10px;font-family:ui-monospace,monospace;background:#fff}
@@ -61,7 +121,89 @@
   const DAILY_SCREEN = 300, DAILY_NEW = 20;
   const data = await loadJSON('content/vocab/words.json');
   const W = data.words; const byId = Object.fromEntries(W.map(w=>[w.id,w]));
+  let cardIndex = {shards:[]}; try{ cardIndex = await loadJSON('content/vocab/cards/index.json'); }catch(e){}
   const view = document.getElementById('view');
+  const byWord = {}; W.forEach(w=>{ const k=w.word.toLowerCase(); if(!byWord[k]) byWord[k]=w; });
+
+  // ---- 完整卡（分片懶載入）----
+  const cardCache = {};
+  const shardOf = w => `${w.src}${Math.floor((w.rank-1)/500)}`;
+  async function getCard(w){
+    const s = shardOf(w);
+    if(!(s in cardCache)){ try{ cardCache[s] = await loadJSON(`content/vocab/cards/${s}.json`); }catch(e){ cardCache[s] = null; } }
+    return cardCache[s] ? (cardCache[s][w.id]||null) : null;
+  }
+  const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const mk = s => esc(s).replace(/\*(.+?)\*/g,'<b>$1</b>');
+  const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  const spk = (text, cls='') => EL.Speech.ok ? `<button type="button" class="spk ${cls}" data-say="${esc(text)}" aria-label="播放">${SPK}</button>` : '';
+  const autoSpeak = () => Store.get('vocab.autoSpeak', true);
+  const COLORS = [['#d9534f','#fff'],['#e8945a','#fff'],['#8fbf6a','#fff'],['#e6c94a','#2b2f3a']];
+
+  function renderBack(w, c){
+    if(!c){
+      return `<div class="zh">${esc(w.zh)}</div>
+        ${w.def?`<div class="def">${esc(w.def)}</div>`:''}
+        ${w.ex?`<div class="exrow">${spk(w.ex)}<div class="ex">${esc(w.ex)}</div></div><div class="exzh">${esc(w.ex_zh||'')}</div>`:`<div class="def" style="margin-top:8px">（完整卡製作中，下次更新會出現）</div>`}
+        ${w.syn&&w.syn.length?`<div class="syn" style="margin-top:8px">近義：${esc(w.syn.join(', '))}</div>`:''}`;
+    }
+    const fam = (c.family||[]).map((f,i)=>`${i?'<span class="arrow">→</span>':''}<span class="f" data-w="${esc(f[0])}">${i?esc(f[0]):`<b>${esc(f[0])}</b>`}<small>${esc(f[1])}</small></span>`).join('');
+    const famRoot = c.famRoot && c.famRoot.words && c.famRoot.words.length ? `<div class="fam" style="margin-top:6px"><span class="muted" style="font-size:13px">同字根 ${esc(c.famRoot.root)}：</span>${c.famRoot.words.map(f=>`<span class="f" data-w="${esc(f[0])}">${esc(f[0])}<small>${esc(f[1])}</small></span>`).join('')}</div>` : '';
+    let h = `<div class="zh">${esc(c.zh)}</div>${c.def?`<div class="def">${esc(c.def)}</div>`:''}`;
+    if((c.roots&&c.roots.length) || c.rootsNote){
+      h += `<div class="sec"><div class="h">拆解</div>${c.roots&&c.roots.length?`<div class="roots">${c.roots.map(r=>`<span class="part">${esc(r[0])}</span><span class="gl">${esc(r[1])}</span>`).join('')}</div>`:''}${c.rootsNote?`<div class="rootsNote">${esc(c.rootsNote)}</div>`:''}</div>`;
+    }
+    if(fam) h += `<div class="sec"><div class="h">字家族</div><div class="fam">${fam}</div>${famRoot}</div>`;
+    if(c.ex&&c.ex.length) h += `<div class="sec"><div class="h">工作例句</div>${c.ex.map(e=>`<div class="exrow">${spk(e[0])}<div class="ex">${mk(e[0])}</div></div><div class="exzh">${esc(e[1])}</div>`).join('')}</div>`;
+    if(c.coll&&c.coll.length) h += `<div class="sec"><div class="h">搭配</div><div class="coll">${c.coll.map(x=>`${mk(x[0])} <span>${esc(x[1])}</span>`).join('　·　')}</div></div>`;
+    if(c.syn&&c.syn.length) h += `<div class="sec"><div class="h">近義</div><div class="syn">${c.syn.map(x=>`<i data-w="${esc(x[0])}">${esc(x[0])}</i> ${esc(x[1])}`).join('　')}</div></div>`;
+    if(c.ext&&c.ext.branches&&c.ext.branches.length===4) h += renderExt(w, c);
+    return h;
+  }
+  function renderExt(w, c){
+    const B = c.ext.branches;
+    const chip = (b,i) => b.words.map(x=>`<span class="c b${i}" data-w="${esc(x[0])}">${esc(x[0])}</span>`).join('');
+    const total = B.reduce((n,b)=>n+b.words.length,0);
+    const pos = [[62,40],[298,40],[62,160],[298,160]];
+    const svg = `<svg class="map" viewBox="0 0 360 200" role="img" aria-label="${esc(w.word)} 延伸字">
+      <g fill="none" stroke="#b8bccb" stroke-width="1.8"><path d="M136 100 L80 52"/><path d="M224 100 L280 52"/><path d="M136 100 L80 148"/><path d="M224 100 L280 148"/></g>
+      <ellipse cx="180" cy="100" rx="48" ry="32" fill="#f7d6d3"/><text x="180" y="98" text-anchor="middle" font-size="${w.word.length>8?15:21}" font-weight="700" fill="#2b2f3a">${esc(w.word)}</text><text x="180" y="118" text-anchor="middle" font-size="13" class="cn" fill="#2b2f3a">${esc((c.zh||'').split(/[；;]/)[0])}</text>
+      ${B.map((b,i)=>`<g data-w="${esc(b.w)}" style="cursor:pointer"><ellipse cx="${pos[i][0]}" cy="${pos[i][1]}" rx="50" ry="26" fill="${COLORS[i][0]}"/><text x="${pos[i][0]}" y="${pos[i][1]-2}" text-anchor="middle" font-size="${b.w.length>9?13:16}" font-weight="700" fill="${COLORS[i][1]}">${esc(b.w)}</text><text x="${pos[i][0]}" y="${pos[i][1]+15}" text-anchor="middle" font-size="12" class="cn" fill="${COLORS[i][1]}">${esc(b.zh)}</text></g>`).join('')}
+    </svg>`;
+    const lists = B.map((b,i)=>`<div class="grp"><span class="gh" style="background:${COLORS[i][0]};color:${COLORS[i][1]}">${esc(b.w)} ${esc(b.zh)}</span>${b.words.map(x=>`<div class="it" data-w="${esc(x[0])}"><span class="e">${esc(x[0])}<small>${x[1]?`<span class="ipa">/${esc(x[1])}/ </span>`:''}${esc(x[2]||'')}</small></span><span class="z">${esc(x[3])}${x[4]?(/^[衍同反縮]/.test(x[4])?` <b>${esc(x[4].slice(0,1))}</b>${esc(x[4].slice(1).trim())}`:` ${esc(x[4])}`):''}</span></div>`).join('')}</div>`).join('');
+    return `<div class="ext"><div class="eh"><span class="t">延伸 · 一起出現的字</span><span class="n">${total} 字 · 點字發音／開卡</span></div>
+      <div class="chips2"><div class="g">${chip(B[0],0)}</div><div class="g r">${chip(B[1],1)}</div></div>
+      ${svg}
+      <div class="chips2"><div class="g">${chip(B[2],2)}</div><div class="g r">${chip(B[3],3)}</div></div>
+      <div class="lists">${lists}</div>
+      <div class="btnrow"><button type="button" class="btn" data-addext="${esc(w.id)}">把這些字加進複習</button></div></div>`;
+  }
+  // 卡片內點擊：發音 / 開字 / 加進複習
+  function cardClicks(root, onFlip){
+    root.addEventListener('click', async e=>{
+      const s = e.target.closest('.spk'); if(s){ e.stopPropagation(); EL.speak(s.dataset.say); return; }
+      const a = e.target.closest('[data-addext]'); if(a){ e.stopPropagation(); addExt(a.dataset.addext); return; }
+      const t = e.target.closest('[data-w]'); if(t){ e.stopPropagation(); const word=t.dataset.w; EL.speak(word); const ww=byWord[word.toLowerCase()]; if(ww && !(root.closest('.ovl'))) openWord(ww); return; }
+      if(onFlip) onFlip();
+    });
+  }
+  async function openWord(w){
+    const c = await getCard(w);
+    const ov = document.createElement('div'); ov.className='ovl';
+    ov.innerHTML = `<div class="box"><div class="row" style="justify-content:space-between;margin-bottom:6px"><span class="muted">${w.src==='ngsl'?'NGSL':'TSL'} #${w.rank}</span><button class="btn small ghost" data-close>關閉 ✕</button></div>
+      <div class="flash open"><div class="pos">${esc(c?c.pos:w.pos||'')}${(c?c.ipa:w.ipa)?` · /${esc(c?c.ipa:w.ipa)}/`:''}</div><div class="wrow"><span class="w">${esc(w.word)}</span>${spk(w.word,'big')}</div><div class="back">${renderBack(w,c)}</div></div></div>`;
+    document.body.appendChild(ov);
+    ov.addEventListener('click', e=>{ if(e.target===ov || e.target.closest('[data-close]')) ov.remove(); });
+    cardClicks(ov.querySelector('.flash'), null);
+    EL.speak(w.word);
+  }
+  async function addExt(id){
+    const w = byId[id]; const c = await getCard(w); if(!c||!c.ext) return;
+    const words = []; c.ext.branches.forEach(b=>{ words.push(b.w); b.words.forEach(x=>words.push(x[0])); });
+    const srs=S.srs(), unk=S.unknown(); let n=0;
+    Store.update('vocab.unknown', m=>{ words.forEach(x=>{ const ww=byWord[x.toLowerCase()]; if(ww && !m[ww.id] && !srs[ww.id]){ m[ww.id]=true; n++; } }); return m; }, {});
+    queue = null; toast(n?`已加入 ${n} 個字到複習佇列`:'這些字都已經在佇列裡了');
+  }
 
   // ---- state helpers ----
   const S = {
@@ -100,7 +242,7 @@
       ${doneToday?`<div class="note">今天的 300 字篩完了，「單字篩選」已打勾。還想繼續就繼續，不勉強。</div>`:''}
       <div class="card" style="padding:28px 18px 24px">
         <div class="screenPos">${w.src==='ngsl'?'NGSL':'TSL'} #${w.rank}</div>
-        <div class="screenWord">${w.word}</div>
+        <div class="wrow"><span class="screenWord">${esc(w.word)}</span>${spk(w.word,'big')}</div>
         <div style="text-align:center" class="muted">${w.pos||''}</div>
         <div class="two">
           <button class="btn no" id="unk">✗ 不認得</button>
@@ -112,6 +254,7 @@
     view.querySelector('#unk').onclick = ()=>mark(false);
     view.querySelector('#kn').onclick = ()=>mark(true);
     view.querySelector('#undo').onclick = undo;
+    const sp = view.querySelector('.spk'); if(sp) sp.onclick = e=>{ e.stopPropagation(); EL.speak(sp.dataset.say); };
   }
   function mark(known){
     const pos = S.pos(); const w = W[pos]; if(!w) return;
@@ -148,7 +291,7 @@
     const fresh = W.filter(w=>unk[w.id] && !srs[w.id]).slice(0, newLeft).map(w=>w.id);
     queue = [...due, ...fresh]; sessionAgain = [];
   }
-  function study(){
+  async function study(){
     if(queue===null) buildQueue();
     const st = todayStat(); const srs = S.srs();
     const dueCount = Object.values(srs).filter(r=>r.due<=today).length;
@@ -167,17 +310,16 @@
     if(!queue.length){ queue = sessionAgain; sessionAgain = []; }
     cur = byId[queue[0]]; flipped = false;
     const r = srs[cur.id];
+    const c = await getCard(cur);
+    if(cur !== byId[queue[0]]) return; // 載入期間已換卡
+    const ipa = c ? c.ipa : cur.ipa, pos = c ? c.pos : (cur.pos||'');
     view.innerHTML = `
-      <div class="row" style="justify-content:space-between"><span class="muted">剩 ${queue.length + sessionAgain.length} 張</span><span class="pill ${r?'':'warn'}">${r?`第 ${r.reps+1} 次 · 間隔 ${r.iv} 天`:'新字'}</span></div>
+      <div class="row" style="justify-content:space-between"><span class="muted">剩 ${queue.length + sessionAgain.length} 張</span><span class="pill ${r?'':'warn'}">${r?`第 ${r.reps+1} 次 · 間隔 ${r.iv} 天`:'新字'}${c&&c.ext?' · 核心字':''}</span></div>
+      <div class="autoRow">${EL.Speech.ok?`<button type="button" class="sw ${autoSpeak()?'on':''}" id="autoSw">${SPK} 翻面自動發音</button>`:'<span>這個瀏覽器不支援發音</span>'}</div>
       <div class="flash" id="flash">
-        <div class="pos">${cur.pos||''}${cur.ipa?` · /${cur.ipa}/`:''}</div>
-        <div class="w">${cur.word}</div>
-        <div class="back">
-          <div class="zh">${cur.zh}</div>
-          ${cur.def?`<div class="def">${cur.def}</div>`:''}
-          ${cur.ex?`<div class="ex">${cur.ex}</div><div class="exzh">${cur.ex_zh||''}</div>`:`<div class="def" style="margin-top:8px">（還沒有完整卡：把這個字放進「清單」給 Dobby 做字根拆解＋工作例句）</div>`}
-          ${cur.syn&&cur.syn.length?`<div class="syn">近義：${cur.syn.join(', ')}</div>`:''}
-        </div>
+        <div class="pos">${esc(pos)}${ipa?` · /${esc(ipa)}/`:''}</div>
+        <div class="wrow"><span class="w">${esc(cur.word)}</span>${spk(cur.word,'big')}</div>
+        <div class="back">${renderBack(cur, c)}</div>
       </div>
       <div class="tapHint" id="hint">先在心裡說出意思，再點卡片翻面<span class="kb">（或按空白鍵；翻面後 1／2／3 評分）</span></div>
       <div class="rate" id="rate" style="visibility:hidden">
@@ -185,10 +327,11 @@
         <button class="btn" data-g="1">記得<small>${r?`${Math.max(1,Math.round(r.iv*r.ef))} 天後`:'明天'}</small></button>
         <button class="btn ok" data-g="2">很熟<small>${r?`${Math.max(2,Math.round(r.iv*r.ef*1.3))} 天後`:'4 天後'}</small></button>
       </div>`;
-    view.querySelector('#flash').onclick = flip;
+    cardClicks(view.querySelector('#flash'), flip);
+    const sw = view.querySelector('#autoSw'); if(sw) sw.onclick = ()=>{ const v=!autoSpeak(); Store.set('vocab.autoSpeak', v); sw.classList.toggle('on', v); toast(v?'翻面會自動發音':'已關閉自動發音'); };
     view.querySelectorAll('#rate .btn').forEach(b=>b.onclick=()=>grade(Number(b.dataset.g)));
   }
-  function flip(){ if(flipped) return; flipped=true; view.querySelector('#flash').classList.add('open'); view.querySelector('#rate').style.visibility='visible'; view.querySelector('#hint').textContent='誠實評：忘了／記得／很熟'; }
+  function flip(){ if(flipped) return; flipped=true; view.querySelector('#flash').classList.add('open'); view.querySelector('#rate').style.visibility='visible'; view.querySelector('#hint').textContent='誠實評：忘了／記得／很熟'; if(autoSpeak() && cur) EL.speak(cur.word); }
   function grade(g){
     if(!cur || !flipped) return;
     const id = cur.id; const srs = S.srs(); const r = srs[id];
@@ -217,20 +360,18 @@
   function list(){
     const unk = S.unknown(); const srs = S.srs();
     const unkWords = W.filter(w=>unk[w.id]);
-    const noCard = unkWords.filter(w=>!w.ex);
     const d = S.daily(); const days = Object.keys(d).sort().slice(-7).reverse();
+    const shards = (cardIndex.shards||[]);
+    const covered = shards.length ? W.filter(w=>shards.includes(shardOf(w))).length : 0;
     view.innerHTML = `
       <div class="stat"><div class="box"><div class="n">${S.pos()}</div><div class="l">已篩</div></div><div class="box"><div class="n">${unkWords.length}</div><div class="l">不認得</div></div><div class="box"><div class="n">${Object.values(srs).filter(r=>r.iv>=21).length}</div><div class="l">間隔 ≥ 3 週</div></div></div>
-      <h2>給 Dobby 做完整卡</h2>
-      <p class="muted">這些是你不認得、但目前只有短解釋的字（${noCard.length} 個）。複製貼到對話，Dobby 會做字根字尾拆解＋衍生字＋工作例句，下次更新就會出現在卡片背面。</p>
-      <textarea class="exp" id="exp" readonly>${noCard.slice(0,80).map(w=>w.word).join(', ')}</textarea>
-      <div class="row" style="margin-top:8px"><button class="btn small" id="copy">複製前 ${Math.min(80,noCard.length)} 個</button><span class="muted" style="font-size:13px">一次 80 個剛好一批</span></div>
+      <p class="muted">完整卡（拆解＋字家族＋工作例句）目前涵蓋 ${covered} / ${W.length} 字，Dobby 會分批補齊，不用你做什麼。點下面任何一個字可以直接看卡、聽發音。</p>
       <h2>不認得的字（最近加入在前）</h2>
-      <div class="unkList">${unkWords.slice().reverse().slice(0,200).map(w=>`<span>${w.word}</span>`).join('')||'<span class="muted">還沒有</span>'}</div>
+      <div class="unkList">${unkWords.slice().reverse().slice(0,200).map(w=>`<span data-open="${w.id}">${esc(w.word)}</span>`).join('')||'<span class="muted">還沒有</span>'}</div>
       <h2>最近 7 天</h2>
       <div class="card">${days.map(k=>`<div class="row" style="justify-content:space-between;padding:4px 0"><span>${k}</span><span class="muted">篩 ${d[k].screened} · 新 ${d[k].newly} · 複習 ${d[k].review}</span></div>`).join('')||'<span class="muted">還沒有紀錄</span>'}</div>
       <p class="muted" style="font-size:12.5px;margin-top:20px">${data.meta.ngsl}；${data.meta.tsl}。</p>`;
-    view.querySelector('#copy').onclick = async ()=>{ const t=view.querySelector('#exp'); try{ await navigator.clipboard.writeText(t.value); toast('已複製'); }catch(e){ t.select(); document.execCommand('copy'); toast('已複製'); } };
+    view.querySelectorAll('[data-open]').forEach(el=>{ el.style.cursor='pointer'; el.onclick=()=>openWord(byId[el.dataset.open]); });
   }
 
   route();
