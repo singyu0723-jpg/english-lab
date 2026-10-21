@@ -14,7 +14,8 @@
   .screenWord{font-family:var(--serif);font-size:44px;font-weight:700;text-align:center;margin:26px 0 4px;word-break:break-word}
   .screenPos{text-align:center;color:var(--soft);font-size:14px;}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
-  .two .btn{min-height:64px;font-size:19px;border-radius:16px}
+  .two .btn{min-height:64px;font-size:18px;border-radius:14px;flex-direction:column;gap:2px;line-height:1.25;padding:10px 8px}
+  .two .btn small{font-size:12px;font-weight:500;opacity:.75}
   .btn.no{background:var(--no);border-color:var(--no);color:#fff}
   .flash{cursor:pointer;min-height:230px}
   .flash.open{background-image:none}
@@ -107,7 +108,6 @@
 <main>
   <h1>單字</h1>
   <div class="seg" id="seg">
-    <a href="#screen" data-v="screen">篩選</a>
     <a href="#study" data-v="study">背單字</a>
     <a href="#list" data-v="list">清單</a>
   </div>
@@ -218,10 +218,10 @@
 
   // ---- router ----
   function route(){
-    let v = (location.hash||'#screen').slice(1);
+    let v = (location.hash||'#study').slice(1);
     if(v.startsWith('w=')){ const w=byId[v.slice(2)]; v='list'; if(w) setTimeout(()=>openWord(w),50); }
     document.querySelectorAll('#seg a').forEach(a=>a.classList.toggle('on', a.dataset.v===v));
-    if(v==='study') study(); else if(v==='list') list(); else screen();
+    if(v==='list') list(); else { if(v!=='study') location.hash='#study'; study(); }
   }
   window.addEventListener('hashchange', route);
 
@@ -283,12 +283,13 @@
 
   // ================= 背單字（間隔重複）=================
   // srs[id] = {ef, iv, due, reps, lapses}
-  let queue = null, cur = null, flipped = false, sessionAgain = [];
+  let queue = null, cur = null, flipped = false, sessionAgain = [], extraMode = false;
   function buildQueue(){
     const srs = S.srs(); const unk = S.unknown(); const st = todayStat();
     const due = Object.entries(srs).filter(([id,r])=>r.due<=today).map(([id])=>id).sort((a,b)=>srs[a].due<srs[b].due?-1:1);
-    const newLeft = Math.max(0, DAILY_NEW - st.newly);
-    const fresh = W.filter(w=>unk[w.id] && !srs[w.id]).slice(0, newLeft).map(w=>w.id);
+    const known = S.known();
+    const cand = W.filter(w=>!srs[w.id] && !known[w.id]);
+    const fresh = [...cand.filter(w=>unk[w.id]), ...cand.filter(w=>!unk[w.id])].slice(0, 120).map(w=>w.id);
     queue = [...due, ...fresh]; sessionAgain = [];
   }
   async function study(){
@@ -298,30 +299,35 @@
     const unkTotal = Object.keys(S.unknown()).length;
     const learned = Object.keys(srs).length;
     if(!queue.length && !sessionAgain.length){
-      const allDone = dueCount===0 && (st.newly>=DAILY_NEW || learned>=unkTotal);
+      const known = Object.keys(S.known()).length; const seen = known + learned;
+      const allDone = dueCount===0 && (st.newly>=DAILY_NEW+(st.extraQuota||0) || seen>=W.length);
       if(allDone && st.newly+st.review>0) EL.markTask(today,'vocab_study',true);
       view.innerHTML = `
-        <div class="stat"><div class="box"><div class="n">${st.review}</div><div class="l">今天複習</div></div><div class="box"><div class="n">${st.newly}</div><div class="l">今天新字</div></div><div class="box"><div class="n">${learned}/${unkTotal}</div><div class="l">已開始學／不認得</div></div></div>
-        <div class="hero"><div class="big">${unkTotal===0?'還沒有要背的字':'今天的份做完了'}</div><div class="sub">${unkTotal===0?'先去「篩選」，按不認得的字會進到這裡。':(st.newly+st.review>0?'「背單字」已打勾。明天到期的字會自動出現。':'沒有到期的字，也沒有新字可學。')}</div>
-        ${unkTotal>learned && st.newly>=DAILY_NEW?`<div style="margin-top:12px"><button class="btn small" id="more">再學 10 個新字（加碼）</button></div>`:''}</div>`;
-      const m = view.querySelector('#more'); if(m) m.onclick = ()=>{ const unk=S.unknown(); const fresh=W.filter(w=>unk[w.id]&&!S.srs()[w.id]).slice(0,10).map(w=>w.id); queue=fresh; next(); };
+        <div class="stat"><div class="box"><div class="n">${st.review}</div><div class="l">今天複習</div></div><div class="box"><div class="n">${st.newly}</div><div class="l">今天新字</div></div><div class="box"><div class="n">${st.screened}</div><div class="l">今天跳過（已會）</div></div></div>
+        <div class="hero"><div class="big">${seen>=W.length?'4,059 字全部看過了':'今天的份做完了'}</div><div class="sub">${st.newly+st.review>0?'「背單字」已打勾。明天到期的字會自動出現。':'沒有到期的字。'}　已會 ${known} 字 · 學習中 ${learned} 字 · 還沒看過 ${W.length-seen} 字</div>
+        ${seen<W.length?`<div style="margin-top:12px"><button class="btn small" id="more">再學 10 個新字（加碼）</button></div>`:''}</div>`;
+      const m = view.querySelector('#more'); if(m) m.onclick = ()=>{ extraMode=true; Store.update('vocab.daily', d=>{ d[today]=d[today]||{screened:0,newly:0,review:0}; d[today].extraQuota=(d[today].extraQuota||0)+10; return d; }, {}); buildQueue(); next(); };
       return;
     }
     if(!queue.length){ queue = sessionAgain; sessionAgain = []; }
+    // 今天的新字額度用完：只剩沒學過的字時收工
+    if(queue.length && !srs[queue[0]] && st.newly>=DAILY_NEW+(st.extraQuota||0) && !sessionAgain.length){ queue=[]; extraMode=false; return study(); }
     cur = byId[queue[0]]; flipped = false;
     const r = srs[cur.id];
     const c = await getCard(cur);
     if(cur !== byId[queue[0]]) return; // 載入期間已換卡
     const ipa = c ? c.ipa : cur.ipa, pos = c ? c.pos : (cur.pos||'');
     view.innerHTML = `
-      <div class="row" style="justify-content:space-between"><span class="muted">剩 ${queue.length + sessionAgain.length} 張</span><span class="pill ${r?'':'warn'}">${r?`第 ${r.reps+1} 次 · 間隔 ${r.iv} 天`:'新字'}${c&&c.ext?' · 核心字':''}</span></div>
+      <div class="row" style="justify-content:space-between"><span class="muted">${r?`待複習 ${queue.filter(id=>srs[id]).length + sessionAgain.length} 張`:`今天新字 ${st.newly} / ${DAILY_NEW+(st.extraQuota||0)}`}</span><span class="pill ${r?'':'warn'}">${r?`第 ${r.reps+1} 次 · 間隔 ${r.iv} 天`:'新字'}${c&&c.ext?' · 核心字':''}</span></div>
       <div class="autoRow">${EL.Speech.ok?`<button type="button" class="sw ${autoSpeak()?'on':''}" id="autoSw">${SPK} 翻面自動發音</button>`:'<span>這個瀏覽器不支援發音</span>'}</div>
       <div class="flash" id="flash">
         <div class="pos">${esc(pos)}${ipa?` · /${esc(ipa)}/`:''}</div>
         <div class="wrow"><span class="w">${esc(cur.word)}</span>${spk(cur.word,'big')}</div>
         <div class="back">${renderBack(cur, c)}</div>
       </div>
-      <div class="tapHint" id="hint">先在心裡說出意思，再點卡片翻面<span class="kb">（或按空白鍵；翻面後 1／2／3 評分）</span></div>
+      ${r?`<div class="tapHint" id="hint">先在心裡說出意思，再點卡片翻面<span class="kb">（或按空白鍵；翻面後 1／2／3 評分）</span></div>`:`
+      <div class="two" id="firstSee"><button class="btn" data-know="1">我會<small>跳過，不再出現</small></button><button class="btn primary" data-flip="1">不熟，翻開學<small>學完進入複習</small></button></div>
+      <div class="tapHint" id="hint">新字：意思馬上浮出來就按「我會」，猶豫就翻開學。<span class="kb">鍵盤：← 我會　→／空白鍵 翻開</span></div>`}
       <div class="rate" id="rate" style="visibility:hidden">
         <button class="btn no" data-g="0">忘了<small>等一下再出現</small></button>
         <button class="btn" data-g="1">記得<small>${r?`${Math.max(1,Math.round(r.iv*r.ef))} 天後`:'明天'}</small></button>
@@ -330,8 +336,17 @@
     cardClicks(view.querySelector('#flash'), flip);
     const sw = view.querySelector('#autoSw'); if(sw) sw.onclick = ()=>{ const v=!autoSpeak(); Store.set('vocab.autoSpeak', v); sw.classList.toggle('on', v); toast(v?'翻面會自動發音':'已關閉自動發音'); };
     view.querySelectorAll('#rate .btn').forEach(b=>b.onclick=()=>grade(Number(b.dataset.g)));
+    const kb = view.querySelector('[data-know]'); if(kb) kb.onclick = knowIt;
+    const fb = view.querySelector('[data-flip]'); if(fb) fb.onclick = flip;
   }
-  function flip(){ if(flipped) return; flipped=true; view.querySelector('#flash').classList.add('open'); view.querySelector('#rate').style.visibility='visible'; view.querySelector('#hint').textContent='誠實評：忘了／記得／很熟'; if(autoSpeak() && cur) EL.speak(cur.word); }
+  function knowIt(){
+    if(!cur || flipped) return;
+    const id = cur.id;
+    Store.update('vocab.known', m=>{ m[id]=true; return m; }, {});
+    Store.update('vocab.unknown', m=>{ delete m[id]; return m; }, {});
+    bump('screened'); queue.shift(); next();
+  }
+  function flip(){ if(flipped) return; flipped=true; const f=view.querySelector('#firstSee'); if(f) f.remove(); view.querySelector('#flash').classList.add('open'); view.querySelector('#rate').style.visibility='visible'; view.querySelector('#hint').textContent='誠實評：忘了／記得／很熟'; if(autoSpeak() && cur) EL.speak(cur.word); }
   function grade(g){
     if(!cur || !flipped) return;
     const id = cur.id; const srs = S.srs(); const r = srs[id];
@@ -352,21 +367,22 @@
   function next(){ study(); }
   document.addEventListener('keydown', e=>{
     if(location.hash!=='#study' || !cur) return;
-    if(e.key===' '){ e.preventDefault(); flip(); }
+    if(e.key===' '||e.key==='ArrowRight'){ e.preventDefault(); flip(); }
+    if(e.key==='ArrowLeft' && !flipped && !S.srs()[cur.id]) { e.preventDefault(); knowIt(); }
     if(flipped && ['1','2','3'].includes(e.key)) grade(Number(e.key)-1);
   });
 
   // ================= 清單 =================
   function list(){
     const unk = S.unknown(); const srs = S.srs();
-    const unkWords = W.filter(w=>unk[w.id]);
+    const unkWords = W.filter(w=>unk[w.id] || srs[w.id]);
     const d = S.daily(); const days = Object.keys(d).sort().slice(-7).reverse();
     const shards = (cardIndex.shards||[]);
     const covered = cardIndex.count || 0;
     view.innerHTML = `
-      <div class="stat"><div class="box"><div class="n">${S.pos()}</div><div class="l">已篩</div></div><div class="box"><div class="n">${unkWords.length}</div><div class="l">不認得</div></div><div class="box"><div class="n">${Object.values(srs).filter(r=>r.iv>=21).length}</div><div class="l">間隔 ≥ 3 週</div></div></div>
+      <div class="stat"><div class="box"><div class="n">${Object.keys(S.known()).length}</div><div class="l">已會（跳過）</div></div><div class="box"><div class="n">${Object.keys(srs).length}</div><div class="l">學習中</div></div><div class="box"><div class="n">${Object.values(srs).filter(r=>r.iv>=21).length}</div><div class="l">間隔 ≥ 3 週</div></div></div>
       <p class="muted">${covered>=W.length?`${W.length} 字都有完整卡（拆解、字家族、工作例句），常用的核心字另外有延伸字圖。`:`完整卡目前涵蓋 ${covered}／${W.length} 字，其餘的字會陸續補上。`}點下面任何一個字可以看卡、聽發音。</p>
-      <h2>不認得的字（最近加入在前）</h2>
+      <h2>學習中的字（最近加入在前）</h2>
       <div class="unkList">${unkWords.slice().reverse().slice(0,200).map(w=>`<span data-open="${w.id}">${esc(w.word)}</span>`).join('')||'<span class="muted">還沒有</span>'}</div>
       <h2>最近 7 天</h2>
       <div class="card">${days.map(k=>`<div class="row" style="justify-content:space-between;padding:4px 0"><span>${k}</span><span class="muted">篩 ${d[k].screened} · 新 ${d[k].newly} · 複習 ${d[k].review}</span></div>`).join('')||'<span class="muted">還沒有紀錄</span>'}</div>
