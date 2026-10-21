@@ -10,44 +10,118 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icon.png">
 <link rel="stylesheet" href="assets/app.css">
+<style>
+  /* ===== 今日頁：一張當天的課表 ===== */
+  main.today{padding-top:18px}
+  .top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:22px}
+  .top .date{font-size:15px;color:var(--soft);line-height:1.3}
+  .top .date b{display:block;font-size:26px;font-weight:700;color:var(--ink);margin-top:2px}
+  .top .streak{text-align:right;font-size:13px;color:var(--soft);line-height:1.3}
+  .top .streak svg{display:block;margin:0 0 4px auto}
+  .top .streak svg line{stroke:var(--indigo);stroke-width:3;stroke-linecap:round}
+
+  /* 現在要做的 */
+  .now{background:var(--navy);color:#fff;border-radius:18px;padding:20px 22px 18px;position:relative;overflow:hidden}
+  .now::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.05)}
+  .now .k{font-size:13px;color:rgba(255,255,255,.65);letter-spacing:.04em}
+  .now .t{font-size:24px;font-weight:700;line-height:1.3;margin:4px 0 2px}
+  .now .m{font-size:14px;color:rgba(255,255,255,.7)}
+  .now .d{font-size:15px;line-height:1.7;color:rgba(255,255,255,.88);margin:10px 0 0;max-width:40ch}
+  .now .act{display:flex;align-items:center;gap:14px;margin-top:16px}
+  .now .go{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 26px;border-radius:999px;background:var(--honey);color:#2b2008;font-weight:700;font-size:16px;text-decoration:none}
+  .now .skip{background:none;border:0;color:rgba(255,255,255,.7);font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0;font-family:var(--sans)}
+  .now.alldone{background:var(--indigo)}
+  .now.finished{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+  .now.finished .k,.now.finished .m{color:var(--soft)}
+  .now.finished::after{display:none}
+
+  /* 今天的進度 */
+  .prog{display:flex;align-items:baseline;justify-content:space-between;margin:26px 0 8px;font-size:14px;color:var(--soft)}
+  .prog b{font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .bar2{height:8px;border-radius:4px;background:var(--paper-deep);overflow:hidden}
+  .bar2 i{display:block;height:100%;background:var(--indigo);border-radius:4px;transition:width .3s}
+
+  /* 課表：上班 / 回家 兩段 */
+  .sched{margin-top:18px;border-top:1px solid var(--line)}
+  .slot{display:grid;grid-template-columns:58px 1fr;border-bottom:1px solid var(--line)}
+  .slot .when{padding:14px 0 14px 2px;font-size:14px;font-weight:700;color:var(--indigo);border-right:1px solid var(--line)}
+  .slot .when small{display:block;font-weight:400;color:var(--soft);font-size:12px;margin-top:2px;font-variant-numeric:tabular-nums}
+  .slot ul{list-style:none;margin:0;padding:4px 0 4px 14px}
+  .slot li{display:grid;grid-template-columns:24px 1fr auto;column-gap:12px;align-items:center;min-height:46px;padding:4px 0}
+  .slot li .check{width:22px;height:22px;border-radius:5px;border:1.5px solid #b9a98f;background:transparent;position:relative;padding:0;cursor:pointer}
+  .slot li .check::after{content:"";position:absolute;inset:-8px}
+  .slot li .check.on{background:var(--indigo);border-color:var(--indigo);animation:pop .22s ease-out}
+  .slot li .check.on::before{content:"";position:absolute;left:6px;top:2px;width:6px;height:12px;border:solid #fff;border-width:0 2.2px 2.2px 0;transform:rotate(42deg)}
+  @keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+  .slot li a{text-decoration:none;color:inherit;font-size:16.5px;font-weight:500;line-height:1.4;min-width:0}
+  .slot li a .v{color:var(--warn);font-size:12.5px;margin-left:6px;font-weight:600}
+  .slot li .min{font-size:13.5px;color:var(--soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .slot li.done a{color:var(--soft);text-decoration:line-through;text-decoration-color:#c9b99f}
+  .slot li.cur a{font-weight:700}
+  .slot li.x a{color:var(--soft);font-weight:400}
+  .slot li.x .check{border-style:dashed}
+  .slot .more{grid-column:1/3;padding:0 0 0 72px}
+  .slot .more summary{list-style:none;cursor:pointer;color:var(--soft);font-size:13.5px;padding:8px 0 10px}
+  .slot .more summary::-webkit-details-marker{display:none}
+  .slot .more summary::before{content:none}
+  .slot .more ul{padding-left:0;padding-bottom:8px}
+
+  /* 收尾 */
+  .dayend{display:flex;align-items:center;gap:16px;margin:20px 0 0;flex-wrap:wrap}
+  .stamp{min-height:46px;padding:8px 24px;border-radius:999px;border:2px solid var(--indigo);background:transparent;color:var(--indigo);font-family:var(--sans);font-size:16px;font-weight:700;cursor:pointer;letter-spacing:.06em}
+  .stamp.ready{background:var(--indigo);color:#fff}
+  .stamp.on{background:var(--honey-soft);border-color:var(--honey);color:#6b4a0a;transform:rotate(-2deg)}
+  .linkbtn{background:none;border:0;color:var(--soft);font-size:14.5px;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#c9b99f;cursor:pointer;padding:8px 0;font-family:var(--sans)}
+  .hint{margin:8px 0 0;font-size:13.5px}
+
+  /* 底部兩塊 */
+  .bottom{display:grid;grid-template-columns:1fr;gap:14px;margin-top:34px}
+  .wotd{border-top:1px solid var(--line);padding-top:14px}
+  .wotd a{text-decoration:none;color:inherit;display:block}
+  .wotd .k{font-size:13px;color:var(--soft)}
+  .wotd .w{font-family:var(--serif);font-size:30px;line-height:1.2;margin-top:2px}
+  .wotd .w small{font-family:var(--sans);font-size:15px;color:var(--soft);margin-left:10px}
+  .wotd .ex{font-family:var(--serif);font-size:16px;margin-top:4px;line-height:1.55}
+  .wotd .exzh{color:var(--soft);font-size:13.5px}
+  .recent{border-top:1px solid var(--line);padding-top:14px}
+  .recent .k{font-size:13px;color:var(--soft);display:flex;justify-content:space-between}
+  .recent .k a{color:var(--soft)}
+  .dots{display:flex;gap:6px;margin-top:8px}
+  .dots .dot{width:12px;height:12px;border-radius:50%;background:var(--paper-deep)}
+  .dots .dot.done{background:var(--indigo)}
+  .dots .dot.light{background:#9fc4b2}
+  .dots .dot.today{box-shadow:0 0 0 2px var(--honey);background:var(--card)}
+  .dots .dot.today.done{background:var(--indigo)}
+  .foot{margin-top:30px;padding-top:14px;border-top:1px dashed var(--line)}
+</style>
 </head>
 <body>
 <main class="today">
-  <section class="panel head">
-    <div class="pagehead">
-      <div class="daynum" id="daynum">—</div>
-      <div class="daymeta">
-        <div class="month" id="month"></div>
-        <div class="wd" id="dateline"></div>
-      </div>
-    </div>
-    <div class="tally">
-      <svg id="tallySvg" viewBox="0 0 160 36" width="160" height="36" aria-hidden="true"></svg>
-      <div class="tallyText" id="streakline"></div>
-    </div>
-    <div class="dots" id="history" aria-label="最近 14 天"></div>
-  </section>
+  <div class="top">
+    <div class="date"><span id="wd"></span><b id="dateline"></b></div>
+    <div class="streak"><svg id="tallySvg" viewBox="0 0 160 36" width="120" height="27" aria-hidden="true"></svg><span id="streakline"></span></div>
+  </div>
 
-  <section class="panel">
-    <header class="ph"><h2>必做</h2><small id="mustSum"></small></header>
-    <ol class="lines" id="must"></ol>
-    <footer class="pf">
-      <button class="stamp" id="doneBtn">今天完成</button>
-      <button class="linkbtn" id="lightBtn">改成輕量日</button>
-      <p class="muted hint" id="hint"></p>
-    </footer>
-  </section>
+  <section class="now" id="now"></section>
 
-  <details class="panel extra" id="extraBox">
-    <summary class="ph"><h2>加碼</h2><small id="extraSum"></small></summary>
-    <ol class="lines" id="extra"></ol>
-  </details>
+  <div class="prog"><span>今天的必做</span><span><b id="progDone">0</b> / <span id="progAll">0</span> 分鐘</span></div>
+  <div class="bar2"><i id="progBar" style="width:0%"></i></div>
 
-  <section class="panel wotd" id="wotd" hidden></section>
+  <div class="sched" id="sched"></div>
+
+  <div class="dayend">
+    <button class="stamp" id="doneBtn">今天完成</button>
+    <button class="linkbtn" id="lightBtn">改成輕量日</button>
+  </div>
+  <p class="muted hint" id="hint"></p>
+
+  <div class="bottom">
+    <div class="wotd" id="wotd" hidden></div>
+    <div class="recent"><div class="k"><span>最近 14 天</span><a href="review.html">本月月報 →</a></div><div class="dots" id="history"></div></div>
+  </div>
 
   <div class="foot">
-    <a class="linkbtn" href="review.html" style="text-decoration:none">看本月月報 →</a>
-    <details style="margin-top:8px"><summary>規則</summary><ul id="rules" class="muted" style="padding-left:20px"></ul></details>
+    <details><summary>規則</summary><ul id="rules" class="muted" style="padding-left:20px"></ul></details>
     <div id="auth" class="row" style="margin-top:14px;font-size:13px;align-items:center;gap:10px;flex-wrap:wrap"></div>
   </div>
 </main>
@@ -63,11 +137,12 @@
   const today = dkey();
   const plan = await loadJSON('content/plan.json');
   const wd = ['日','一','二','三','四','五','六'][weekday(today)];
-  { const [y,m,d]=today.split('-'); document.getElementById('daynum').textContent = Number(d); document.getElementById('month').textContent = `${Number(m)} 月`; document.getElementById('dateline').textContent = `星期${wd}`; }
+  { const [y,m,d]=today.split('-'); document.getElementById('dateline').textContent = `${Number(m)} 月 ${Number(d)} 日`; document.getElementById('wd').textContent = `星期${wd}`; }
   document.getElementById('rules').innerHTML = plan.rules.map(r=>`<li>${r}</li>`).join('');
+  const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const skipped = () => Store.get('today.skip', {});
 
   function tally(n){
-    // 用「正」字計數：每個正五劃
     const strokes=[[2,6,22,6],[12,6,12,30],[12,18,22,18],[4,30,4,14],[2,30,24,30]];
     let out=''; const full=Math.floor(n/5), rest=n%5; const W=28;
     const draw=(k,i)=>{ const [x1,y1,x2,y2]=strokes[i]; const ox=k*W; return `<line x1="${x1+ox}" y1="${y1}" x2="${x2+ox}" y2="${y2}"/>`; };
@@ -75,61 +150,84 @@
     if(full<5) for(let i=0;i<rest;i++) out+=draw(full,i);
     return out;
   }
+
   function render(){
-    const log = getLog(); const day = log[today] || {tasks:{}};
+    const log = getLog(); const day = log[today] || {tasks:{}}; const done = day.tasks||{};
     const light = !!day.light;
     const screened = Store.get('vocab.screenDone', false);
     const visible = plan.tasks.filter(t => !(t.until==='screened' && screened));
     const must = visible.filter(t => light ? t.light : t.tier==='must');
     const extra = light ? [] : visible.filter(t => t.tier==='extra');
     const mins = t => light&&t.lightMin?t.lightMin:t.min;
-    const sum = arr => arr.reduce((a,t)=>a+mins(t),0);
-    const doneN = arr => arr.filter(t=>(day.tasks||{})[t.id]).length;
-    document.getElementById('mustSum').textContent = must.length ? `${doneN(must)}／${must.length}，約 ${sum(must)} 分鐘` : '';
-    document.getElementById('extraSum').textContent = extra.length ? `${extra.length} 項，約 ${sum(extra)} 分鐘，有空再做` : (light?'輕量日不做加碼':'');
-    let focusDone=false;
-    const item = t => {
-      const on = !!(day.tasks||{})[t.id];
-      const focus = !on && !focusDone && t.tier==='must'; if(focus) focusDone=true;
-      return `<li class="line ${on?'done':''} ${focus?'next':''}" data-id="${t.id}">
-        <button class="check ${on?'on':''}" aria-label="${on?'取消勾選':'勾選完成'}：${t.title}" aria-pressed="${on}"></button>
-        <a class="body" href="${t.href}" ${t.external?'target="_blank" rel="noopener"':''}>
-          <span class="t">${t.title}</span>
-          <span class="m">${mins(t)} 分鐘 · ${t.when==='回家'?'回家':'上班'}${t.voice?' · <em class="voice">出聲</em>':''}</span>
-          ${t.desc&&focus?`<span class="d">${t.desc}</span>`:''}
-        </a></li>`;
+    const total = must.reduce((a,t)=>a+mins(t),0), got = must.filter(t=>done[t.id]).reduce((a,t)=>a+mins(t),0);
+    const sk = skipped()[today]||{};
+    const next = must.find(t=>!done[t.id] && !sk[t.id]) || must.find(t=>!done[t.id]);
+
+    // 現在要做的
+    const now = document.getElementById('now');
+    if(day.done){
+      now.className='now finished';
+      now.innerHTML = `<div class="k">今天</div><div class="t">做完了，明天見。</div><div class="m">連續 ${streak(today)} 天</div>`;
+    } else if(!next){
+      now.className='now alldone';
+      now.innerHTML = `<div class="k">必做</div><div class="t">全部勾完了</div><div class="m">按下面的「今天完成」蓋章。</div>`;
+    } else {
+      now.className='now';
+      now.innerHTML = `<div class="k">${got?'接下來':'先做這個'}</div><div class="t">${esc(next.title)}</div><div class="m">${mins(next)} 分鐘 · ${next.when==='回家'?'回家做':'上班做'}${next.voice?' · 要出聲':''}</div>${next.desc?`<div class="d">${esc(next.desc)}</div>`:''}<div class="act"><a class="go" href="${next.href}" ${next.external?'target="_blank" rel="noopener"':''}>開始</a><button class="skip" data-skip="${next.id}">先跳過</button></div>`;
+    }
+
+    // 進度
+    document.getElementById('progDone').textContent = got; document.getElementById('progAll').textContent = total;
+    document.getElementById('progBar').style.width = (total?Math.round(got/total*100):0)+'%';
+
+    // 課表
+    const li = (t,x) => `<li class="${done[t.id]?'done':''} ${next&&t.id===next.id?'cur':''} ${x?'x':''}" data-id="${t.id}">
+      <button class="check ${done[t.id]?'on':''}" aria-label="${done[t.id]?'取消勾選':'勾選完成'}：${esc(t.title)}" aria-pressed="${!!done[t.id]}"></button>
+      <a href="${t.href}" ${t.external?'target="_blank" rel="noopener"':''}>${esc(t.title)}${t.voice?'<span class="v">出聲</span>':''}</a>
+      <span class="min">${mins(t)} 分</span></li>`;
+    const slot = (label, whenKey) => {
+      const m = must.filter(t=>t.when===whenKey), x = extra.filter(t=>t.when===whenKey);
+      if(!m.length && !x.length) return '';
+      const sum = m.reduce((a,t)=>a+mins(t),0);
+      return `<div class="slot"><div class="when">${label}<small>${sum} 分</small></div><ul>${m.map(t=>li(t,false)).join('')}</ul>
+        ${x.length?`<details class="more"><summary>加碼 ${x.length} 項，${x.reduce((a,t)=>a+mins(t),0)} 分鐘 ▸</summary><ul>${x.map(t=>li(t,true)).join('')}</ul></details>`:''}</div>`;
     };
-    document.getElementById('must').innerHTML = must.map(item).join('') || '<li class="muted empty">今天沒有必做項目</li>';
-    document.getElementById('extra').innerHTML = extra.map(item).join('') || `<li class="muted empty">${light?'輕量日不做加碼。':'沒有加碼項目。'}</li>`;
-    const allMust = must.length && must.every(t=>(day.tasks||{})[t.id]);
+    document.getElementById('sched').innerHTML = slot('上班','上班') + slot('回家','回家');
+
+    // 收尾
+    const allMust = must.length && must.every(t=>done[t.id]);
     const doneBtn = document.getElementById('doneBtn');
     doneBtn.textContent = day.done ? '今天完成了' : '今天完成';
     doneBtn.className = 'stamp' + (day.done?' on':'') + (allMust&&!day.done?' ready':'');
     document.getElementById('lightBtn').textContent = light ? '改回一般日' : '改成輕量日';
-    document.getElementById('hint').textContent = light ? '輕量日只做兩項，做完一樣算完成。' : (day.done ? '做完了，明天見。' : (allMust ? '必做都勾了，蓋個章吧。' : '必做全部勾完再按「今天完成」。很累就改成輕量日。'));
+    document.getElementById('hint').textContent = light ? '輕量日只做兩項，做完一樣算完成。' : (day.done ? '' : (allMust ? '' : '必做全部勾完再按「今天完成」。很累就改成輕量日。'));
+
+    // 連續
     const st = streak(today), mo = monthCount(today), tot = totalCount();
     document.getElementById('tallySvg').innerHTML = tally(st);
-    document.getElementById('streakline').textContent = st ? `連續 ${st} 天${st>=25?'（正字只畫到 25）':''}，這個月 ${mo} 天，累計 ${tot} 天` : (tot ? `這個月 ${mo} 天，累計 ${tot} 天。今天做完就重新開始連續。` : '今天是第一天。');
-    const cells = []; for(let i=13;i>=0;i--){ const d=addDays(today,-i); const l=log[d]; const [y,m,dd]=d.split('-');
-      const st2 = l&&l.done ? (l.light?'light':'done') : 'none';
-      cells.push(`<span class="dot ${st2} ${d===today?'today':''}" title="${d}"></span>`); }
+    document.getElementById('streakline').textContent = st ? `連續 ${st} 天 · 本月 ${mo} 天` : (tot ? `本月 ${mo} 天 · 累計 ${tot} 天` : '第一天');
+
+    // 最近 14 天
+    const cells = []; for(let i=13;i>=0;i--){ const d=addDays(today,-i); const l=log[d];
+      const s2 = l&&l.done ? (l.light?'light':'done') : '';
+      cells.push(`<span class="dot ${s2} ${d===today?'today':''}" title="${d}"></span>`); }
     document.getElementById('history').innerHTML = cells.join('');
   }
   document.body.addEventListener('click', e => {
-    const chk = e.target.closest('.check'); if(chk){ const id = chk.closest('.line').dataset.id; const on = !chk.classList.contains('on'); markTask(today, id, on); render(); return; }
+    const chk = e.target.closest('.check'); if(chk){ const id = chk.closest('li').dataset.id; const on = !chk.classList.contains('on'); markTask(today, id, on); render(); return; }
+    const sk = e.target.closest('[data-skip]'); if(sk){ Store.update('today.skip', m=>{ m[today]=m[today]||{}; m[today][sk.dataset.skip]=true; return m; }, {}); render(); return; }
     if(e.target.id==='doneBtn'){ const log=getLog(); const was=log[today]&&log[today].done; setDayDone(today, !was); toast(was?'已取消今天完成':'今天完成了'); render(); }
     if(e.target.id==='lightBtn'){ Store.update('log', l=>{ l[today]=l[today]||{tasks:{}}; l[today].light=!l[today].light; return l; },{}); render(); }
   });
   render();
   document.addEventListener('el:remote-loaded', render);
-  // 今日一字：從有完整卡的字裡，依日期固定挑一個
   (async()=>{ try{
     const idx = await loadJSON('content/vocab/cards/index.json'); const words = (await loadJSON('content/vocab/words.json')).words;
     const seed = today.split('-').reduce((a,b)=>a*31+Number(b),7); const pool = words.filter(w=>w.rank<=1500);
     const w = pool[seed % pool.length]; const sh = `${w.src}${Math.floor((w.rank-1)/500)}`;
     let c=null; if(idx.shards.includes(sh)){ try{ c=(await loadJSON(`content/vocab/cards/${sh}.json`))[w.id]; }catch(e){} }
     const el=document.getElementById('wotd'); const ex=c&&c.ex&&c.ex[0];
-    el.innerHTML = `<a href="vocab.html#w=${w.id}"><div class="ph"><h2>今日一字</h2><small>點開看完整卡</small></div><div class="wb"><div class="w">${w.word}<small>${c?c.zh:w.zh}</small></div>${ex?`<div class="ex">${ex[0].replace(/\*(.+?)\*/g,'<b>$1</b>')}</div><div class="exzh">${ex[1]}</div>`:''}</a>`;
+    el.innerHTML = `<a href="vocab.html#w=${w.id}"><div class="k">今日一字</div><div class="w">${w.word}<small>${c?c.zh:w.zh}</small></div>${ex?`<div class="ex">${ex[0].replace(/\*(.+?)\*/g,'<b>$1</b>')}</div><div class="exzh">${ex[1]}</div>`:''}</a>`;
     el.hidden=false;
   }catch(e){} })();
   EL.renderAuth();
