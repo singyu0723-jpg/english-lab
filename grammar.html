@@ -15,8 +15,8 @@
   .chap .t{font-weight:700}
   .chap .u{color:var(--soft);font-size:13px}
   /* ---- 章節內文的節奏：段落之間留夠空氣 ---- */
-  section{margin-top:72px}
-  section:first-of-type{margin-top:24px}
+  section{margin-top:56px;padding-top:30px;border-top:2px solid var(--line)}
+  section:first-of-type{margin-top:24px;padding-top:0;border-top:0}
   section h2{font-size:24px;margin:0 0 18px;line-height:1.35}
   section h3{font-size:18px;margin:44px 0 14px;padding-top:0}
   section h3+p,section h3+.en{margin-top:0}
@@ -38,7 +38,7 @@
   section td:first-child .zh{margin:0;font-size:13px}
   section ul,section ol{margin:0 0 18px;padding-left:22px}
   section li{margin:6px 0;line-height:1.75}
-  .num{display:inline-block;font-family:var(--serif);color:var(--indigo);font-size:15px;letter-spacing:.08em;margin-bottom:6px}
+  .num{display:inline-block;background:var(--indigo);color:#fff;font-weight:800;font-size:13px;padding:2px 10px;border-radius:4px;letter-spacing:.04em;margin-bottom:10px}
   .big{font-size:19px;font-weight:600}
   .point{margin:40px 0 8px;padding:24px 22px 18px}
   .point ul{margin:4px 0 0}

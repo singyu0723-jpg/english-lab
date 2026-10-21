@@ -19,32 +19,31 @@
       <div class="month" id="month"></div>
       <div class="wd" id="dateline"></div>
     </div>
-    <div class="tally" aria-label="連續天數">
+    <div class="tally">
       <svg id="tallySvg" viewBox="0 0 160 36" width="160" height="36" aria-hidden="true"></svg>
       <div class="tallyText" id="streakline"></div>
     </div>
+    <div class="dots" id="history" aria-label="最近 14 天"></div>
   </header>
 
-  <section class="sheet">
-    <h2 class="rule"><span>必做</span><small id="mustSum"></small></h2>
-    <ol class="lines" id="must"></ol>
+  <h2 class="rule"><span>必做</span><small id="mustSum"></small></h2>
+  <ol class="lines" id="must"></ol>
+  <div class="daybar">
+    <button class="stamp" id="doneBtn">今天完成</button>
+    <button class="linkbtn" id="lightBtn">改成輕量日</button>
+  </div>
+  <p class="muted hint" id="hint"></p>
 
-    <div class="daybar">
-      <button class="stamp" id="doneBtn">今天完成</button>
-      <button class="linkbtn" id="lightBtn">改成輕量日</button>
-    </div>
-    <p class="muted hint" id="hint"></p>
-
-    <h2 class="rule"><span>加碼</span><small id="extraSum"></small></h2>
+  <details class="extra" id="extraBox">
+    <summary><span class="rule-like">加碼</span><small id="extraSum"></small></summary>
     <ol class="lines" id="extra"></ol>
-
-    <h2 class="rule"><span>最近兩週</span><small><a href="review.html" style="text-decoration:none">看本月月報 →</a></small></h2>
-    <div class="recent" id="history"></div>
-  </section>
+  </details>
 
   <div class="wotd" id="wotd" hidden></div>
+
   <div class="foot">
-    <details><summary>規則</summary><ul id="rules" class="muted" style="padding-left:20px"></ul></details>
+    <a class="linkbtn" href="review.html" style="text-decoration:none">看本月月報 →</a>
+    <details style="margin-top:8px"><summary>規則</summary><ul id="rules" class="muted" style="padding-left:20px"></ul></details>
     <div id="auth" class="row" style="margin-top:14px;font-size:13px;align-items:center;gap:10px;flex-wrap:wrap"></div>
   </div>
 </main>
@@ -83,15 +82,17 @@
     const sum = arr => arr.reduce((a,t)=>a+mins(t),0);
     const doneN = arr => arr.filter(t=>(day.tasks||{})[t.id]).length;
     document.getElementById('mustSum').textContent = must.length ? `${doneN(must)}／${must.length}，約 ${sum(must)} 分鐘` : '';
-    document.getElementById('extraSum').textContent = extra.length ? `有空再做，約 ${sum(extra)} 分鐘` : '';
+    document.getElementById('extraSum').textContent = extra.length ? `${extra.length} 項，約 ${sum(extra)} 分鐘，有空再做` : (light?'輕量日不做加碼':'');
+    let focusDone=false;
     const item = t => {
       const on = !!(day.tasks||{})[t.id];
-      return `<li class="line ${on?'done':''}" data-id="${t.id}">
+      const focus = !on && !focusDone && t.tier==='must'; if(focus) focusDone=true;
+      return `<li class="line ${on?'done':''} ${focus?'next':''}" data-id="${t.id}">
         <button class="check ${on?'on':''}" aria-label="${on?'取消勾選':'勾選完成'}：${t.title}" aria-pressed="${on}"></button>
         <a class="body" href="${t.href}" ${t.external?'target="_blank" rel="noopener"':''}>
           <span class="t">${t.title}</span>
           <span class="m">${mins(t)} 分鐘 · ${t.when==='回家'?'回家':'上班'}${t.voice?' · <em class="voice">出聲</em>':''}</span>
-          ${t.desc?`<span class="d">${t.desc}</span>`:''}
+          ${t.desc&&focus?`<span class="d">${t.desc}</span>`:''}
         </a></li>`;
     };
     document.getElementById('must').innerHTML = must.map(item).join('') || '<li class="muted empty">今天沒有必做項目</li>';
@@ -107,7 +108,7 @@
     document.getElementById('streakline').textContent = st ? `連續 ${st} 天${st>=25?'（正字只畫到 25）':''}，這個月 ${mo} 天，累計 ${tot} 天` : (tot ? `這個月 ${mo} 天，累計 ${tot} 天。今天做完就重新開始連續。` : '今天是第一天。');
     const cells = []; for(let i=13;i>=0;i--){ const d=addDays(today,-i); const l=log[d]; const [y,m,dd]=d.split('-');
       const st2 = l&&l.done ? (l.light?'light':'done') : 'none';
-      cells.push(`<span class="rd ${st2} ${d===today?'today':''}"><b>${Number(dd)}</b><i>${l&&l.done?(l.light?'輕':'✓'):''}</i></span>`); }
+      cells.push(`<span class="dot ${st2} ${d===today?'today':''}" title="${d}"></span>`); }
     document.getElementById('history').innerHTML = cells.join('');
   }
   document.body.addEventListener('click', e => {
