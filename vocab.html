@@ -4,19 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#f2f3f0">
+<meta name="theme-color" content="#f3ece2">
 <title>English Lab · 單字</title>
 <link rel="stylesheet" href="assets/app.css">
 <style>
-  .seg{display:flex;background:#eeece6;border-radius:14px;padding:4px;margin:14px 0}
-  .seg a{flex:1;text-align:center;padding:9px 6px;border-radius:11px;text-decoration:none;color:var(--soft);font-weight:700;font-size:15px;min-height:44px;display:flex;align-items:center;justify-content:center}
-  .seg a.on{background:#fff;color:var(--indigo);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .seg{display:flex;gap:22px;border-bottom:1px solid var(--line);margin:8px 0 18px}
+  .seg a{padding:8px 2px;text-decoration:none;color:var(--soft);font-weight:600;font-size:16px;min-height:44px;display:flex;align-items:center;border-bottom:2px solid transparent;margin-bottom:-1px}
+  .seg a.on{color:var(--ink);border-bottom-color:var(--indigo)}
   .screenWord{font-family:var(--serif);font-size:44px;font-weight:700;text-align:center;margin:26px 0 4px;word-break:break-word}
   .screenPos{text-align:center;color:var(--soft);font-size:14px;}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
   .two .btn{min-height:64px;font-size:19px;border-radius:16px}
   .btn.no{background:var(--no);border-color:var(--no);color:#fff}
   .flash{cursor:pointer;min-height:230px}
+  .flash.open{background-image:none}
+  .flash.open::before{display:none}
   .flash .w{font-size:40px}
   .flash .pos{color:var(--indigo);font-size:14px;font-weight:700;}
   .flash .back .zh{font-size:22px;color:var(--ink);font-weight:700;margin-bottom:6px}
@@ -28,75 +30,66 @@
   .rate .btn{min-height:58px;flex-direction:column;gap:0;line-height:1.2}
   .rate .btn small{font-size:12px;font-weight:500;opacity:.8}
   .tapHint{text-align:center;color:var(--soft);font-size:13.5px;margin-top:10px}
-  .kbd{font-family:ui-monospace,monospace;background:#e9ebe8;border-radius:6px;padding:0 6px;font-size:12.5px}
+  .kbd{font-family:ui-monospace,monospace;background:var(--paper-deep);border-radius:6px;padding:0 6px;font-size:12.5px}
   .kb{display:block}
   @media(hover:none),(max-width:600px){.kb{display:none}}
   @media(max-width:600px){.flash{min-height:170px;padding:18px 16px}.flash .w{font-size:34px}.screenWord{font-size:38px;margin-top:14px}}
-  /* ---- 完整卡 ---- */
-  .flash .back .zh{margin-bottom:2px}
-  .flash .back .def{color:var(--soft);font-size:15px}
-  .sec{margin-top:12px;background:#f6f5ef;border:1px solid #ebe8df;border-radius:14px;padding:10px 14px 12px;position:relative}
-  .sec .h{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--indigo);margin-bottom:6px}
-  .sec .h::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--indigo)}
-  .sec.s-ex{background:#fff;border-color:var(--line)}
-  .sec.s-ex .h{color:var(--warn);border-color:#f3d9c5}.sec.s-ex .h::before{background:var(--warn)}
-  .sec.s-fam .h{color:var(--ok);border-color:#cfe6d9}.sec.s-fam .h::before{background:var(--ok)}
-  .sec.s-coll,.sec.s-syn{background:transparent;border:0;padding:4px 2px 0}
-  .sec.s-coll .h,.sec.s-syn .h{color:var(--soft);border-color:var(--line)}.sec.s-coll .h::before,.sec.s-syn .h::before{background:#b8bccb}
-  .sec.s-syn{margin-top:4px}
-  .flash .back .zh{font-size:24px;margin-top:2px}
-  .flash .back .def{margin-bottom:6px}
-  .exrow{background:#fbfaf6;border-radius:10px;padding:8px 10px;margin-top:8px}
-  .exrow+.exzh{padding:0 10px 2px}
-  .roots{row-gap:5px}
-  .fam .f{background:#fff}
-  .roots{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;align-items:baseline}
-  .roots .part{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--indigo);background:var(--indigo-soft);border-radius:8px;padding:0 10px;justify-self:start;line-height:1.6}
-  .roots .gl{font-size:14.5px;color:var(--soft)}
-  .rootsNote{font-size:14.5px;color:var(--soft);margin-top:4px}
-  .fam{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
-  .fam .f{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1px 11px;font-family:var(--serif);font-size:15.5px;line-height:1.6;cursor:pointer}
-  .fam .f b{color:var(--indigo)}
-  .fam .f small{font-family:var(--sans);color:var(--soft);font-size:12.5px;margin-left:4px}
-  .fam .arrow{color:var(--soft);font-size:13px}
-  .exrow{display:flex;gap:8px;align-items:flex-start;margin-top:6px}
-  .exrow .ex{margin-top:0;flex:1;line-height:1.6}
-  .flash .back .ex b{color:var(--indigo)}
-  .coll{font-family:var(--serif);font-size:15.5px;line-height:1.7}
-  .coll span{color:var(--soft);font-family:var(--sans);font-size:13.5px}
-  .flash .back .syn{margin-top:0;font-size:14px}
-  .syn i{font-style:normal;font-family:var(--serif);color:var(--ink);font-size:15px}
-  .spk{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--indigo);cursor:pointer;flex-shrink:0;padding:0;vertical-align:middle}
-  .spk svg{width:18px;height:18px}
+  /* ---- 完整卡：字典頁版面 ---- */
+  .flash .back{text-align:left}
+  .flash .back .zh{font-family:var(--display);font-size:24px;font-weight:600;color:var(--ink);margin:0}
+  .flash .back .def{color:var(--soft);font-size:15px;margin:2px 0 10px}
+  .entry{display:grid;grid-template-columns:52px 1fr;column-gap:12px;row-gap:0;border-top:1px solid var(--line)}
+  .entry .lab{font-family:var(--display);font-size:13px;color:var(--soft);padding:10px 0;border-bottom:1px solid var(--line);letter-spacing:.08em}
+  .entry .val{padding:9px 0 10px;border-bottom:1px solid var(--line);min-width:0;font-size:15.5px;line-height:1.65}
+  .entry .lab:nth-last-child(2),.entry .val:last-child{border-bottom:0}
+  .roots{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 0;font-family:var(--serif)}
+  .roots .part{font-size:19px;color:var(--ink)}
+  .roots .part+.part::before{content:"·";color:var(--soft);margin:0 7px}
+  .roots .part small{font-family:var(--sans);font-size:12.5px;color:var(--soft);margin-left:4px}
+  .rootsNote{font-size:14.5px;color:var(--ink);margin-top:5px}
+  .fam{font-family:var(--serif);font-size:16px;line-height:1.75}
+  .fam .f{cursor:pointer;white-space:nowrap}
+  .fam .f b{color:var(--indigo);font-weight:600}
+  .fam .f small{font-family:var(--sans);color:var(--soft);font-size:12.5px;margin-left:3px}
+  .fam .arrow,.fam .sep{color:var(--soft);margin:0 6px}
+  .famRoot{margin-top:4px;font-size:14.5px}
+  .famRoot .k{font-family:var(--sans);color:var(--soft);font-size:13px;margin-right:6px}
+  .exrow{display:flex;gap:8px;align-items:flex-start;margin:0}
+  .exrow+.exrow{margin-top:8px}
+  .exrow .ex{flex:1;font-family:var(--serif);font-size:17px;line-height:1.55;margin:0}
+  .exrow .ex b{color:var(--indigo);font-weight:600}
+  .exrow .exzh{display:block;color:var(--soft);font-family:var(--sans);font-size:13.5px;margin-top:1px}
+  .coll{font-family:var(--serif);font-size:16px;line-height:1.75}
+  .coll span{color:var(--soft);font-family:var(--sans);font-size:13px;margin-left:3px}
+  .coll .sep{color:var(--soft);margin:0 8px}
+  .syn{font-size:14.5px;line-height:1.75}
+  .syn i{font-style:normal;font-family:var(--serif);color:var(--ink);font-size:16px;cursor:pointer}
+  .syn .sep{color:var(--soft);margin:0 8px}
+  .spk{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--indigo);cursor:pointer;flex-shrink:0;padding:0;vertical-align:middle;margin-top:2px}
+  .spk svg{width:16px;height:16px}
   .spk.big{width:40px;height:40px;margin-left:8px;vertical-align:baseline}
   .spk:active{transform:scale(.94)}
   .wrow{display:flex;align-items:center;justify-content:center;gap:4px}
   .autoRow{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:13px;color:var(--soft);margin:6px 0 4px}
-  .autoRow .sw{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:6px;padding:3px 10px;background:#fff;cursor:pointer;color:var(--ink);font-size:13px;min-height:32px}
+  .autoRow .sw{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:6px;padding:3px 10px;background:transparent;cursor:pointer;color:var(--ink);font-size:13px;min-height:32px;white-space:nowrap}
   .autoRow .sw svg{width:16px;height:16px}
-  .autoRow .sw{white-space:nowrap}
-  .autoRow .sw.on{border-color:var(--indigo);color:var(--indigo);background:var(--indigo-soft)}
-  /* ---- 延伸 ---- */
-  .ext{margin-top:22px;border-top:2px solid var(--line);padding-top:14px}
-  .ext .eh{display:flex;align-items:center;justify-content:space-between}
-  .ext .eh .t{font-size:13.5px;font-weight:700;color:var(--indigo)}
+  .autoRow .sw.on{border-color:var(--indigo);color:var(--indigo)}
+  /* ---- 延伸：四個分支，像字典的「相關詞」欄 ---- */
+  .ext{margin-top:18px;padding-top:12px;border-top:3px double var(--line)}
+  .ext .eh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+  .ext .eh .t{font-family:var(--display);font-size:15px;font-weight:600;color:var(--ink)}
   .ext .eh .n{font-size:12.5px;color:var(--soft)}
-  .chips2{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:8px 0}
-  .chips2 .g{display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start}
-  .chips2 .g.r{justify-content:flex-end}
-  .c{font-family:var(--serif);font-size:14px;line-height:1.5;border-radius:6px;padding:1px 9px;border:1.5px solid;background:#fff;white-space:nowrap;cursor:pointer}
-  .c.b0{color:#b03a37;border-color:#e4a6a3}.c.b1{color:#b4531a;border-color:#f0c6a5}.c.b2{color:#3e7a2a;border-color:#bcd9a6}.c.b3{color:#8a7414;border-color:#eadc8f}
-  .map{width:100%;height:auto;display:block}
-  .map text{font-family:var(--serif)}
-  .map .cn{font-family:var(--sans)}
-  .lists{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:12px}
-  .grp .gh{display:inline-block;font-size:12.5px;font-weight:800;color:#fff;border-radius:6px;padding:0 10px;margin-bottom:2px}
-  .grp .it{display:flex;flex-direction:column;line-height:1.4;padding:4px 0;border-bottom:1px dashed var(--line);cursor:pointer}
+  .lists{display:grid;grid-template-columns:1fr 1fr;gap:4px 22px}
+  @media(max-width:420px){.lists{grid-template-columns:1fr}}
+  .grp{padding:8px 0}
+  .grp .gh{display:block;font-family:var(--serif);font-size:18px;color:var(--indigo);line-height:1.3;margin-bottom:2px;cursor:pointer}
+  .grp .gh small{font-family:var(--sans);font-size:12.5px;color:var(--soft);margin-left:6px}
+  .grp .it{display:flex;justify-content:space-between;gap:10px;align-items:baseline;line-height:1.45;padding:3px 0;border-bottom:1px dotted var(--line);cursor:pointer}
   .grp .it:last-child{border-bottom:0}
-  .grp .it .e{font-family:var(--serif);font-size:16px}
-  .grp .it .e small{font-family:var(--sans);color:var(--soft);font-size:12px;margin-left:4px}
-  .grp .it .z{font-size:13.5px;color:var(--soft)}
-  .grp .it .z b{color:var(--indigo);font-weight:700;font-size:11.5px;margin-right:4px}
+  .grp .it .e{font-family:var(--serif);font-size:16px;white-space:nowrap}
+  .grp .it .e small{font-family:var(--sans);color:var(--soft);font-size:11.5px;margin-left:4px}
+  .grp .it .z{font-size:13px;color:var(--soft);text-align:right}
+  .grp .it .z b{color:var(--indigo);font-weight:600;font-size:11px;margin-right:3px}
   @media(max-width:600px){.grp .it .e small .ipa{display:none}}
   .btnrow{display:flex;gap:10px;margin-top:12px}
   .btnrow .btn{flex:1;font-size:15px}
@@ -106,8 +99,8 @@
   .ovl .box .flash{cursor:default}
   @media(min-width:900px){.ovl{align-items:center}.ovl .box{border-radius:20px;max-height:85vh}}
   .unkList{display:flex;flex-wrap:wrap;gap:6px}
-  .unkList span{background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 10px;font-family:var(--serif);font-size:15px}
-  textarea.exp{width:100%;min-height:90px;font-size:14px;border:1px solid var(--line);border-radius:12px;padding:10px;font-family:ui-monospace,monospace;background:#fff}
+  .unkList span{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:2px 10px;font-family:var(--serif);font-size:15px}
+  textarea.exp{width:100%;min-height:90px;font-size:14px;border:1px solid var(--line);border-radius:12px;padding:10px;font-family:ui-monospace,monospace;background:var(--card)}
 </style>
 </head>
 <body>
@@ -150,43 +143,37 @@
   const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
   const spk = (text, cls='') => EL.Speech.ok ? `<button type="button" class="spk ${cls}" data-say="${esc(text)}" aria-label="播放">${SPK}</button>` : '';
   const autoSpeak = () => Store.get('vocab.autoSpeak', true);
-  const COLORS = [['#d9534f','#fff'],['#e8945a','#fff'],['#8fbf6a','#fff'],['#e6c94a','#2b2f3a']];
-
+  
   function renderBack(w, c){
     if(!c){
       return `<div class="zh">${esc(w.zh)}</div>
         ${w.def?`<div class="def">${esc(w.def)}</div>`:''}
-        ${w.ex?`<div class="exrow">${spk(w.ex)}<div class="ex">${esc(w.ex)}</div></div><div class="exzh">${esc(w.ex_zh||'')}</div>`:`<div class="def" style="margin-top:8px">（完整卡製作中，下次更新會出現）</div>`}
+        ${w.ex?`<div class="exrow">${spk(w.ex)}<div class="ex">${esc(w.ex)}<span class="exzh">${esc(w.ex_zh||'')}</span></div></div>`:`<div class="def" style="margin-top:8px">（完整卡製作中，下次更新會出現）</div>`}
         ${w.syn&&w.syn.length?`<div class="syn" style="margin-top:8px">近義：${esc(w.syn.join(', '))}</div>`:''}`;
     }
-    const fam = (c.family||[]).map((f,i)=>`${i?'<span class="arrow">→</span>':''}<span class="f" data-w="${esc(f[0])}">${i?esc(f[0]):`<b>${esc(f[0])}</b>`}<small>${esc(f[1])}</small></span>`).join('');
-    const famRoot = c.famRoot && c.famRoot.words && c.famRoot.words.length ? `<div class="fam" style="margin-top:6px"><span class="muted" style="font-size:13px">同字根 ${esc(c.famRoot.root)}：</span>${c.famRoot.words.map(f=>`<span class="f" data-w="${esc(f[0])}">${esc(f[0])}<small>${esc(f[1])}</small></span>`).join('')}</div>` : '';
-    let h = `<div class="zh">${esc(c.zh)}</div>${c.def?`<div class="def">${esc(c.def)}</div>`:''}`;
+    const row = (lab, val) => `<div class="lab">${lab}</div><div class="val">${val}</div>`;
+    let h = `<div class="zh">${esc(c.zh)}</div>${c.def?`<div class="def">${esc(c.def)}</div>`:''}<div class="entry">`;
     if((c.roots&&c.roots.length) || c.rootsNote){
-      h += `<div class="sec s-roots"><div class="h">拆解</div>${c.roots&&c.roots.length?`<div class="roots">${c.roots.map(r=>`<span class="part">${esc(r[0])}</span><span class="gl">${esc(r[1])}</span>`).join('')}</div>`:''}${c.rootsNote?`<div class="rootsNote">${esc(c.rootsNote)}</div>`:''}</div>`;
+      const parts = c.roots&&c.roots.length ? `<div class="roots">${c.roots.map(r=>`<span class="part">${esc(r[0])}<small>${esc(r[1])}</small></span>`).join('')}</div>` : '';
+      h += row('拆解', parts + (c.rootsNote?`<div class="rootsNote">${esc(c.rootsNote)}</div>`:''));
     }
-    if(fam) h += `<div class="sec s-fam"><div class="h">字家族</div><div class="fam">${fam}</div>${famRoot}</div>`;
-    if(c.ex&&c.ex.length) h += `<div class="sec s-ex"><div class="h">工作例句</div>${c.ex.map(e=>`<div class="exrow">${spk(e[0])}<div class="ex">${mk(e[0])}</div></div><div class="exzh">${esc(e[1])}</div>`).join('')}</div>`;
-    if(c.coll&&c.coll.length) h += `<div class="sec s-coll"><div class="h">搭配</div><div class="coll">${c.coll.map(x=>`${mk(x[0])} <span>${esc(x[1])}</span>`).join('　·　')}</div></div>`;
-    if(c.syn&&c.syn.length) h += `<div class="sec s-syn"><div class="h">近義</div><div class="syn">${c.syn.map(x=>`<i data-w="${esc(x[0])}">${esc(x[0])}</i> ${esc(x[1])}`).join('　')}</div></div>`;
+    if(c.family&&c.family.length){
+      const fam = c.family.map((f,i)=>`${i?'<span class="arrow">→</span>':''}<span class="f" data-w="${esc(f[0])}">${i?esc(f[0]):`<b>${esc(f[0])}</b>`}<small>${esc(f[1])}</small></span>`).join('');
+      const famRoot = c.famRoot && c.famRoot.words && c.famRoot.words.length ? `<div class="famRoot fam"><span class="k">同字根 ${esc(c.famRoot.root)}</span>${c.famRoot.words.map((f,i)=>`${i?'<span class="sep">·</span>':''}<span class="f" data-w="${esc(f[0])}">${esc(f[0])}<small>${esc(f[1])}</small></span>`).join('')}</div>` : '';
+      h += row('字家族', `<div class="fam">${fam}</div>${famRoot}`);
+    }
+    if(c.ex&&c.ex.length) h += row('例句', c.ex.map(e=>`<div class="exrow">${spk(e[0])}<div class="ex">${mk(e[0])}<span class="exzh">${esc(e[1])}</span></div></div>`).join(''));
+    if(c.coll&&c.coll.length) h += row('搭配', `<div class="coll">${c.coll.map(x=>`${mk(x[0])}<span>${esc(x[1])}</span>`).join('<span class="sep">·</span>')}</div>`);
+    if(c.syn&&c.syn.length) h += row('近義', `<div class="syn">${c.syn.map(x=>`<i data-w="${esc(x[0])}">${esc(x[0])}</i> ${esc(x[1])}`).join('<span class="sep">·</span>')}</div>`);
+    h += '</div>';
     if(c.ext&&c.ext.branches&&c.ext.branches.length===4) h += renderExt(w, c);
     return h;
   }
   function renderExt(w, c){
     const B = c.ext.branches;
-    const chip = (b,i) => b.words.map(x=>`<span class="c b${i}" data-w="${esc(x[0])}">${esc(x[0])}</span>`).join('');
     const total = B.reduce((n,b)=>n+b.words.length,0);
-    const pos = [[62,40],[298,40],[62,160],[298,160]];
-    const svg = `<svg class="map" viewBox="0 0 360 200" role="img" aria-label="${esc(w.word)} 延伸字">
-      <g fill="none" stroke="#b8bccb" stroke-width="1.8"><path d="M136 100 L80 52"/><path d="M224 100 L280 52"/><path d="M136 100 L80 148"/><path d="M224 100 L280 148"/></g>
-      <ellipse cx="180" cy="100" rx="48" ry="32" fill="#f7d6d3"/><text x="180" y="98" text-anchor="middle" font-size="${w.word.length>8?15:21}" font-weight="700" fill="#2b2f3a">${esc(w.word)}</text><text x="180" y="118" text-anchor="middle" font-size="13" class="cn" fill="#2b2f3a">${esc((c.zh||'').split(/[；;]/)[0])}</text>
-      ${B.map((b,i)=>`<g data-w="${esc(b.w)}" style="cursor:pointer"><ellipse cx="${pos[i][0]}" cy="${pos[i][1]}" rx="50" ry="26" fill="${COLORS[i][0]}"/><text x="${pos[i][0]}" y="${pos[i][1]-2}" text-anchor="middle" font-size="${b.w.length>9?13:16}" font-weight="700" fill="${COLORS[i][1]}">${esc(b.w)}</text><text x="${pos[i][0]}" y="${pos[i][1]+15}" text-anchor="middle" font-size="12" class="cn" fill="${COLORS[i][1]}">${esc(b.zh)}</text></g>`).join('')}
-    </svg>`;
-    const lists = B.map((b,i)=>`<div class="grp"><span class="gh" style="background:${COLORS[i][0]};color:${COLORS[i][1]}">${esc(b.w)} ${esc(b.zh)}</span>${b.words.map(x=>`<div class="it" data-w="${esc(x[0])}"><span class="e">${esc(x[0])}<small>${x[1]?`<span class="ipa">/${esc(x[1])}/ </span>`:''}${esc(x[2]||'')}</small></span><span class="z">${esc(x[3])}${x[4]?(/^[衍同反縮]/.test(x[4])?` <b>${esc(x[4].slice(0,1))}</b>${esc(x[4].slice(1).trim())}`:` ${esc(x[4])}`):''}</span></div>`).join('')}</div>`).join('');
-    return `<div class="ext"><div class="eh"><span class="t">延伸 · 一起出現的字</span><span class="n">${total} 字 · 點字發音／開卡</span></div>
-      <div class="chips2"><div class="g">${chip(B[0],0)}</div><div class="g r">${chip(B[1],1)}</div></div>
-      ${svg}
-      <div class="chips2"><div class="g">${chip(B[2],2)}</div><div class="g r">${chip(B[3],3)}</div></div>
+    const lists = B.map(b=>`<div class="grp"><span class="gh" data-w="${esc(b.w)}">${esc(b.w)}<small>${esc(b.zh)}</small></span>${b.words.map(x=>`<div class="it" data-w="${esc(x[0])}"><span class="e">${esc(x[0])}<small>${x[1]?`<span class="ipa">/${esc(x[1])}/ </span>`:''}${esc(x[2]||'')}</small></span><span class="z">${esc(x[3])}${x[4]?(/^[衍同反縮]/.test(x[4])?` <b>${esc(x[4].slice(0,1))}</b>${esc(x[4].slice(1).trim())}`:` ${esc(x[4])}`):''}</span></div>`).join('')}</div>`).join('');
+    return `<div class="ext"><div class="eh"><span class="t">相關詞</span><span class="n">${total} 字 · 點字發音／開卡</span></div>
       <div class="lists">${lists}</div>
       <div class="btnrow"><button type="button" class="btn" data-addext="${esc(w.id)}">把這些字加進複習</button></div></div>`;
   }
@@ -231,7 +218,8 @@
 
   // ---- router ----
   function route(){
-    const v = (location.hash||'#screen').slice(1);
+    let v = (location.hash||'#screen').slice(1);
+    if(v.startsWith('w=')){ const w=byId[v.slice(2)]; v='list'; if(w) setTimeout(()=>openWord(w),50); }
     document.querySelectorAll('#seg a').forEach(a=>a.classList.toggle('on', a.dataset.v===v));
     if(v==='study') study(); else if(v==='list') list(); else screen();
   }

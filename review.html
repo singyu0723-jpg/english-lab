@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f3ece2">
+<title>English Lab 月報</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .mhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:4px 0 6px}
+  .mhead h1{margin:0}
+  .mnav{display:flex;gap:4px}
+  .mnav a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:18px}
+  .mnav a[aria-disabled=true]{opacity:.35;pointer-events:none}
+  .bigtally{margin:18px 0 4px}
+  .bigtally svg{display:block;max-width:100%;height:auto}
+  .bigtally svg line{stroke:var(--indigo);stroke-width:4;stroke-linecap:round}
+  .lead{font-size:17px;margin:4px 0 0}
+  .lead b{font-family:var(--serif);font-size:24px;font-weight:400;color:var(--indigo);margin:0 2px;font-variant-numeric:tabular-nums}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px 4px;margin:18px 0 8px;max-width:420px}
+  .cal .wd{text-align:center;font-size:12px;color:var(--soft)}
+  .cal .rd{display:flex;flex-direction:column;align-items:center;gap:2px}
+  .cal .rd b{font-family:var(--serif);font-weight:400;font-size:17px;color:var(--soft);width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-variant-numeric:tabular-nums}
+  .cal .rd.done b{background:var(--indigo);color:#fff}
+  .cal .rd.light b{background:var(--indigo-soft);color:var(--indigo)}
+  .cal .rd.today b{box-shadow:0 0 0 2px var(--honey)}
+  .cal .rd.future b{opacity:.35}
+  .cal .rd i{font-style:normal;font-size:10px;color:var(--soft);height:12px}
+  .ledger{list-style:none;margin:6px 0 0;padding:0}
+  .ledger li{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px dotted var(--line)}
+  .ledger li:last-child{border-bottom:0}
+  .ledger .k{font-size:16px}
+  .ledger .k small{display:block;color:var(--soft);font-size:13px}
+  .ledger .v{font-family:var(--serif);font-size:22px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ledger .v small{font-family:var(--sans);font-size:13px;color:var(--soft);margin-left:3px}
+  .bars{margin-top:6px}
+  .bars .b{display:grid;grid-template-columns:110px 1fr auto;align-items:center;gap:10px;padding:6px 0;font-size:14.5px}
+  .bars .b .t{color:var(--ink)}
+  .bars .b .bar{height:8px}
+  .bars .b .n{font-family:var(--serif);font-size:16px;color:var(--soft);font-variant-numeric:tabular-nums;min-width:48px;text-align:right}
+  .verdict{margin-top:26px;border-left:3px solid var(--honey);padding:6px 0 6px 16px;font-size:16px;line-height:1.8}
+  .verdict p{margin:4px 0}
+  .chaps{font-family:var(--serif);font-size:15.5px;line-height:1.8}
+  .chaps .sep{color:var(--soft);margin:0 6px}
+  .chaps .f{color:var(--no)}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="mhead"><h1 id="title">月報</h1><div class="mnav"><a id="prev" href="#" aria-label="上個月">‹</a><a id="next" href="#" aria-label="下個月">›</a></div></div>
+  <div id="view"><p class="muted">載入中…</p></div>
+  <div class="foot"><a class="linkbtn" href="index.html" style="text-decoration:none">← 回今天</a></div>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js" onerror="void 0"></script>
+<script src="assets/app.js"></script>
+<script>
+(async function(){
+  const {Store, dkey, weekday, loadJSON, getLog} = EL;
+  const today = dkey();
+  const [plan, gidx] = await Promise.all([loadJSON('content/plan.json'), loadJSON('content/grammar/index.json').catch(()=>({chapters:[]}))]);
+  const params = new URLSearchParams(location.search);
+  let ym = /^\d{4}-\d{2}$/.test(params.get('m')||'') ? params.get('m') : today.slice(0,7);
+  const pad = n => String(n).padStart(2,'0');
+  const shift = (ym, k) => { let [y,m]=ym.split('-').map(Number); m+=k; while(m<1){m+=12;y--;} while(m>12){m-=12;y++;} return `${y}-${pad(m)}`; };
+  const daysIn = ym => { const [y,m]=ym.split('-').map(Number); return new Date(y,m,0).getDate(); };
+  const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+
+  function tally(n){
+    const strokes=[[2,6,22,6],[12,6,12,30],[12,18,22,18],[4,30,4,14],[2,30,24,30]];
+    const W=30, perRow=10; let out='';
+    for(let i=0;i<n;i++){ const k=Math.floor(i/5), s=i%5; const col=k%perRow, row=Math.floor(k/perRow); const [x1,y1,x2,y2]=strokes[s]; const ox=col*W, oy=row*40;
+      out+=`<line x1="${x1+ox}" y1="${y1+oy}" x2="${x2+ox}" y2="${y2+oy}"/>`; }
+    const rows=Math.max(1,Math.ceil(Math.ceil(n/5)/perRow)); const cols=Math.min(perRow,Math.max(1,Math.ceil(n/5)));
+    return `<svg viewBox="0 0 ${cols*W+4} ${rows*40}" width="${cols*W+4}" height="${rows*40}" aria-hidden="true">${out}</svg>`;
+  }
+
+  function render(){
+    const [y,m] = ym.split('-').map(Number);
+    document.getElementById('title').textContent = `${y} 年 ${m} 月`;
+    document.getElementById('prev').href = `review.html?m=${shift(ym,-1)}`;
+    const nx = document.getElementById('next'); nx.href = `review.html?m=${shift(ym,1)}`; nx.setAttribute('aria-disabled', shift(ym,1) > today.slice(0,7));
+    const log = getLog(); const N = daysIn(ym);
+    const keys = Array.from({length:N},(_,i)=>`${ym}-${pad(i+1)}`);
+    const past = keys.filter(k=>k<=today);
+    const done = keys.filter(k=>log[k]&&log[k].done);
+    const light = done.filter(k=>log[k].light);
+    const taskCount = {}; keys.forEach(k=>{ const t=(log[k]||{}).tasks||{}; Object.keys(t).forEach(id=>{ taskCount[id]=(taskCount[id]||0)+1; }); });
+    // vocab
+    const vd = Store.get('vocab.daily',{}); let screened=0, newly=0, review=0;
+    keys.forEach(k=>{ const d=vd[k]; if(d){ screened+=d.screened||0; newly+=d.newly||0; review+=d.review||0; } });
+    const srs = Store.get('vocab.srs',{}); const mature = Object.values(srs).filter(r=>r.iv>=21).length;
+    // grammar
+    const gr = Store.get('grammar.results',{});
+    const passedThis = gidx.chapters.filter(c=>gr[c.id]&&gr[c.id].passed&&String(gr[c.id].date||'').startsWith(ym));
+    const failedThis = gidx.chapters.filter(c=>gr[c.id]&&!gr[c.id].passed&&String(gr[c.id].date||'').startsWith(ym));
+    const passedAll = gidx.chapters.filter(c=>gr[c.id]&&gr[c.id].passed).length;
+    // listen / speak
+    const notes = Store.get('listen.notes',{}); const listenDays = keys.filter(k=>(notes[k]||'').trim().length>0).length;
+    const spoken = Store.get('speak.done',{}); const speakDays = keys.filter(k=>((log[k]||{}).tasks||{}).speak).length;
+    // streak best in month
+    let best=0,cur=0; keys.forEach(k=>{ if(log[k]&&log[k].done){cur++;best=Math.max(best,cur);} else if(k<=today) cur=0; });
+
+    const pct = past.length ? Math.round(done.length/past.length*100) : 0;
+    const wdName=['日','一','二','三','四','五','六'];
+    const firstWd = weekday(keys[0]);
+    let cal = wdName.map(n=>`<span class="wd">${n}</span>`).join('');
+    for(let i=0;i<firstWd;i++) cal += '<span></span>';
+    keys.forEach(k=>{ const l=log[k]; const st = l&&l.done ? (l.light?'light':'done') : (k>today?'future':''); cal += `<span class="rd ${st} ${k===today?'today':''}"><b>${Number(k.slice(8))}</b><i>${l&&l.done?(l.light?'輕':'✓'):''}</i></span>`; });
+
+    const screenedDone = Store.get('vocab.screenDone', false);
+    const mustTasks = plan.tasks.filter(t=>t.tier==='must' && !(t.until==='screened' && screenedDone));
+    const bars = mustTasks.map(t=>{ const n=taskCount[t.id]||0; const w=past.length?Math.round(n/past.length*100):0; return `<div class="b"><span class="t">${esc(t.title.split('：')[0].split(' ')[0])}</span><span class="bar"><i style="width:${w}%"></i></span><span class="n">${n}<small style="font-family:var(--sans);font-size:12px"> 天</small></span></div>`; }).join('');
+
+    let verdict = [];
+    if(!past.length) verdict.push('這個月還沒開始。');
+    else {
+      if(pct>=80) verdict.push(`完成率 ${pct}%，這個月站穩了。`);
+      else if(pct>=50) verdict.push(`完成率 ${pct}%，過半了，再把漏掉的那幾天補回節奏就好。`);
+      else verdict.push(`完成率 ${pct}%。沒關係，下個月從第一天開始接著做，不補、不檢討。`);
+      const weakest = mustTasks.map(t=>[t,taskCount[t.id]||0]).sort((a,b)=>a[1]-b[1])[0];
+      if(weakest && done.length>=3) verdict.push(`最常漏的是「${esc(weakest[0].title.split('：')[0])}」，只做了 ${weakest[1]} 天。下個月先顧這一項。`);
+      if(best>=7) verdict.push(`最長連續 ${best} 天。`);
+      if(newly) verdict.push(`新背了 ${newly} 個字，複習 ${review} 次；目前有 ${mature} 個字已經撐過三週。`);
+      if(passedThis.length) verdict.push(`文法過了 ${passedThis.length} 章。`);
+    }
+
+    document.getElementById('view').innerHTML = `
+      <div class="bigtally">${tally(done.length)}</div>
+      <p class="lead">做了 <b>${done.length}</b> 天${light.length?`（含輕量日 ${light.length} 天）`:''}，${past.length} 天裡完成率 <b>${pct}</b>%</p>
+      <div class="cal">${cal}</div>
+
+      <h2 class="rule"><span>每一項做了幾天</span></h2>
+      <div class="bars">${bars}</div>
+
+      <h2 class="rule"><span>單字</span></h2>
+      <ul class="ledger">
+        <li><span class="k">篩過的字</span><span class="v">${screened}<small>字</small></span></li>
+        <li><span class="k">新背的字</span><span class="v">${newly}<small>字</small></span></li>
+        <li><span class="k">複習次數</span><span class="v">${review}<small>次</small></span></li>
+        <li><span class="k">撐過三週的字<small>到目前為止累計</small></span><span class="v">${mature}<small>字</small></span></li>
+      </ul>
+
+      <h2 class="rule"><span>文法</span></h2>
+      <ul class="ledger">
+        <li><span class="k">這個月過關</span><span class="v">${passedThis.length}<small>章</small></span></li>
+        <li><span class="k">累計過關<small>共 ${gidx.chapters.length} 章</small></span><span class="v">${passedAll}<small>章</small></span></li>
+      </ul>
+      ${passedThis.length||failedThis.length?`<p class="chaps">${passedThis.map(c=>esc(c.title)).join('<span class="sep">·</span>')}${failedThis.length?`<span class="sep">·</span>${failedThis.map(c=>`<span class="f">${esc(c.title)}（未過）</span>`).join('<span class="sep">·</span>')}`:''}</p>`:''}
+
+      <h2 class="rule"><span>聽與說</span></h2>
+      <ul class="ledger">
+        <li><span class="k">聽完有寫筆記</span><span class="v">${listenDays}<small>天</small></span></li>
+        <li><span class="k">口說講滿 3 分鐘</span><span class="v">${speakDays}<small>天</small></span></li>
+        <li><span class="k">最長連續</span><span class="v">${best}<small>天</small></span></li>
+      </ul>
+
+      <div class="verdict">${verdict.map(v=>`<p>${v}</p>`).join('')}</div>`;
+  }
+  render();
+  document.addEventListener('el:remote-loaded', render);
+  EL.initFirebase();
+})();
+</script>
+</body>
+</html>
