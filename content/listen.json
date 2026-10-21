@@ -1,17 +1,173 @@
 {
   "sources": [
-    {"id":"bbc6","name":"BBC 6 Minute English","url":"https://www.bbc.co.uk/learningenglish/english/features/6-minute-english","level":"B1","len":"6 分","why":"兩個人對話、語速正常但用字乾淨，每集附逐字稿。最適合當每天的主菜。","how":"第一次不看稿聽完，寫下三個重點（中文可）。第二次打開逐字稿邊看邊聽，把聽不出來的字圈起來。"},
-    {"id":"voa","name":"VOA Learning English","url":"https://learningenglish.voanews.com/","level":"A2–B1","len":"3–5 分","why":"美國之音的慢速新聞，語速刻意放慢、句子短，聽力很累的日子用這個。","how":"選首頁任何一則短新聞，聽兩次。適合輕量日。"},
-    {"id":"bep","name":"Business English Pod","url":"https://www.businessenglishpod.com/","level":"B1–B2","len":"15–20 分","why":"專講職場情境：會議、電話、談判、簡報，有逐字稿。跟你的工作最接近。","how":"一集分兩天聽。第一天聽前半，第二天聽後半＋把裡面的句型抄 3 句進中翻英練習。"},
-    {"id":"aee","name":"All Ears English","url":"https://www.allearsenglish.com/","level":"B1–B2","len":"15–20 分","why":"兩個美國主持人聊天，自然語速、很多日常口語。有專門的 TOEIC 系列可以不用。","how":"不求全懂，只抓主題和結論。適合通勤或走路時聽。"},
-    {"id":"tews","name":"BBC The English We Speak","url":"https://www.bbc.co.uk/learningenglish/english/features/the-english-we-speak","level":"B1","len":"3 分","why":"一集只教一個口語片語，三分鐘。當加碼或輕量日的點心。","how":"聽完把那個片語用在今天的口說裡一次。"},
-    {"id":"ted","name":"TED Talks（開英文字幕）","url":"https://www.ted.com/talks","level":"B2","len":"10–18 分","why":"第 4 週以後才碰。語速真實、主題多，先開英文字幕聽。","how":"挑科技或工作相關主題，一次只聽 8 分鐘。聽完用三句話講這個人在說什麼。"}
+    {
+      "id": "bbc6",
+      "name": "BBC 6 Minute English",
+      "url": "https://www.bbc.co.uk/learningenglish/english/features/6-minute-english",
+      "level": "B1",
+      "len": "6 分",
+      "why": "兩個人對話、語速正常但用字乾淨，每集附逐字稿。最適合當每天的主菜。",
+      "how": "第一次不看稿聽完，寫下三個重點（中文可）。第二次打開逐字稿邊看邊聽，把聽不出來的字圈起來。"
+    },
+    {
+      "id": "voa",
+      "name": "VOA Learning English",
+      "url": "https://learningenglish.voanews.com/",
+      "level": "A2–B1",
+      "len": "3–5 分",
+      "why": "美國之音的慢速新聞，語速刻意放慢、句子短，聽力很累的日子用這個。",
+      "how": "選首頁任何一則短新聞，聽兩次。適合輕量日。"
+    },
+    {
+      "id": "bep",
+      "name": "Business English Pod",
+      "url": "https://www.businessenglishpod.com/",
+      "level": "B1–B2",
+      "len": "15–20 分",
+      "why": "專講職場情境：會議、電話、談判、簡報，有逐字稿。跟你的工作最接近。",
+      "how": "一集分兩天聽。第一天聽前半，第二天聽後半＋把裡面的句型抄 3 句進中翻英練習。"
+    },
+    {
+      "id": "aee",
+      "name": "All Ears English",
+      "url": "https://www.allearsenglish.com/",
+      "level": "B1–B2",
+      "len": "15–20 分",
+      "why": "兩個美國主持人聊天，自然語速、很多日常口語。有專門的 TOEIC 系列可以不用。",
+      "how": "不求全懂，只抓主題和結論。適合通勤或走路時聽。"
+    },
+    {
+      "id": "tews",
+      "name": "BBC The English We Speak",
+      "url": "https://www.bbc.co.uk/learningenglish/english/features/the-english-we-speak",
+      "level": "B1",
+      "len": "3 分",
+      "why": "一集只教一個口語片語，三分鐘。當加碼或輕量日的點心。",
+      "how": "聽完把那個片語用在今天的口說裡一次。"
+    },
+    {
+      "id": "ted",
+      "name": "TED Talks（開英文字幕）",
+      "url": "https://www.ted.com/talks",
+      "level": "B2",
+      "len": "10–18 分",
+      "why": "第 4 週以後才碰。語速真實、主題多，先開英文字幕聽。",
+      "how": "挑科技或工作相關主題，一次只聽 8 分鐘。聽完用三句話講這個人在說什麼。"
+    }
   ],
   "weeks": [
-    {"n":1,"title":"第 1 週 · 先把耳朵打開","plan":{"1":"bbc6","2":"bbc6","3":"voa","4":"bbc6","5":"bbc6","6":"tews","0":"bbc6"},"note":"每天一集就好。重點是『不看稿先聽』這個習慣。"},
-    {"n":2,"title":"第 2 週 · 加入職場內容","plan":{"1":"bbc6","2":"bep","3":"bep","4":"bbc6","5":"voa","6":"tews","0":"bep"},"note":"Business English Pod 一集拆兩天。把 3 個句型抄下來。"},
-    {"n":3,"title":"第 3 週 · 自然語速","plan":{"1":"bep","2":"bep","3":"aee","4":"bbc6","5":"aee","6":"tews","0":"bbc6"},"note":"All Ears English 不求全懂，抓主題與結論就算過。"},
-    {"n":4,"title":"第 4 週 · 混合 + 影子跟讀","plan":{"1":"bep","2":"bep","3":"aee","4":"bbc6","5":"ted","6":"tews","0":"bbc6"},"note":"開始用當天的那集做 10 分鐘影子跟讀（加碼項目）。"}
+    {
+      "n": 1,
+      "title": "第 1 週：先把耳朵打開",
+      "plan": {
+        "1": "bbc6",
+        "2": "bbc6",
+        "3": "voa",
+        "4": "bbc6",
+        "5": "bbc6",
+        "6": "tews",
+        "0": "bbc6"
+      },
+      "note": "每天一集就好。重點是『不看稿先聽』這個習慣。"
+    },
+    {
+      "n": 2,
+      "title": "第 2 週：加入職場內容",
+      "plan": {
+        "1": "bbc6",
+        "2": "bep",
+        "3": "bep",
+        "4": "bbc6",
+        "5": "voa",
+        "6": "tews",
+        "0": "bep"
+      },
+      "note": "Business English Pod 一集拆兩天。把 3 個句型抄下來。"
+    },
+    {
+      "n": 3,
+      "title": "第 3 週：自然語速",
+      "plan": {
+        "1": "bep",
+        "2": "bep",
+        "3": "aee",
+        "4": "bbc6",
+        "5": "aee",
+        "6": "tews",
+        "0": "bbc6"
+      },
+      "note": "All Ears English 不求全懂，抓主題與結論就算過。"
+    },
+    {
+      "n": 4,
+      "title": "第 4 週：混合 + 影子跟讀",
+      "plan": {
+        "1": "bep",
+        "2": "bep",
+        "3": "aee",
+        "4": "bbc6",
+        "5": "ted",
+        "6": "tews",
+        "0": "bbc6"
+      },
+      "note": "開始用當天的那集做 10 分鐘影子跟讀（加碼項目）。"
+    },
+    {
+      "n": 5,
+      "title": "第 5 週：職場會議與電話",
+      "plan": {
+        "1": "bep",
+        "2": "bep",
+        "3": "bbc6",
+        "4": "aee",
+        "5": "bep",
+        "6": "tews",
+        "0": "bbc6"
+      },
+      "note": "Business English Pod 挑「會議／電話／談判」主題。每集抄 3 句可以直接拿去開會用的句子。"
+    },
+    {
+      "n": 6,
+      "title": "第 6 週：自然語速 + 跟讀固定化",
+      "plan": {
+        "1": "aee",
+        "2": "bep",
+        "3": "aee",
+        "4": "bbc6",
+        "5": "ted",
+        "6": "tews",
+        "0": "bep"
+      },
+      "note": "每天固定做 10 分鐘影子跟讀，不再是加碼。All Ears English 練聽美國人的連音與口語。"
+    },
+    {
+      "n": 7,
+      "title": "第 7 週：科技與產業",
+      "plan": {
+        "1": "ted",
+        "2": "bep",
+        "3": "aee",
+        "4": "bbc6",
+        "5": "ted",
+        "6": "tews",
+        "0": "bep"
+      },
+      "note": "TED 挑科技、製造、AI、供應鏈主題，一次聽 8～10 分鐘。聽完用 3 句英文講重點，錄音給自己聽。"
+    },
+    {
+      "n": 8,
+      "title": "第 8 週：混合驗收週",
+      "plan": {
+        "1": "bep",
+        "2": "aee",
+        "3": "ted",
+        "4": "bbc6",
+        "5": "bep",
+        "6": "tews",
+        "0": "bbc6"
+      },
+      "note": "這週不換新難度，回頭聽第 1 週的 BBC 6 Minute English，試試不看稿能聽懂幾成。比較第 1 週和現在的差別。"
+    }
   ],
   "shadow": "影子跟讀：選今天那集的 1 分鐘，開逐字稿，播放速度調 0.75，跟著唸，慢它半秒。唸 3 遍。不用錄音，重點是嘴巴動。"
 }

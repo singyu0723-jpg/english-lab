@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#fbfaf6">
+<meta name="theme-color" content="#f2f3f0">
 <title>English Lab · 文法</title>
 <link rel="stylesheet" href="assets/app.css">
 <style>
@@ -16,7 +16,7 @@
   .chap .u{color:var(--soft);font-size:13px}
   section{margin-top:64px}
   section:first-of-type{margin-top:24px}
-  .num{display:inline-block;background:var(--indigo);color:#fff;font-weight:800;font-size:13px;padding:2px 10px;border-radius:6px;letter-spacing:1px;margin-bottom:8px}
+  .num{display:inline-block;background:var(--indigo);color:#fff;font-weight:800;font-size:13px;padding:2px 10px;border-radius:4px;margin-bottom:8px}
   .big{font-size:19px;font-weight:600}
   .result{background:var(--indigo-soft);border-radius:18px;padding:18px 20px;margin-top:28px}
 </style>
@@ -41,7 +41,7 @@
     const r = results();
     const firstOpen = idx.chapters.findIndex(c => !(r[c.id]&&r[c.id].passed));
     app.innerHTML = `
-      <p class="kicker">GRAMMAR</p><h1>文法課綱</h1>
+      <h1>文法課綱</h1>
       <p class="muted">${idx.source}</p>
       <div class="card">` + idx.chapters.map((c,i)=>{
         const res = r[c.id]; const passed = res&&res.passed;
@@ -58,7 +58,7 @@
     const prev = results()[id];
     app.innerHTML = `
       <a class="btn small ghost" href="grammar.html">← 課綱</a>
-      <p class="kicker" style="margin-top:14px">GRAMMAR · CHAPTER ${meta.n}</p>
+      <p class="kicker" style="margin-top:14px">第 ${meta.n} 章</p>
       <h1>${meta.title}</h1>
       <div class="muted">${meta.units.map(u=>`<span class="pill gray">${u}</span>`).join(' ')}</div>
       ${prev?`<p class="muted" style="margin-top:10px">上次：${prev.date} · ${prev.passed?'過關':'未過'}，錯 ${prev.wrong} 題</p>`:''}

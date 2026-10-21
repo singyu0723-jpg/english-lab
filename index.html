@@ -5,38 +5,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#fbfaf6">
-<title>English Lab · 今日</title>
+<meta name="theme-color" content="#f2f3f0">
+<title>English Lab 今日</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/icon.png">
 <link rel="stylesheet" href="assets/app.css">
 </head>
 <body>
 <main>
-  <p class="kicker" id="dateline">—</p>
-  <h1>今天</h1>
+  <header class="today-head">
+    <p class="date" id="dateline">&nbsp;</p>
+    <h1>今天的清單</h1>
+    <p class="streakline" id="streakline">&nbsp;</p>
+  </header>
 
-  <div class="hero">
-    <div class="row">
-      <div class="grow"><div class="big" id="streak">0</div><div class="sub">連續天數</div></div>
-      <div style="text-align:right"><div style="font-size:22px;font-weight:800" id="month">0</div><div class="sub">本月做了幾天</div><div style="font-size:14px;margin-top:6px" id="total"></div></div>
-    </div>
-    <div style="margin-top:12px" class="row">
-      <button class="btn primary grow" id="doneBtn">今天完成 ✓</button>
-      <button class="btn small ghost" id="lightBtn">輕量日</button>
-    </div>
-    <p class="muted" id="hint" style="margin:10px 0 0"></p>
+  <section class="strip" aria-label="最近 14 天">
+    <div class="days" id="history"></div>
+    <div class="lab"><span id="histFrom"></span><span>今天</span></div>
+  </section>
+
+  <div class="listhead"><h2>必做</h2><span class="sum" id="mustSum"></span></div>
+  <ul class="checklist" id="must"></ul>
+
+  <div class="daybar">
+    <button class="btn primary" id="doneBtn">今天完成</button>
+    <button class="btn" id="lightBtn">改成輕量日</button>
   </div>
+  <p class="muted hint" id="hint"></p>
 
-  <h2 style="margin-top:22px">必做 <span class="pill" id="mustSum"></span></h2>
-  <div class="card" id="must"></div>
+  <div class="listhead"><h2>加碼</h2><span class="sum" id="extraSum"></span></div>
+  <ul class="checklist" id="extra"></ul>
 
-  <h2>加碼 <span class="pill gray" id="extraSum"></span></h2>
-  <div class="card" id="extra"></div>
-
-  <details style="margin-top:18px"><summary>規則</summary><ul id="rules" class="muted" style="padding-left:20px"></ul></details>
-  <details><summary>最近 14 天</summary><div id="history" class="chips" style="margin-top:8px"></div></details>
-  <div id="auth" class="row" style="margin-top:26px;font-size:13px;align-items:center;gap:10px;flex-wrap:wrap"></div>
+  <div class="foot">
+    <details><summary>規則</summary><ul id="rules" class="muted" style="padding-left:20px"></ul></details>
+    <div id="auth" class="row" style="margin-top:14px;font-size:13px;align-items:center;gap:10px;flex-wrap:wrap"></div>
+  </div>
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
@@ -50,7 +53,7 @@
   const today = dkey();
   const plan = await loadJSON('content/plan.json');
   const wd = ['日','一','二','三','四','五','六'][weekday(today)];
-  document.getElementById('dateline').textContent = `${today} · 週${wd}`;
+  { const [y,m,d]=today.split('-'); document.getElementById('dateline').textContent = `${Number(m)} 月 ${Number(d)} 日，星期${wd}`; }
   document.getElementById('rules').innerHTML = plan.rules.map(r=>`<li>${r}</li>`).join('');
 
   function render(){
@@ -60,36 +63,41 @@
     const visible = plan.tasks.filter(t => !(t.until==='screened' && screened));
     const must = visible.filter(t => light ? t.light : t.tier==='must');
     const extra = light ? [] : visible.filter(t => t.tier==='extra');
-    const sum = arr => arr.reduce((a,t)=>a+(light&&t.lightMin?t.lightMin:t.min),0);
-    document.getElementById('mustSum').textContent = `${sum(must)} 分`;
-    document.getElementById('extraSum').textContent = extra.length? `${sum(extra)} 分` : '輕量日不顯示';
+    const mins = t => light&&t.lightMin?t.lightMin:t.min;
+    const sum = arr => arr.reduce((a,t)=>a+mins(t),0);
+    const doneN = arr => arr.filter(t=>(day.tasks||{})[t.id]).length;
+    document.getElementById('mustSum').textContent = must.length ? `${doneN(must)}／${must.length} 項，共 ${sum(must)} 分鐘` : '';
+    document.getElementById('extraSum').textContent = extra.length ? `有空再做，共 ${sum(extra)} 分鐘` : '';
     const item = t => {
       const on = !!(day.tasks||{})[t.id];
-      const m = light&&t.lightMin?t.lightMin:t.min;
-      return `<div class="task ${on?'done':''}" data-id="${t.id}">
-        <button class="check ${on?'on':''}" aria-label="完成">✓</button>
-        <div class="grow"><div class="t">${t.title}${t.voice?' <span class="pill warn">出聲</span>':''}</div>
-        <div class="m">${m} 分 · ${t.when}${t.desc?' · '+t.desc:''}</div></div>
-        <a class="btn small" href="${t.href}" ${t.external?'target="_blank" rel="noopener"':''}>去</a></div>`;
+      const meta = [`${mins(t)} 分鐘`, t.when==='回家'?'回家做':'上班做', t.voice?'<span class="voice">要出聲</span>':'', t.desc||''].filter(Boolean).join('，');
+      return `<li class="task ${on?'done':''}" data-id="${t.id}">
+        <button class="check ${on?'on':''}" aria-label="${on?'取消勾選':'勾選完成'}：${t.title}" aria-pressed="${on}">✓</button>
+        <div class="grow"><div class="t">${t.title}</div><div class="m">${meta}</div></div>
+        <a class="btn small go" href="${t.href}" ${t.external?'target="_blank" rel="noopener"':''}>開始</a></li>`;
     };
-    document.getElementById('must').innerHTML = must.map(item).join('') || '<p class="muted">今天沒有必做項目</p>';
-    document.getElementById('extra').innerHTML = extra.map(item).join('') || '<p class="muted">輕量日沒有加碼</p>';
+    document.getElementById('must').innerHTML = must.map(item).join('') || '<li class="muted" style="padding:12px 0">今天沒有必做項目</li>';
+    document.getElementById('extra').innerHTML = extra.map(item).join('') || `<li class="muted" style="padding:12px 0">${light?'輕量日不做加碼。':'沒有加碼項目。'}</li>`;
     const allMust = must.length && must.every(t=>(day.tasks||{})[t.id]);
     const doneBtn = document.getElementById('doneBtn');
-    doneBtn.textContent = day.done ? '今天完成了 ✓' : (allMust ? '必做都勾了，按這裡完成' : '今天完成 ✓');
-    doneBtn.className = 'btn grow ' + (day.done?'ok':'primary');
-    document.getElementById('lightBtn').textContent = light ? '輕量日 ✓' : '輕量日';
-    document.getElementById('hint').textContent = light ? '輕量日：只做兩項，做完一樣算完成。' : (day.done ? '做完了。明天見。' : '必做全部打勾後按「今天完成」；很累就按輕量日。');
-    document.getElementById('streak').textContent = streak(today);
-    document.getElementById('month').textContent = monthCount(today);
-    document.getElementById('total').textContent = `累計 ${totalCount()} 天`;
-    // history chips
-    const hist = []; for(let i=13;i>=0;i--){ const d=addDays(today,-i); const l=log[d]; hist.push(`<span class="pill ${l&&l.done?'ok':'gray'}" title="${d}">${d.slice(5)}${l&&l.done?(l.light?' 輕':' ✓'):''}</span>`); }
-    document.getElementById('history').innerHTML = hist.join('');
+    doneBtn.textContent = day.done ? '今天已完成' : (allMust ? '必做都勾了，按這裡完成今天' : '今天完成');
+    doneBtn.className = 'btn ' + (day.done?'ok':'primary');
+    document.getElementById('lightBtn').textContent = light ? '改回一般日' : '改成輕量日';
+    document.getElementById('hint').textContent = light ? '輕量日只做兩項，做完一樣算完成。' : (day.done ? '今天做完了，明天見。' : '必做全部勾完再按「今天完成」。很累的話改成輕量日。');
+    const st = streak(today), mo = monthCount(today), tot = totalCount();
+    document.getElementById('streakline').innerHTML = st
+      ? `已經連續 <b>${st}</b> 天，這個月做了 <b>${mo}</b> 天，總共 <b>${tot}</b> 天。`
+      : (tot ? `這個月做了 <b>${mo}</b> 天，總共 <b>${tot}</b> 天。今天做完就重新開始連續。` : '今天是第一天。把必做勾完就開始累積。');
+    const cells = []; for(let i=13;i>=0;i--){ const d=addDays(today,-i); const l=log[d];
+      const cls = l&&l.done ? (l.light?'done light':'done') : '';
+      const label = `${d.slice(5).replace('-','/')}${l&&l.done?(l.light?' 輕量日完成':' 完成'):' 沒做'}`;
+      cells.push(`<span class="d ${cls} ${d===today?'today':''}" title="${label}" aria-label="${label}"></span>`); }
+    document.getElementById('history').innerHTML = cells.join('');
+    document.getElementById('histFrom').textContent = addDays(today,-13).slice(5).replace('-','/');
   }
   document.body.addEventListener('click', e => {
     const chk = e.target.closest('.check'); if(chk){ const id = chk.closest('.task').dataset.id; const on = !chk.classList.contains('on'); markTask(today, id, on); render(); return; }
-    if(e.target.id==='doneBtn'){ const log=getLog(); const was=log[today]&&log[today].done; setDayDone(today, !was); toast(was?'取消完成':'今天完成！'); render(); }
+    if(e.target.id==='doneBtn'){ const log=getLog(); const was=log[today]&&log[today].done; setDayDone(today, !was); toast(was?'已取消今天完成':'今天完成了'); render(); }
     if(e.target.id==='lightBtn'){ Store.update('log', l=>{ l[today]=l[today]||{tasks:{}}; l[today].light=!l[today].light; return l; },{}); render(); }
   });
   render();

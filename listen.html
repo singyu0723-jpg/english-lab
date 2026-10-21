@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#fbfaf6">
+<meta name="theme-color" content="#f2f3f0">
 <title>English Lab · 聽力</title>
 <link rel="stylesheet" href="assets/app.css">
 <style>
@@ -21,7 +21,6 @@
 </head>
 <body>
 <main>
-  <p class="kicker">LISTENING</p>
   <h1>聽力</h1>
   <div id="view"><p class="muted">載入中…</p></div>
 </main>
@@ -77,7 +76,7 @@
       <details style="margin-top:18px"><summary>影子跟讀（加碼）</summary><p>${L.shadow}</p></details>
       <h2>頻道說明</h2>
       <div class="card">${L.sources.map(x=>`<div class="src"><div class="grow"><div class="n"><a href="${x.url}" target="_blank" rel="noopener">${x.name}</a> <span class="pill gray">${x.level}</span></div><div class="d">${x.why}</div></div></div>`).join('')}</div>
-      <details style="margin-top:14px"><summary>四週怎麼排</summary>${L.weeks.map(w=>`<p><b>${w.title}</b><br><span class="muted">${['一','二','三','四','五','六','日'].map((n,i)=>`${n} ${srcById[w.plan[String((i+1)%7)]].name.split(' ')[0]}`).join(' · ')}</span></p>`).join('')}</details>`;
+      <details style="margin-top:14px"><summary>八週怎麼排</summary>${L.weeks.map(w=>`<p><b>${w.title}</b><br><span class="muted">${['一','二','三','四','五','六','日'].map((n,i)=>`${n} ${srcById[w.plan[String((i+1)%7)]].name.split(' ')[0]}`).join(' · ')}</span></p>`).join('')}</details>`;
     const ta = view.querySelector('#notes');
     let t=null; ta.addEventListener('input', ()=>{ clearTimeout(t); t=setTimeout(()=>Store.update('listen.notes', n=>{ n[today]=ta.value; return n; }, {}), 500); });
     view.querySelector('#done').onclick = ()=>{

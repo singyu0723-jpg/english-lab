@@ -4,31 +4,31 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#fbfaf6">
+<meta name="theme-color" content="#f2f3f0">
 <title>English Lab · 單字</title>
 <link rel="stylesheet" href="assets/app.css">
 <style>
   .seg{display:flex;background:#eeece6;border-radius:14px;padding:4px;margin:14px 0}
   .seg a{flex:1;text-align:center;padding:9px 6px;border-radius:11px;text-decoration:none;color:var(--soft);font-weight:700;font-size:15px;min-height:44px;display:flex;align-items:center;justify-content:center}
   .seg a.on{background:#fff;color:var(--indigo);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-  .screenWord{font-family:Georgia,serif;font-size:44px;font-weight:700;text-align:center;margin:26px 0 4px;word-break:break-word}
-  .screenPos{text-align:center;color:var(--soft);font-size:14px;letter-spacing:1px}
+  .screenWord{font-family:var(--serif);font-size:44px;font-weight:700;text-align:center;margin:26px 0 4px;word-break:break-word}
+  .screenPos{text-align:center;color:var(--soft);font-size:14px;}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
   .two .btn{min-height:64px;font-size:19px;border-radius:16px}
   .btn.no{background:var(--no);border-color:var(--no);color:#fff}
   .flash{cursor:pointer;min-height:230px}
   .flash .w{font-size:40px}
-  .flash .pos{color:var(--indigo);font-size:14px;font-weight:700;letter-spacing:1px}
+  .flash .pos{color:var(--indigo);font-size:14px;font-weight:700;}
   .flash .back .zh{font-size:22px;color:var(--ink);font-weight:700;margin-bottom:6px}
   .flash .back .def{color:var(--soft);font-size:15px}
-  .flash .back .ex{font-family:Georgia,serif;font-size:17px;margin-top:10px}
+  .flash .back .ex{font-family:var(--serif);font-size:17px;margin-top:10px}
   .flash .back .exzh{color:var(--soft);font-size:14px}
   .flash .back .syn{margin-top:8px;font-size:13.5px;color:var(--soft)}
   .rate{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
   .rate .btn{min-height:58px;flex-direction:column;gap:0;line-height:1.2}
   .rate .btn small{font-size:12px;font-weight:500;opacity:.8}
   .tapHint{text-align:center;color:var(--soft);font-size:13.5px;margin-top:10px}
-  .kbd{font-family:ui-monospace,monospace;background:#f0efe9;border-radius:6px;padding:0 6px;font-size:12.5px}
+  .kbd{font-family:ui-monospace,monospace;background:#e9ebe8;border-radius:6px;padding:0 6px;font-size:12.5px}
   .kb{display:block}
   @media(hover:none),(max-width:600px){.kb{display:none}}
   @media(max-width:600px){.flash{min-height:170px;padding:18px 16px}.flash .w{font-size:34px}.screenWord{font-size:38px;margin-top:14px}}
@@ -36,7 +36,7 @@
   .flash .back .zh{margin-bottom:2px}
   .flash .back .def{color:var(--soft);font-size:15px}
   .sec{margin-top:12px;background:#f6f5ef;border:1px solid #ebe8df;border-radius:14px;padding:10px 14px 12px;position:relative}
-  .sec .h{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--indigo);margin-bottom:8px;background:#fff;border:1px solid #e3e1f5;border-radius:999px;padding:1px 10px}
+  .sec .h{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--indigo);margin-bottom:6px}
   .sec .h::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--indigo)}
   .sec.s-ex{background:#fff;border-color:var(--line)}
   .sec.s-ex .h{color:var(--warn);border-color:#f3d9c5}.sec.s-ex .h::before{background:var(--warn)}
@@ -51,50 +51,50 @@
   .roots{row-gap:5px}
   .fam .f{background:#fff}
   .roots{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;align-items:baseline}
-  .roots .part{font-family:Georgia,serif;font-size:17px;font-weight:700;color:var(--indigo);background:var(--indigo-soft);border-radius:8px;padding:0 10px;justify-self:start;line-height:1.6}
+  .roots .part{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--indigo);background:var(--indigo-soft);border-radius:8px;padding:0 10px;justify-self:start;line-height:1.6}
   .roots .gl{font-size:14.5px;color:var(--soft)}
   .rootsNote{font-size:14.5px;color:var(--soft);margin-top:4px}
   .fam{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
-  .fam .f{background:#fff;border:1px solid var(--line);border-radius:999px;padding:1px 11px;font-family:Georgia,serif;font-size:15.5px;line-height:1.6;cursor:pointer}
+  .fam .f{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1px 11px;font-family:var(--serif);font-size:15.5px;line-height:1.6;cursor:pointer}
   .fam .f b{color:var(--indigo)}
-  .fam .f small{font-family:-apple-system,"PingFang TC",sans-serif;color:var(--soft);font-size:12.5px;margin-left:4px}
+  .fam .f small{font-family:var(--sans);color:var(--soft);font-size:12.5px;margin-left:4px}
   .fam .arrow{color:var(--soft);font-size:13px}
   .exrow{display:flex;gap:8px;align-items:flex-start;margin-top:6px}
   .exrow .ex{margin-top:0;flex:1;line-height:1.6}
   .flash .back .ex b{color:var(--indigo)}
-  .coll{font-family:Georgia,serif;font-size:15.5px;line-height:1.7}
-  .coll span{color:var(--soft);font-family:-apple-system,"PingFang TC",sans-serif;font-size:13.5px}
+  .coll{font-family:var(--serif);font-size:15.5px;line-height:1.7}
+  .coll span{color:var(--soft);font-family:var(--sans);font-size:13.5px}
   .flash .back .syn{margin-top:0;font-size:14px}
-  .syn i{font-style:normal;font-family:Georgia,serif;color:var(--ink);font-size:15px}
+  .syn i{font-style:normal;font-family:var(--serif);color:var(--ink);font-size:15px}
   .spk{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--indigo);cursor:pointer;flex-shrink:0;padding:0;vertical-align:middle}
   .spk svg{width:18px;height:18px}
   .spk.big{width:40px;height:40px;margin-left:8px;vertical-align:baseline}
   .spk:active{transform:scale(.94)}
   .wrow{display:flex;align-items:center;justify-content:center;gap:4px}
   .autoRow{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:13px;color:var(--soft);margin:6px 0 4px}
-  .autoRow .sw{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:999px;padding:3px 10px;background:#fff;cursor:pointer;color:var(--ink);font-size:13px;min-height:32px}
+  .autoRow .sw{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:6px;padding:3px 10px;background:#fff;cursor:pointer;color:var(--ink);font-size:13px;min-height:32px}
   .autoRow .sw svg{width:16px;height:16px}
   .autoRow .sw{white-space:nowrap}
   .autoRow .sw.on{border-color:var(--indigo);color:var(--indigo);background:var(--indigo-soft)}
   /* ---- 延伸 ---- */
   .ext{margin-top:22px;border-top:2px solid var(--line);padding-top:14px}
   .ext .eh{display:flex;align-items:center;justify-content:space-between}
-  .ext .eh .t{font-size:12.5px;font-weight:800;letter-spacing:1.5px;color:var(--indigo)}
+  .ext .eh .t{font-size:13.5px;font-weight:700;color:var(--indigo)}
   .ext .eh .n{font-size:12.5px;color:var(--soft)}
   .chips2{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:8px 0}
   .chips2 .g{display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start}
   .chips2 .g.r{justify-content:flex-end}
-  .c{font-family:Georgia,serif;font-size:14px;line-height:1.5;border-radius:999px;padding:1px 9px;border:1.5px solid;background:#fff;white-space:nowrap;cursor:pointer}
+  .c{font-family:var(--serif);font-size:14px;line-height:1.5;border-radius:6px;padding:1px 9px;border:1.5px solid;background:#fff;white-space:nowrap;cursor:pointer}
   .c.b0{color:#b03a37;border-color:#e4a6a3}.c.b1{color:#b4531a;border-color:#f0c6a5}.c.b2{color:#3e7a2a;border-color:#bcd9a6}.c.b3{color:#8a7414;border-color:#eadc8f}
   .map{width:100%;height:auto;display:block}
-  .map text{font-family:Georgia,serif}
-  .map .cn{font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}
+  .map text{font-family:var(--serif)}
+  .map .cn{font-family:var(--sans)}
   .lists{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:12px}
-  .grp .gh{display:inline-block;font-size:12.5px;font-weight:800;color:#fff;border-radius:999px;padding:0 10px;margin-bottom:2px}
+  .grp .gh{display:inline-block;font-size:12.5px;font-weight:800;color:#fff;border-radius:6px;padding:0 10px;margin-bottom:2px}
   .grp .it{display:flex;flex-direction:column;line-height:1.4;padding:4px 0;border-bottom:1px dashed var(--line);cursor:pointer}
   .grp .it:last-child{border-bottom:0}
-  .grp .it .e{font-family:Georgia,serif;font-size:16px}
-  .grp .it .e small{font-family:-apple-system,"PingFang TC",sans-serif;color:var(--soft);font-size:12px;margin-left:4px}
+  .grp .it .e{font-family:var(--serif);font-size:16px}
+  .grp .it .e small{font-family:var(--sans);color:var(--soft);font-size:12px;margin-left:4px}
   .grp .it .z{font-size:13.5px;color:var(--soft)}
   .grp .it .z b{color:var(--indigo);font-weight:700;font-size:11.5px;margin-right:4px}
   @media(max-width:600px){.grp .it .e small .ipa{display:none}}
@@ -106,13 +106,12 @@
   .ovl .box .flash{cursor:default}
   @media(min-width:900px){.ovl{align-items:center}.ovl .box{border-radius:20px;max-height:85vh}}
   .unkList{display:flex;flex-wrap:wrap;gap:6px}
-  .unkList span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-family:Georgia,serif;font-size:15px}
+  .unkList span{background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 10px;font-family:var(--serif);font-size:15px}
   textarea.exp{width:100%;min-height:90px;font-size:14px;border:1px solid var(--line);border-radius:12px;padding:10px;font-family:ui-monospace,monospace;background:#fff}
 </style>
 </head>
 <body>
 <main>
-  <p class="kicker">VOCABULARY</p>
   <h1>單字</h1>
   <div class="seg" id="seg">
     <a href="#screen" data-v="screen">篩選</a>
@@ -378,7 +377,7 @@
     const covered = cardIndex.count || 0;
     view.innerHTML = `
       <div class="stat"><div class="box"><div class="n">${S.pos()}</div><div class="l">已篩</div></div><div class="box"><div class="n">${unkWords.length}</div><div class="l">不認得</div></div><div class="box"><div class="n">${Object.values(srs).filter(r=>r.iv>=21).length}</div><div class="l">間隔 ≥ 3 週</div></div></div>
-      <p class="muted">完整卡（拆解＋字家族＋工作例句）目前涵蓋 ${covered} / ${W.length} 字，Dobby 會分批補齊，不用你做什麼。點下面任何一個字可以直接看卡、聽發音。</p>
+      <p class="muted">${covered>=W.length?`${W.length} 字都有完整卡（拆解、字家族、工作例句），常用的核心字另外有延伸字圖。`:`完整卡目前涵蓋 ${covered}／${W.length} 字，其餘的字會陸續補上。`}點下面任何一個字可以看卡、聽發音。</p>
       <h2>不認得的字（最近加入在前）</h2>
       <div class="unkList">${unkWords.slice().reverse().slice(0,200).map(w=>`<span data-open="${w.id}">${esc(w.word)}</span>`).join('')||'<span class="muted">還沒有</span>'}</div>
       <h2>最近 7 天</h2>
