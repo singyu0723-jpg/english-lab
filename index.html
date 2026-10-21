@@ -12,34 +12,38 @@
 <link rel="stylesheet" href="assets/app.css">
 </head>
 <body>
-<main class="page">
-  <header class="pagehead">
-    <div class="daynum" id="daynum">—</div>
-    <div class="daymeta">
-      <div class="month" id="month"></div>
-      <div class="wd" id="dateline"></div>
+<main class="today">
+  <section class="panel head">
+    <div class="pagehead">
+      <div class="daynum" id="daynum">—</div>
+      <div class="daymeta">
+        <div class="month" id="month"></div>
+        <div class="wd" id="dateline"></div>
+      </div>
     </div>
     <div class="tally">
       <svg id="tallySvg" viewBox="0 0 160 36" width="160" height="36" aria-hidden="true"></svg>
       <div class="tallyText" id="streakline"></div>
     </div>
     <div class="dots" id="history" aria-label="最近 14 天"></div>
-  </header>
+  </section>
 
-  <h2 class="rule"><span>必做</span><small id="mustSum"></small></h2>
-  <ol class="lines" id="must"></ol>
-  <div class="daybar">
-    <button class="stamp" id="doneBtn">今天完成</button>
-    <button class="linkbtn" id="lightBtn">改成輕量日</button>
-  </div>
-  <p class="muted hint" id="hint"></p>
+  <section class="panel">
+    <header class="ph"><h2>必做</h2><small id="mustSum"></small></header>
+    <ol class="lines" id="must"></ol>
+    <footer class="pf">
+      <button class="stamp" id="doneBtn">今天完成</button>
+      <button class="linkbtn" id="lightBtn">改成輕量日</button>
+      <p class="muted hint" id="hint"></p>
+    </footer>
+  </section>
 
-  <details class="extra" id="extraBox">
-    <summary><span class="rule-like">加碼</span><small id="extraSum"></small></summary>
+  <details class="panel extra" id="extraBox">
+    <summary class="ph"><h2>加碼</h2><small id="extraSum"></small></summary>
     <ol class="lines" id="extra"></ol>
   </details>
 
-  <div class="wotd" id="wotd" hidden></div>
+  <section class="panel wotd" id="wotd" hidden></section>
 
   <div class="foot">
     <a class="linkbtn" href="review.html" style="text-decoration:none">看本月月報 →</a>
@@ -125,7 +129,7 @@
     const w = pool[seed % pool.length]; const sh = `${w.src}${Math.floor((w.rank-1)/500)}`;
     let c=null; if(idx.shards.includes(sh)){ try{ c=(await loadJSON(`content/vocab/cards/${sh}.json`))[w.id]; }catch(e){} }
     const el=document.getElementById('wotd'); const ex=c&&c.ex&&c.ex[0];
-    el.innerHTML = `<a href="vocab.html#w=${w.id}"><div class="k">今日一字</div><div class="w">${w.word}<small>${c?c.zh:w.zh}</small></div>${ex?`<div class="ex">${ex[0].replace(/\*(.+?)\*/g,'<b>$1</b>')}</div><div class="exzh">${ex[1]}</div>`:''}</a>`;
+    el.innerHTML = `<a href="vocab.html#w=${w.id}"><div class="ph"><h2>今日一字</h2><small>點開看完整卡</small></div><div class="wb"><div class="w">${w.word}<small>${c?c.zh:w.zh}</small></div>${ex?`<div class="ex">${ex[0].replace(/\*(.+?)\*/g,'<b>$1</b>')}</div><div class="exzh">${ex[1]}</div>`:''}</a>`;
     el.hidden=false;
   }catch(e){} })();
   EL.renderAuth();
