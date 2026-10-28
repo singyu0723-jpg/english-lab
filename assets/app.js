@@ -12,6 +12,18 @@
   const mem = {};
   function lsGet(k){ try{ const v=localStorage.getItem(NS+k); return v==null?undefined:JSON.parse(v);}catch(e){return undefined;} }
   function lsSet(k,v){ try{ localStorage.setItem(NS+k, JSON.stringify(v)); }catch(e){} }
+  // ---------- 重新開始：改這個日期，所有裝置下次打開會清空進度 ----------
+  const RESET_EPOCH = '2026-10-28';
+  let justReset = false;
+  (function(){ try{
+    if(localStorage.getItem(NS+'_epoch') !== JSON.stringify(RESET_EPOCH)){
+      const keys=[]; for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k.startsWith(NS)) keys.push(k); }
+      keys.forEach(k=>localStorage.removeItem(k));
+      localStorage.setItem(NS+'_epoch', JSON.stringify(RESET_EPOCH));
+      localStorage.setItem(NS+'_updated', JSON.stringify(Date.now()));
+      justReset = true;
+    }
+  }catch(e){} })();
   const listeners = [];
   const Store = {
     get(k, def){ const v = lsGet(k); return v===undefined ? def : v; },
@@ -32,13 +44,17 @@
     const db = firebase.firestore();
     const ref = db.collection('users').doc(user.uid);
     const snap = await ref.get();
+    let overwrite = false;
     if(snap.exists){
       const remote = snap.data();
-      const lu = Store.get('_updated',0);
-      if((remote._updated||0) > lu){ Store.importAll(remote); document.dispatchEvent(new CustomEvent('el:remote-loaded')); }
+      if(remote._epoch !== RESET_EPOCH){ overwrite = true; } // 雲端還是舊進度：用本機（已清空）蓋掉
+      else {
+        const lu = Store.get('_updated',0);
+        if((remote._updated||0) > lu){ Store.importAll(remote); document.dispatchEvent(new CustomEvent('el:remote-loaded')); }
+      }
     }
     let timer=null;
-    Store._mirror = function(){ clearTimeout(timer); timer=setTimeout(()=>{ ref.set(Store.exportAll(), {merge:true}).catch(e=>console.warn('sync fail', e.message)); }, 800); };
+    Store._mirror = function(){ clearTimeout(timer); timer=setTimeout(()=>{ const m = overwrite ? {} : {merge:true}; overwrite=false; ref.set(Store.exportAll(), m).catch(e=>console.warn('sync fail', e.message)); }, 800); };
     Store._mirror();
   }
   async function initFirebase(){
