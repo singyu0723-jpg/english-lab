@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#f3ece2">
 <title>English Lab · 單字</title>
-<link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/app.css?v=20261112">
 <style>
   .seg{display:flex;gap:22px;border-bottom:1px solid var(--line);margin:8px 0 18px}
   .seg a{padding:8px 2px;text-decoration:none;color:var(--soft);font-weight:600;font-size:16px;min-height:44px;display:flex;align-items:center;border-bottom:2px solid transparent;margin-bottom:-1px}
@@ -76,6 +76,7 @@
   .autoRow .sw{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:6px;padding:3px 10px;background:transparent;cursor:pointer;color:var(--ink);font-size:13px;min-height:32px;white-space:nowrap}
   .autoRow .sw svg{width:16px;height:16px}
   .autoRow .sw.on{border-color:var(--indigo);color:var(--indigo)}
+  .autoRow .sw[disabled]{opacity:.4;pointer-events:none}
   /* ---- 延伸：四個分支，像字典的「相關詞」欄 ---- */
   .ext{margin-top:18px;padding-top:12px;border-top:3px double var(--line)}
   .ext .eh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
@@ -95,6 +96,17 @@
   @media(max-width:600px){.grp .it .e small .ipa{display:none}}
   .btnrow{display:flex;gap:10px;margin-top:12px}
   .btnrow .btn{flex:1;font-size:15px}
+  /* ---- 勾不會的 ---- */
+  .pickHead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:4px 0 10px}
+  .pickHead .n{font-size:14px;color:var(--soft)}
+  .pickGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+  @media(max-width:420px){.pickGrid{grid-template-columns:repeat(2,1fr)}}
+  .pk{min-height:46px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card);cursor:pointer;user-select:none;text-align:left;font-family:var(--serif);font-size:17px;line-height:1.2;color:var(--ink)}
+  .pk small{font-family:var(--sans);font-size:11px;color:var(--soft)}
+  .pk.unk{background:var(--no);border-color:var(--no);color:#fff}
+  .pk.unk small{color:rgba(255,255,255,.75)}
+  .pickBar{position:sticky;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom));background:var(--paper);padding:12px 0 8px;margin-top:12px;border-top:1px solid var(--line);display:flex;gap:10px;align-items:center}
+  .pickBar .btn.primary{flex:1}
   /* ---- modal ---- */
   .ovl{position:fixed;inset:0;background:rgba(43,47,58,.45);z-index:80;display:flex;align-items:flex-end;justify-content:center}
   .ovl .box{background:var(--paper);border-radius:20px 20px 0 0;width:100%;max-width:720px;max-height:88vh;overflow:auto;padding:12px 16px calc(24px + env(safe-area-inset-bottom))}
@@ -110,6 +122,7 @@
   <h1>單字</h1>
   <div class="seg" id="seg">
     <a href="#study" data-v="study">背單字</a>
+    <a href="#pick" data-v="pick">勾不會的</a>
     <a href="#list" data-v="list">清單</a>
   </div>
   <div id="view"><p class="muted">載入中…</p></div>
@@ -119,7 +132,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script src="firebase-config.js" onerror="void 0"></script>
-<script src="assets/app.js"></script>
+<script src="assets/app.js?v=20261112"></script>
 <script>
 (async function(){
   const {Store, dkey, addDays, loadJSON, toast} = EL;
@@ -222,7 +235,7 @@
     let v = (location.hash||'#study').slice(1);
     if(v.startsWith('w=')){ const w=byId[v.slice(2)]; v='list'; if(w) setTimeout(()=>openWord(w),50); }
     document.querySelectorAll('#seg a').forEach(a=>a.classList.toggle('on', a.dataset.v===v));
-    if(v==='list') list(); else { if(v!=='study') location.hash='#study'; study(); }
+    if(v==='list') list(); else if(v==='pick') pick(); else { if(v!=='study') location.hash='#study'; study(); }
   }
   window.addEventListener('hashchange', route);
 
@@ -306,7 +319,8 @@
       view.innerHTML = `
         <div class="stat"><div class="box"><div class="n">${st.review}</div><div class="l">今天複習</div></div><div class="box"><div class="n">${st.newly}</div><div class="l">今天新字</div></div><div class="box"><div class="n">${st.screened}</div><div class="l">今天跳過（已會）</div></div></div>
         <div class="hero"><div class="big">${seen>=W.length?'4,059 字全部看過了':'今天的份做完了'}</div><div class="sub">${st.newly+st.review>0?'「背單字」已打勾。明天到期的字會自動出現。':'沒有到期的字。'}　已會 ${known} 字 · 學習中 ${learned} 字 · 還沒看過 ${W.length-seen} 字</div>
-        ${seen<W.length?`<div style="margin-top:12px"><button class="btn small" id="more">再學 10 個新字（加碼）</button></div>`:''}</div>`;
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">${undoStack.length?`<button class="btn small ghost" id="undoBtn2">↶ 回上一動</button>`:''}${seen<W.length?`<button class="btn small" id="more">再學 10 個新字（加碼）</button>`:''}</div></div>`;
+      const u2 = view.querySelector('#undoBtn2'); if(u2) u2.onclick = undo;
       const m = view.querySelector('#more'); if(m) m.onclick = ()=>{ extraMode=true; Store.update('vocab.daily', d=>{ d[today]=d[today]||{screened:0,newly:0,review:0}; d[today].extraQuota=(d[today].extraQuota||0)+10; return d; }, {}); buildQueue(); next(); };
       return;
     }
@@ -320,7 +334,7 @@
     const ipa = c ? c.ipa : cur.ipa, pos = c ? c.pos : (cur.pos||'');
     view.innerHTML = `
       <div class="row" style="justify-content:space-between"><span class="muted">${r?`待複習 ${queue.filter(id=>srs[id]).length + sessionAgain.length} 張`:`今天新字 ${st.newly} / ${DAILY_NEW+(st.extraQuota||0)}`}</span><span class="pill ${r?'':'warn'}">${r?`第 ${r.reps+1} 次 · 間隔 ${r.iv} 天`:'新字'}${c&&c.ext?' · 核心字':''}</span></div>
-      <div class="autoRow">${EL.Speech.ok?`<button type="button" class="sw ${autoSpeak()?'on':''}" id="autoSw">${SPK} 翻面自動發音</button>`:'<span>這個瀏覽器不支援發音</span>'}</div>
+      <div class="autoRow"><button type="button" class="sw" id="undoBtn" ${undoStack.length?'':'disabled'} style="margin-right:auto">↶ 回上一動</button>${EL.Speech.ok?`<button type="button" class="sw ${autoSpeak()?'on':''}" id="autoSw">${SPK} 翻面自動發音</button>`:'<span>這個瀏覽器不支援發音</span>'}</div>
       <div class="flash" id="flash">
         <div class="pos">${esc(pos)}${ipa?` · /${esc(ipa)}/`:''}</div>
         <div class="wrow"><span class="w">${esc(cur.word)}</span>${spk(cur.word,'big')}</div>
@@ -328,7 +342,7 @@
       </div>
       ${r?`<div class="tapHint" id="hint">先在心裡說出意思，再點卡片翻面<span class="kb">（或按空白鍵；翻面後 1～4 評分）</span></div>`:`
       <div class="two" id="firstSee"><button class="btn" data-know="1">我會<small>跳過，不再出現</small></button><button class="btn primary" data-flip="1">不熟，翻開學<small>學完進入複習</small></button></div>
-      <div class="tapHint" id="hint">新字：意思馬上浮出來就按「我會」，猶豫就翻開學。<span class="kb">鍵盤：← 我會　→／空白鍵 翻開</span></div>`}
+      <div class="tapHint" id="hint">新字：意思馬上浮出來就按「我會」，猶豫就翻開學。<span class="kb">鍵盤：← 我會　→／空白鍵 翻開　Z 回上一動</span></div>`}
       <div class="rate" id="rate" style="visibility:hidden">
         <button class="btn no" data-g="0">不會<small>等一下再出現</small></button>
         <button class="btn hard" data-g="1">不熟悉<small>${r?fmtDays(preview(r,1)):'再看一次'}</small></button>
@@ -338,12 +352,29 @@
     cardClicks(view.querySelector('#flash'), flip);
     const sw = view.querySelector('#autoSw'); if(sw) sw.onclick = ()=>{ const v=!autoSpeak(); Store.set('vocab.autoSpeak', v); sw.classList.toggle('on', v); toast(v?'翻面會自動發音':'已關閉自動發音'); };
     view.querySelectorAll('#rate .btn').forEach(b=>b.onclick=()=>grade(Number(b.dataset.g)));
+    const ub = view.querySelector('#undoBtn'); if(ub) ub.onclick = undo;
     const kb = view.querySelector('[data-know]'); if(kb) kb.onclick = knowIt;
     const fb = view.querySelector('[data-flip]'); if(fb) fb.onclick = flip;
   }
+  // ---- 回上一動 ----
+  const undoStack = [];
+  function snapshot(id, pushedAgain){
+    undoStack.push({ id, srs: S.srs()[id] ? {...S.srs()[id]} : null, known: !!S.known()[id], unknown: !!S.unknown()[id], daily: {...(S.daily()[today]||{screened:0,newly:0,review:0})}, pushedAgain });
+    if(undoStack.length>50) undoStack.shift();
+  }
+  function undo(){
+    const u = undoStack.pop(); if(!u) return;
+    Store.update('vocab.srs', m=>{ if(u.srs) m[u.id]=u.srs; else delete m[u.id]; return m; }, {});
+    Store.update('vocab.known', m=>{ if(u.known) m[u.id]=true; else delete m[u.id]; return m; }, {});
+    Store.update('vocab.unknown', m=>{ if(u.unknown) m[u.id]=true; else delete m[u.id]; return m; }, {});
+    Store.update('vocab.daily', d=>{ d[today]=u.daily; return d; }, {});
+    if(u.pushedAgain){ const i=sessionAgain.lastIndexOf(u.id); if(i>=0) sessionAgain.splice(i,1); }
+    queue = [u.id, ...(queue||[]).filter(x=>x!==u.id)];
+    toast('已回到上一個字'); next();
+  }
   function knowIt(){
     if(!cur || flipped) return;
-    const id = cur.id;
+    const id = cur.id; snapshot(id,false);
     Store.update('vocab.known', m=>{ m[id]=true; return m; }, {});
     Store.update('vocab.unknown', m=>{ delete m[id]; return m; }, {});
     bump('screened'); queue.shift(); next();
@@ -379,7 +410,8 @@
     const id = cur.id; const srs = S.srs(); const r = srs[id];
     const isNew = !r;
     const n = nextState(r, g);
-    if(g===0 || (g===1 && isNew)) sessionAgain.push(id);
+    const pushAgain = (g===0 || (g===1 && isNew)); snapshot(id, pushAgain);
+    if(pushAgain) sessionAgain.push(id);
     const countedToday = r && r.last===today;
     n.last = today;
     Store.update('vocab.srs', s=>{ s[id]=n; return s; }, {});
@@ -389,10 +421,42 @@
   function next(){ study(); }
   document.addEventListener('keydown', e=>{
     if(location.hash!=='#study' || !cur) return;
+    if(e.key==='z'||e.key==='Z'){ e.preventDefault(); undo(); return; }
     if(e.key===' '||e.key==='ArrowRight'){ e.preventDefault(); flip(); }
     if(e.key==='ArrowLeft' && !flipped && !S.srs()[cur.id]) { e.preventDefault(); knowIt(); }
     if(flipped && ['1','2','3','4'].includes(e.key)) grade(Number(e.key)-1);
   });
+
+  // ================= 勾不會的（快速掃描）=================
+  const PICK_N = 100;
+  let pickSel = new Set();
+  function pickStart(){ const k=S.known(), u=S.unknown(), r=S.srs(); return W.findIndex(w=>!k[w.id] && !u[w.id] && !r[w.id]); }
+  function pick(){
+    const start = pickStart();
+    const seenN = Object.keys(S.known()).length + Object.keys(S.unknown()).length + Object.keys(S.srs()).length;
+    if(start<0){
+      view.innerHTML = `<div class="hero"><div class="big">4,059 字都看過了</div><div class="sub">勾起來的字會在「背單字」裡優先出現。已會 ${Object.keys(S.known()).length} 字。</div></div>`;
+      return;
+    }
+    const batch = W.slice(start, start+PICK_N);
+    pickSel = new Set();
+    view.innerHTML = `
+      <div class="pickHead"><span class="n">已看 ${seenN} / ${W.length}　這批：${batch[0].src==='ngsl'?'NGSL':'TSL'} #${batch[0].rank}–#${batch[batch.length-1].rank}</span><span class="n" id="pickCount">勾了 0</span></div>
+      <p class="muted" style="margin:0 0 10px">掃過去，<b>不會的點一下變紅</b>；沒點的視為會。看完按底下的按鈕。</p>
+      <div class="pickGrid">${batch.map(w=>`<button type="button" class="pk" data-id="${w.id}">${esc(w.word)}<small>${esc(w.pos||'')}</small></button>`).join('')}</div>
+      <div class="pickBar"><button class="btn ghost small" id="pickAll">全部不會</button><button class="btn primary" id="pickNext">其餘都會，下一批 ▸</button></div>`;
+    const cnt = ()=> view.querySelector('#pickCount').textContent = `勾了 ${pickSel.size}`;
+    view.querySelectorAll('.pk').forEach(b=>b.onclick=()=>{ const id=b.dataset.id; if(pickSel.has(id)){pickSel.delete(id);b.classList.remove('unk');} else {pickSel.add(id);b.classList.add('unk');} cnt(); });
+    view.querySelector('#pickAll').onclick = ()=>{ batch.forEach(w=>pickSel.add(w.id)); view.querySelectorAll('.pk').forEach(b=>b.classList.add('unk')); cnt(); };
+    view.querySelector('#pickNext').onclick = ()=>{
+      const unkN = pickSel.size;
+      Store.update('vocab.unknown', m=>{ pickSel.forEach(id=>{ m[id]=true; }); return m; }, {});
+      Store.update('vocab.known', m=>{ batch.forEach(w=>{ if(!pickSel.has(w.id)) m[w.id]=true; }); return m; }, {});
+      bump('screened', batch.length - unkN);
+      queue = null; toast(`這批：不會 ${unkN}，會 ${batch.length-unkN}`);
+      window.scrollTo(0,0); pick();
+    };
+  }
 
   // ================= 清單 =================
   function list(){
