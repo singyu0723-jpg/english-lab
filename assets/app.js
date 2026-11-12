@@ -13,7 +13,7 @@
   function lsGet(k){ try{ const v=localStorage.getItem(NS+k); return v==null?undefined:JSON.parse(v);}catch(e){return undefined;} }
   function lsSet(k,v){ try{ localStorage.setItem(NS+k, JSON.stringify(v)); }catch(e){} }
   // ---------- 重新開始：改這個日期，所有裝置下次打開會清空進度 ----------
-  const RESET_EPOCH = '2026-10-28';
+  const RESET_EPOCH = '2026-11-12';
   let justReset = false;
   (function(){ try{
     if(localStorage.getItem(NS+'_epoch') !== JSON.stringify(RESET_EPOCH)){
